@@ -1,0 +1,31 @@
+[alias]
+  tree = log --graph --all
+	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+  f = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
+[format]
+  pretty = "format:%C(red)%h%C(reset) - %s %C(blue)(%cr)%Creset %C(green)%an%C(reset) %C(yellow)%d%C(reset)"
+[core]
+  autocrlf = false
+  safecrlf = true
+  preloadindex = true
+  excludesfile = /Users/mathieu/.gitignore_global
+	editor = nvim 
+[gc]
+  auto = 256
+[diff]
+    tool = default-difftool
+[difftool "default-difftool"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[merge]
+	tool = subl
+[mergetool "subl"]
+	cmd = subl -w $MERGED
+	trustExitCode = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	email = mathieux51@gmail.com
+	name = Mathieu
