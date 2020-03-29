@@ -124,7 +124,7 @@ alias lg="lazygit"
 alias schwifty="osascript -e 'display notification \"I want to see what you got\" with title \"Show me what you got\"'"
 
 # alias for config .cfg repo
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 export FZF_DEFAULT_COMMAND="rg --files --hidden --sort accessed --glob '!.git' --glob '!node_modules:' --glob '!Pods'"
 export FZF_DEFAULT_OPTS="--layout=reverse"
