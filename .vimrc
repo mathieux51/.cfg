@@ -328,8 +328,6 @@ endfunction
 """"""""""""""""""""""""""""""
 " plugins 
 """"""""""""""""""""""""""""""
-" auto import in go
-let g:go_fmt_command = "goimports"
 
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
@@ -358,6 +356,9 @@ Plug 'mrk21/yaml-vim'
 call plug#end()
 
 colorscheme nord
+
+" auto import in go
+let g:go_fmt_command = "goimports"
 
 """"""""""""""""""""""""""""""
 " mac 
