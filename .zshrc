@@ -59,7 +59,7 @@ export LANG=en_US
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(colorize zsh-completions zsh-autosuggestions npm yarn docker)
+plugins=(colorize zsh-completions zsh-autosuggestions npm yarn docker go)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -115,6 +115,7 @@ alias ia="open $1 -a /Applications/iA\ Writer.app"
 alias s="git status -b --show-stash"
 alias l="git log --color"
 alias d="git diff HEAD"
+alias ds="git diff HEAD --staged"
 alias lg="lazygit"
 # alias sb="git status -b --show-stash"
 # alias s="git status -sb"
