@@ -171,13 +171,11 @@ export GROUP_ID=$(id -g)
 export DB_HOST="postgres"
 
 # Ruby
-export PATH="$HOME/.rbenv/shims:$PATH"
+export PATH="/usr/local/lib/ruby/gems/2.7.0/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
-# For compilers to find ruby you may need to set:
-#   export LDFLAGS="-L/usr/local/opt/ruby/lib"
-#   export CPPFLAGS="-I/usr/local/opt/ruby/include"
-# For pkg-config to find ruby you may need to set:
-#   export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+export LDFLAGS="-L/usr/local/opt/ruby/lib"
+export CPPFLAGS="-I/usr/local/opt/ruby/include"
+export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 
 # Python 
 export PATH="$HOME/Library/Python/2.7/bin:$PATH"
