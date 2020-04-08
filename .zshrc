@@ -74,6 +74,8 @@ source_completion () {
   source <(kubectl completion zsh)
   # helm completion
   source <(helm completion zsh)
+  # digitalocean completion
+  source <(doctl completion zsh)
 }
 
 async_start_worker source_completion 
@@ -104,21 +106,21 @@ export EDITOR='vim'
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
+# path
+export PATH="/usr/local/sbin:$PATH"
+
+# miscellaneous
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
-alias pgconfig="code /usr/local/var/postgres/postgresql.conf"
 alias code="open -a Visual\ Studio\ Code"
-alias c="code"
 alias v="nvim"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-alias ia="open $1 -a /Applications/iA\ Writer.app"
 alias s="git status -b --show-stash"
 alias l="git log --color"
 alias d="git diff HEAD"
 alias ds="git diff HEAD --staged"
 alias lg="lazygit"
-# alias sb="git status -b --show-stash"
-# alias s="git status -sb"
+alias pgconfig="v /usr/local/var/postgres/postgresql.conf"
 # alias postgres-start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 # alias postgres-stop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 # Notification when done
@@ -127,15 +129,17 @@ alias schwifty="osascript -e 'display notification \"I want to see what you got\
 # alias for config .cfg repo
 alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
+# fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden --sort accessed --glob '!.git' --glob '!node_modules:' --glob '!Pods'"
 export FZF_DEFAULT_OPTS="--layout=reverse"
-# ?
-export PATH="/usr/local/sbin:$PATH"
- 
+
 # React Native
 export ANDROID_HOME=${HOME}/Library/Android/sdk
 export PATH=${PATH}:${ANDROID_HOME}/tools
 export PATH=${PATH}:${ANDROID_HOME}/platform-tools 
+# React Native Expo
+export ANDROID_SDK=/Users/mathieu/Library/Android/sdk/
+export PATH=${ANDROID_SDK}/platform-tools:$PATH
 
 # sqlite
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
@@ -148,6 +152,7 @@ export PATH="$GOBIN:$PATH"
 export GOROOT="/usr/local/opt/go/libexec"
 export PATH="$PATH:$GOROOT/bin"
 
+# bash functions
 gocov () {
   mkdir -p temp; \
   go test -coverprofile temp/cover.out ./...; \
@@ -160,15 +165,7 @@ gif(){
   ffmpeg -i "$1" -vf scale=600:-1 -pix_fmt rgb24 -r 25 -f gif - | gifsicle --optimize=3 --delay=3 > "$2"
 }
 
-# bash functions
-
 touch2() { mkdir -p "$(dirname "$1")" && touch "$1" ; }
-
-# simplesurance
-export SISU_AUTH_SECRET_KEY="secret"
-export USER_ID="51"
-export GROUP_ID=$(id -g)
-export DB_HOST="postgres"
 
 # Ruby
 export PATH="/usr/local/lib/ruby/gems/2.7.0/bin:$PATH"
@@ -189,30 +186,5 @@ export LDFLAGS="${LDFLAGS} -L/usr/local/opt/zlib/lib"
 export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
 # For pkg-config to find zlib you may need to set:
 export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
-
-# Web Assembly
-# source ~/Projects/WebAssembly/emsdk/emsdk_env.sh
-# or 
-# export PATH=/Users/mathieu/Projects/WebAssembly/emsdk:$PATH
-# export PATH=/Users/mathieu/Projects/WebAssembly/emsdk/clang/e1.37.35_64bit:$PATH
-# export PATH=/Users/mathieu/Projects/WebAssembly/emsdk/node/8.9.1_64bit/bin:$PATH
-# export PATH=/Users/mathieu/Projects/WebAssembly/emsdk/emscripten/1.37.35:$PATH
-# EMSDK=/Users/mathieu/Projects/WebAssembly/emsdk
-# EM_CONFIG=/Users/mathieu/.emscripten
-# BINARYEN_ROOT=/Users/mathieu/Projects/WebAssembly/emsdk/clang/e1.37.35_64bit/binaryen
-# EMSCRIPTEN=/Users/mathieu/Projects/WebAssembly/emsdk/emscripten/1.37.35
-
-#  👍 HHVM brew install
-# This formula is keg-only, which means it was not symlinked into /usr/local.
-# macOS provides an older sqlite3.
-# If you need to have this software first in your PATH run:
-#   echo 'export PATH="/usr/local/opt/sqlite/bin:$PATH"' >> ~/.zshrc
-# For compilers to find this software you may need to set:
-#     LDFLAGS:  -L/usr/local/opt/sqlite/lib
-#     CPPFLAGS: -I/usr/local/opt/sqlite/include
-# For pkg-config to find this software you may need to set:
-#     PKG_CONFIG_PATH: /usr/local/opt/sqlite/lib/pkgconfig
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # zprof # Should be at the end of .zshrc
