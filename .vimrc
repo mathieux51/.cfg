@@ -336,7 +336,6 @@ let g:ale_fixers = {
 \   'typescriptreact': ['eslint'],
 \}
 
-
 let g:fzf_layout = { 'down': '~100%' }
 
 call plug#begin('~/.vim/plugged')
@@ -361,25 +360,13 @@ colorscheme nord
 let g:go_fmt_command = "goimports"
 
 """"""""""""""""""""""""""""""
-" mac 
+" custom
 """"""""""""""""""""""""""""""
-" fix copy on mac
-" on iTerm:
-" Keyboard shortcut => cmd c
-" Action => Send Escape Sequence
-" Esc + c
-" vnoremap <M-c> "+y
-" ⚠️  Use yank instead and system clipboard instead
-
 " use system clipboard
 set clipboard=unnamed
 
 " Search for file and output to fzf:w
 noremap <C-p> :Files .<CR>
-
-""""""""""""""""""""""""""""""
-" custom
-""""""""""""""""""""""""""""""
 
 " yaml 
 " au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml 
