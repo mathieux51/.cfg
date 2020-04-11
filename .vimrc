@@ -338,6 +338,12 @@ let g:ale_fixers = {
 
 let g:fzf_layout = { 'down': '~100%' }
 
+let g:nord_uniform_diff_background = 1
+let g:nord_italic = 1
+
+" auto import in go
+let g:go_fmt_command = "goimports"
+
 call plug#begin('~/.vim/plugged')
 Plug 'arcticicestudio/nord-vim'
 Plug 'dense-analysis/ale'
@@ -352,16 +358,15 @@ Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'mrk21/yaml-vim'
+Plug 'vim-airline/vim-airline'
 call plug#end()
 
 colorscheme nord
 
-" auto import in go
-let g:go_fmt_command = "goimports"
-
 """"""""""""""""""""""""""""""
 " custom
 """"""""""""""""""""""""""""""
+
 " use system clipboard
 set clipboard=unnamed
 
