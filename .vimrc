@@ -343,6 +343,7 @@ let g:nord_italic = 1
 
 " auto import in go
 let g:go_fmt_command = "goimports"
+let g:go_version_warning = 0
 
 call plug#begin('~/.vim/plugged')
 Plug 'arcticicestudio/nord-vim'
