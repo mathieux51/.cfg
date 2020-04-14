@@ -351,7 +351,7 @@ Plug 'dense-analysis/ale'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-abolish' " Change case
 Plug 'tpope/vim-vinegar' " File explorer
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'pangloss/vim-javascript'
