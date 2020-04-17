@@ -360,7 +360,12 @@ Plug 'leafgarland/typescript-vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'mrk21/yaml-vim'
 Plug 'vim-airline/vim-airline'
+Plug 'samoshkin/vim-mergetool'
 call plug#end()
+
+let g:mergetool_layout = 'mr'
+let g:mergetool_prefer_revision = 'local'
+
 
 colorscheme nord
 
