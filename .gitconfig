@@ -30,3 +30,5 @@
   trustExitCode = true
 [diff]
 	tool = vimdiff
+[rerere]
+	enabled = true
