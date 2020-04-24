@@ -58,8 +58,7 @@ export LANG=en_US
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-
-plugins=(colorize zsh-completions zsh-autosuggestions npm yarn docker go)
+plugins=(colorize zsh-completions zsh-autosuggestions npm docker go terraform)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -70,12 +69,13 @@ source ~/.zsh-async/async.zsh
 async_init
 
 source_completion () {
+
   # kubectl completion
   source <(kubectl completion zsh)
   # helm completion
   source <(helm completion zsh)
   # digitalocean completion
-  source <(doctl completion zsh)
+  # source <(doctl completion zsh)
 }
 
 async_start_worker source_completion 
@@ -111,16 +111,19 @@ export PATH="/usr/local/sbin:$PATH"
 
 # miscellaneous
 alias zshconfig="nvim ~/.zshrc"
-alias ohmyzsh="nvim ~/.oh-my-zsh"
+# alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias code="open -a Visual\ Studio\ Code"
 alias v="nvim"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
 alias s="git status -b --show-stash"
 alias l="git log --color"
 alias d="git diff HEAD"
 alias ds="git diff HEAD --staged"
+alias m="git commit -m"
+alias am="git commit -am"
 alias lg="lazygit"
-alias pgconfig="v /usr/local/var/postgres/postgresql.conf"
+# alias pgconfig="v /usr/local/var/postgres/postgresql.conf"
 # alias postgres-start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 # alias postgres-stop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 # Notification when done
