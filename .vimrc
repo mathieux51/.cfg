@@ -1,4 +1,4 @@
-" This configuration is a modified version of https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim
+" Start of modified https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -325,10 +325,9 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
-""""""""""""""""""""""""""""""
-" plugins 
-""""""""""""""""""""""""""""""
+" End of modified https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim
 
+" ALE
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
@@ -336,42 +335,65 @@ let g:ale_fixers = {
 \   'typescriptreact': ['eslint'],
 \}
 
+" fzf
 let g:fzf_layout = { 'down': '~100%' }
 
+" Nord
 let g:nord_uniform_diff_background = 1
 let g:nord_italic = 1
 
-" auto import in go
+" Go
 let g:go_fmt_command = "goimports"
 let g:go_version_warning = 0
 
-call plug#begin('~/.vim/plugged')
-Plug 'arcticicestudio/nord-vim'
-Plug 'dense-analysis/ale'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-abolish' " Change case
-Plug 'tpope/vim-vinegar' " File explorer
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'leafgarland/typescript-vim'
-Plug 'Glench/Vim-Jinja2-Syntax'
-Plug 'mrk21/yaml-vim'
-Plug 'vim-airline/vim-airline'
-Plug 'samoshkin/vim-mergetool'
-call plug#end()
-
+" mergetool
 let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
 
+" lsp
+let g:lsp_signs_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+let g:lsp_signs_error = {'text': '☠️j'}
+let g:lsp_signs_warning = {'text': '⚠️'}
+" let g:lsp_signs_hint = {'text': ''}
 
+call plug#begin('~/.vim/plugged')
+Plug 'arcticicestudio/nord-vim'
+" Linter
+Plug 'dense-analysis/ale'
+" lsp and completion 
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'samoshkin/vim-mergetool'
+" 💅
+Plug 'vim-airline/vim-airline'
+" Change case
+" Plug 'tpope/vim-abolish'
+" Modify file explorer
+Plug 'tpope/vim-vinegar' 
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+" Go
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" JS/TS
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'leafgarland/typescript-vim'
+
+Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'mrk21/yaml-vim'
+Plug 'hashivim/vim-terraform'
+call plug#end()
+
+" theme
 colorscheme nord
-
-""""""""""""""""""""""""""""""
-" custom
-""""""""""""""""""""""""""""""
 
 " use system clipboard
 set clipboard=unnamed
