@@ -6,7 +6,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/mathieu/.oh-my-zsh
+export ZSH=/Users/${USER}/.oh-my-zsh
 export DEFAULT_USER='mathieu'
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -64,21 +64,12 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# https://github.com/mafredri/zsh-async#example-code
-source ~/.zsh-async/async.zsh
-async_init
-
-source_completion () {
-
-  # kubectl completion
-  source <(kubectl completion zsh)
-  # helm completion
-  source <(helm completion zsh)
-  # digitalocean completion
-  # source <(doctl completion zsh)
-}
-
-async_start_worker source_completion 
+# kubectl completion
+source <(kubectl completion zsh)
+# helm completion
+source <(helm completion zsh)
+# digitalocean completion
+# source <(doctl completion zsh)
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -110,10 +101,10 @@ export EDITOR='vim'
 export PATH="/usr/local/sbin:$PATH"
 
 # miscellaneous
-alias zshconfig="nvim ~/.zshrc"
-# alias ohmyzsh="nvim ~/.oh-my-zsh"
+alias zshconfig="vim ~/.zshrc"
+# alias ohmyzsh="vim ~/.oh-my-zsh"
 alias code="open -a Visual\ Studio\ Code"
-alias v="nvim"
+alias v="vim"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
 alias s="git status -b --show-stash"
@@ -141,7 +132,7 @@ export ANDROID_HOME=${HOME}/Library/Android/sdk
 export PATH=${PATH}:${ANDROID_HOME}/tools
 export PATH=${PATH}:${ANDROID_HOME}/platform-tools 
 # React Native Expo
-export ANDROID_SDK=/Users/mathieu/Library/Android/sdk/
+export ANDROID_SDK=/Users/${USER}/Library/Android/sdk/
 export PATH=${ANDROID_SDK}/platform-tools:$PATH
 
 # sqlite
@@ -178,10 +169,14 @@ export CPPFLAGS="-I/usr/local/opt/ruby/include"
 export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 
 # Python 
-export PATH="$HOME/Library/Python/2.7/bin:$PATH"
+# export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 # alias python="python3"
 # alias pip="pip3"
 # eval "$(pyenv init -)"
+export PATH="/Users/$USER/Library/Python/3.7/bin:$PATH"
+
+# helm
+# export PATH="/usr/local/opt/helm@2/bin:$PATH"
 
 # brew install zlib 
 # For compilers to find zlib you may need to set:
