@@ -20,7 +20,7 @@ let mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" :W sudo saves the file 
+" :W sudo saves the file
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 
@@ -32,7 +32,7 @@ command W w !sudo tee % > /dev/null
 set so=7
 
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
+let $LANG='en'
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
@@ -60,23 +60,23 @@ set whichwrap+=<,>,h,l
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
 set hlsearch
 
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw 
+set lazyredraw
 
 " For regular expressions turn magic on
 set magic
 
 " Show matching brackets when text indicator is over them
-set showmatch 
+set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -93,7 +93,7 @@ set foldcolumn=1
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 set background=dark
 
 " Set extra options when running in GUI mode
@@ -178,8 +178,8 @@ map <leader>h :bprevious<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -194,7 +194,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -306,7 +306,7 @@ endfunction
 
 function! CmdLine(str)
     call feedkeys(":" . a:str)
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -353,15 +353,15 @@ let g:mergetool_prefer_revision = 'local'
 " lsp
 let g:lsp_signs_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
-let g:lsp_signs_error = {'text': '☠️j'}
-let g:lsp_signs_warning = {'text': '⚠️'}
-" let g:lsp_signs_hint = {'text': ''}
+" let g:lsp_signs_error = {'text': 'E'}
+" let g:lsp_signs_warning = {'text': 'W'}
+" let g:lsp_signs_hint = {'text': 'I'}
 
 call plug#begin('~/.vim/plugged')
 Plug 'arcticicestudio/nord-vim'
 " Linter
 Plug 'dense-analysis/ale'
-" lsp and completion 
+" lsp and completion
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
@@ -376,7 +376,7 @@ Plug 'vim-airline/vim-airline'
 " Change case
 " Plug 'tpope/vim-abolish'
 " Modify file explorer
-Plug 'tpope/vim-vinegar' 
+Plug 'tpope/vim-vinegar'
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -391,6 +391,8 @@ Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'mrk21/yaml-vim'
 Plug 'hashivim/vim-terraform'
 call plug#end()
+
+highlight link LspErrorHighlight Todo
 
 " theme
 colorscheme nord
