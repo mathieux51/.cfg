@@ -353,9 +353,9 @@ let g:mergetool_prefer_revision = 'local'
 " lsp
 let g:lsp_signs_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
-" let g:lsp_signs_error = {'text': 'E'}
-" let g:lsp_signs_warning = {'text': 'W'}
-" let g:lsp_signs_hint = {'text': 'I'}
+let g:lsp_signs_error = {'text': 'E'}
+let g:lsp_signs_warning = {'text': 'W'}
+let g:lsp_signs_hint = {'text': 'I'}
 
 call plug#begin('~/.vim/plugged')
 Plug 'arcticicestudio/nord-vim'
@@ -402,6 +402,13 @@ set clipboard=unnamed
 
 " Search for file and output to fzf:w
 noremap <C-p> :Files .<CR>
+
+" find tab completion for files
+set path+=**
+set wildmenu
+set wildmode=longest:full,full
+" jump between keyword pairs with percent command
+runtime macros/matchit.vim
 
 " Triggers `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
