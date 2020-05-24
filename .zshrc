@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Debug zsh startup performance, 
 # uncomment next line and zprof at EOF to see the profile
 # zmodload zsh/zprof
@@ -11,7 +18,8 @@ export DEFAULT_USER='mathieu'
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+# ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Languages
 export LANG=en_US
@@ -63,6 +71,11 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# zsh-vim-mode
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+# bindkey -rpM viins '^[^['
+
 # kubectl completion
 source <(kubectl completion zsh)
 # helm completion
@@ -83,6 +96,10 @@ source <(helm completion zsh)
 # fi
 # export EDITOR='code -w'
 export EDITOR='vim'
+# bindkey -v
+# bindkey '^R' history-incremental-search-backward
+# for bash
+# set -o vi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -100,7 +117,7 @@ export EDITOR='vim'
 export PATH="/usr/local/sbin:$PATH"
 
 # miscellaneous
-alias zshconfig="vim ~/.zshrc"
+alias zshrc="vim ~/.zshrc"
 # alias ohmyzsh="vim ~/.oh-my-zsh"
 alias code="open -a Visual\ Studio\ Code"
 alias v="vim"
@@ -168,14 +185,12 @@ export CPPFLAGS="-I/usr/local/opt/ruby/include"
 export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 
 # Python 
-# export PATH="$HOME/Library/Python/2.7/bin:$PATH"
-# alias python="python3"
-# alias pip="pip3"
 # eval "$(pyenv init -)"
+export PATH="/Users/$USER/Library/Python/2.7/bin:$PATH"
 export PATH="/Users/$USER/Library/Python/3.7/bin:$PATH"
 
 # helm
-# export PATH="/usr/local/opt/helm@2/bin:$PATH"
+export PATH="/usr/local/opt/helm@2/bin:$PATH"
 
 # brew install zlib 
 # For compilers to find zlib you may need to set:
@@ -184,4 +199,13 @@ export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
 # For pkg-config to find zlib you may need to set:
 export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
 
+# Newstore
+cd $GOPATH/src/github.com/newstore/newstore/
+source tools/environment.sh
+cd -
+clear
+
 # zprof # Should be at the end of .zshrc
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
