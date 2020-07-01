@@ -117,7 +117,7 @@ export EDITOR='vim'
 export PATH="/usr/local/sbin:$PATH"
 
 # miscellaneous
-alias zshrc="vim ~/.zshrc"
+# alias zshrc="vim ~/.zshrc"
 # alias ohmyzsh="vim ~/.oh-my-zsh"
 alias code="open -a Visual\ Studio\ Code"
 alias v="vim"
@@ -128,8 +128,16 @@ alias l="git log --color"
 alias d="git diff HEAD"
 alias ds="git diff HEAD --staged"
 alias m="git commit -m"
-alias am="git commit -am"
-alias lg="lazygit"
+# m() {
+#   git commit -m "'$*'"
+# }
+# alias am="git commit -am"
+# am() {
+#   git commit -am "'$*'"
+# }
+alias i="git add --interactive"
+alias a="git add --patch"
+# alias lg="lazygit"
 # alias pgconfig="v /usr/local/var/postgres/postgresql.conf"
 # alias postgres-start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 # alias postgres-stop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
@@ -163,10 +171,10 @@ export GOROOT="/usr/local/opt/go/libexec"
 export PATH="$PATH:$GOROOT/bin"
 
 # bash functions
-gocov () {
-  mkdir -p temp; \
-  go test -coverprofile temp/cover.out ./...; \
-  go tool cover -html=temp/cover.out; \
+gocov() {
+  mkdir -p temp
+  go test -coverprofile temp/cover.out ./...
+  go tool cover -html=temp/cover.out
   rm -rf temp
 }
 
