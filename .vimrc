@@ -39,7 +39,7 @@ source $VIMRUNTIME/menu.vim
 
 " Turn on the Wild menu
 set wildmenu
-
+set wildmode=longest:full,full
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
@@ -143,7 +143,7 @@ set wrap "Wrap lines
 " => Visual mode related
 """"""""""""""""""""""""""""""
 
- set number
+set number
 
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
@@ -242,7 +242,7 @@ fun! CleanExtraSpaces()
 endfun
 
 if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.jsx,*.py,*.wiki,*.sh,*.coffee,*.go :call CleanExtraSpaces()
+    autocmd BufWritePre *.txt,*.js,*.jsx,*.py,*.wiki,*.sh,*.coffee,*.go,*.tf,*.yml,*.yaml,*.md :call CleanExtraSpaces()
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -328,12 +328,12 @@ endfunction
 " End of modified https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim
 
 " ALE
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-\   'javascript': ['eslint'],
-\   'typescript': ['eslint'],
-\   'typescriptreact': ['eslint'],
-\}
+" let g:ale_fix_on_save = 1
+" let g:ale_fixers = {
+" \   'javascript': ['eslint'],
+" \   'typescript': ['eslint'],
+" \   'typescriptreact': ['eslint'],
+" \}
 
 " fzf
 let g:fzf_layout = { 'down': '~100%' }
@@ -355,12 +355,13 @@ let g:lsp_signs_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
 let g:lsp_signs_error = {'text': 'E'}
 let g:lsp_signs_warning = {'text': 'W'}
-let g:lsp_signs_hint = {'text': 'I'}
+let g:lsp_signs_information = {'text': 'I'}
+let g:lsp_signs_hint = {'text': 'H'}
 
 call plug#begin('~/.vim/plugged')
 Plug 'arcticicestudio/nord-vim'
 " Linter
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 " lsp and completion
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
@@ -394,6 +395,8 @@ call plug#end()
 
 highlight link LspErrorHighlight Todo
 
+set grepprg=rg\ --vimgrep\ --hidden\ --glob\ '!.git'\ --glob\ '!node_modules'\ --glob\ '!dist'
+
 " theme
 colorscheme nord
 
@@ -405,14 +408,12 @@ noremap <C-p> :Files .<CR>
 
 " find tab completion for files
 set path+=**
-set wildmenu
-set wildmode=longest:full,full
 " jump between keyword pairs with percent command
 runtime macros/matchit.vim
 
-" Triggers `autoread` when files changes on disk
-" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
-  \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
-
+" Completion
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
