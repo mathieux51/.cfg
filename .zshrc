@@ -66,7 +66,7 @@ export LANG=en_US
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(colorize zsh-completions zsh-autosuggestions npm docker go terraform aws)
+plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -79,7 +79,7 @@ bindkey '^R' history-incremental-search-backward
 # kubectl completion
 source <(kubectl completion zsh)
 # helm completion
-source <(helm completion zsh)
+# source <(helm completion zsh)
 # digitalocean completion
 # source <(doctl completion zsh)
 
@@ -147,6 +147,9 @@ alias schwifty="osascript -e 'display notification \"I want to see what you got\
 # alias for config .cfg repo
 alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
+# ripgrep
+export RIPGREP_CONFIG_PATH=~/.ripgreprc
+
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden --sort accessed --glob '!.git' --glob '!node_modules:' --glob '!Pods'"
 export FZF_DEFAULT_OPTS="--layout=reverse"
@@ -207,7 +210,6 @@ export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
 # For pkg-config to find zlib you may need to set:
 export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
 
-# zprof # Should be at the end of .zshrc
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# zprof # Should be at the end of .zshrc
