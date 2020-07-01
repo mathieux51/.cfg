@@ -207,12 +207,6 @@ export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
 # For pkg-config to find zlib you may need to set:
 export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
 
-# Newstore
-cd $GOPATH/src/github.com/newstore/newstore/
-source tools/environment.sh
-cd -
-clear
-
 # zprof # Should be at the end of .zshrc
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
