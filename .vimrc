@@ -241,7 +241,7 @@ fun! CleanExtraSpaces()
 endfun
 
 if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.jsx,*.py,*.wiki,*.sh,*.coffee,*.go,*.tf,*.yml,*.yaml,*.md :call CleanExtraSpaces()
+    autocmd BufWritePre *.txt,*.js,*.jsx,*.ts,*.tsx,*.py,*.wiki,*.sh,*.coffee,*.go,*.tf,*.yml,*.yaml,*.md,Makefile :call CleanExtraSpaces()
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -374,7 +374,7 @@ Plug 'samoshkin/vim-mergetool'
 " 💅
 Plug 'vim-airline/vim-airline'
 " Change case
-" Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-abolish'
 " Modify file explorer
 Plug 'tpope/vim-vinegar'
 " fzf
@@ -407,8 +407,10 @@ noremap <C-p> :Files .<CR>
 
 " find tab completion for files
 set path+=**
+
 " jump between keyword pairs with percent command
-runtime macros/matchit.vim
+" runtime macros/matchit.vim
+autocmd BufNewFile,BufRead *.hcl set syntax=terraform
 
 " Completion
 imap <c-space> <Plug>(asyncomplete_force_refresh)
