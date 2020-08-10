@@ -22,6 +22,7 @@
   required = true
 [mergetool]
   prompt = false
+	keepBackup = false
 [merge]
   tool = vim_mergetool
   conflictstyle = diff3
@@ -32,3 +33,7 @@
 	tool = vimdiff
 [rerere]
 	enabled = true
+[push]
+	default = current
+[pull]
+	rebase = true
