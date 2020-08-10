@@ -66,7 +66,7 @@ export LANG=en_US
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws)
+plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws helm)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -82,6 +82,13 @@ source <(kubectl completion zsh)
 # source <(helm completion zsh)
 # digitalocean completion
 # source <(doctl completion zsh)
+
+# eksctl completion
+mkdir -p ~/.zsh/completion/
+eksctl completion zsh > ~/.zsh/completion/_eksctl
+fpath=($fpath ~/.zsh/completion)
+autoload -U compinit
+compinit
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -121,6 +128,7 @@ export PATH="/usr/local/sbin:$PATH"
 # alias ohmyzsh="vim ~/.oh-my-zsh"
 alias code="open -a Visual\ Studio\ Code"
 alias v="vim"
+alias e="vim"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
 alias s="git status -b --show-stash"
@@ -147,11 +155,8 @@ alias schwifty="osascript -e 'display notification \"I want to see what you got\
 # alias for config .cfg repo
 alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-# ripgrep
-export RIPGREP_CONFIG_PATH=~/.ripgreprc
-
 # fzf
-export FZF_DEFAULT_COMMAND="rg --files --hidden --sort accessed --glob '!.git' --glob '!node_modules:' --glob '!Pods'"
+export FZF_DEFAULT_COMMAND="rg --files --hidden --sort accessed --glob '!node_modules/*' --glob '!.git/*'"
 export FZF_DEFAULT_OPTS="--layout=reverse"
 
 # React Native
@@ -202,6 +207,10 @@ export PATH="/Users/$USER/Library/Python/3.7/bin:$PATH"
 
 # helm
 export PATH="/usr/local/opt/helm@2/bin:$PATH"
+
+# AWS CLI
+# Disable pager (less)
+export AWS_PAGER=""
 
 # brew install zlib 
 # For compilers to find zlib you may need to set:
