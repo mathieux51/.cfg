@@ -134,17 +134,10 @@ alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
 alias s="git status -b --show-stash"
 alias l="git log --color"
 alias d="git diff HEAD"
-alias ds="git diff HEAD --staged"
+alias ds="git --no-pager diff HEAD --staged"
 alias m="git commit -m"
-# m() {
-#   git commit -m "'$*'"
-# }
-# alias am="git commit -am"
-# am() {
-#   git commit -am "'$*'"
-# }
-alias i="git add --interactive"
 alias a="git add --patch"
+alias i="git add --interactive"
 # alias lg="lazygit"
 # alias pgconfig="v /usr/local/var/postgres/postgresql.conf"
 # alias postgres-start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
