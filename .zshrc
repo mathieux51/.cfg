@@ -66,14 +66,15 @@ export LANG=en_US
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws helm)
+plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws helm vi-mode)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
 # zsh-vim-mode
-bindkey -v
-bindkey '^R' history-incremental-search-backward
+# bindkey -v
+# bindkey '^R' history-incremental-search-backward
+# set -o vi
 # bindkey -rpM viins '^[^['
 
 # kubectl completion
@@ -121,7 +122,7 @@ export EDITOR='vim'
 #
 # Example aliases
 # path
-export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/sbin:$PATH:$HOME/.local/bin"
 
 # miscellaneous
 # alias zshrc="vim ~/.zshrc"
@@ -137,7 +138,8 @@ alias d="git diff HEAD"
 alias ds="git --no-pager diff HEAD --staged"
 alias m="git commit -m"
 alias a="git add --patch"
-alias i="git add --interactive"
+alias i="git commit --interactive"
+alias p="git push"
 # alias lg="lazygit"
 # alias pgconfig="v /usr/local/var/postgres/postgresql.conf"
 # alias postgres-start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
@@ -147,6 +149,9 @@ alias schwifty="osascript -e 'display notification \"I want to see what you got\
 
 # alias for config .cfg repo
 alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+# ripgrep
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --hidden --sort accessed --glob '!node_modules/*' --glob '!.git/*'"
