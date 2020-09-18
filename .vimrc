@@ -358,7 +358,10 @@ let g:lsp_signs_information = {'text': 'I'}
 let g:lsp_signs_hint = {'text': 'H'}
 
 call plug#begin('~/.vim/plugged')
+" dark theme
 Plug 'arcticicestudio/nord-vim'
+" light theme
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 " Linter
 " Plug 'dense-analysis/ale'
 " lsp and completion
@@ -390,6 +393,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'mrk21/yaml-vim'
 Plug 'hashivim/vim-terraform'
+Plug 'tpope/vim-markdown'
 call plug#end()
 
 highlight link LspErrorHighlight Todo
@@ -398,6 +402,7 @@ set grepprg=rg\ --vimgrep\ --hidden\ --glob\ '!.git'\ --glob\ '!node_modules'\ -
 
 " theme
 colorscheme nord
+" colorscheme onehalflight
 
 " use system clipboard
 set clipboard=unnamed
