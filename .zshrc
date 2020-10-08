@@ -66,7 +66,7 @@ export LANG=en_US
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws helm vi-mode)
+plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws kubectl vi-mode)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -78,18 +78,11 @@ source $ZSH/oh-my-zsh.sh
 # bindkey -rpM viins '^[^['
 
 # kubectl completion
-source <(kubectl completion zsh)
+# source <(kubectl completion zsh)
 # helm completion
 # source <(helm completion zsh)
 # digitalocean completion
 # source <(doctl completion zsh)
-
-# eksctl completion
-mkdir -p ~/.zsh/completion/
-eksctl completion zsh > ~/.zsh/completion/_eksctl
-fpath=($fpath ~/.zsh/completion)
-autoload -U compinit
-compinit
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -154,7 +147,7 @@ alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # fzf
-export FZF_DEFAULT_COMMAND="rg --files --hidden --sort accessed --glob '!node_modules/*' --glob '!.git/*'"
+export FZF_DEFAULT_COMMAND="rg --hidden --files --hidden --sort accessed"
 export FZF_DEFAULT_OPTS="--layout=reverse"
 
 # React Native
@@ -164,9 +157,6 @@ export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 # React Native Expo
 export ANDROID_SDK=/Users/${USER}/Library/Android/sdk/
 export PATH=${ANDROID_SDK}/platform-tools:$PATH
-
-# sqlite
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
 
 # Go
 # export GOPATH="$HOME/Projects/production/leolefevre/go"
@@ -203,8 +193,11 @@ export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 export PATH="/Users/$USER/Library/Python/2.7/bin:$PATH"
 export PATH="/Users/$USER/Library/Python/3.7/bin:$PATH"
 
+# kubectl krew
+export PATH="${PATH}:${HOME}/.krew/bin"
+
 # helm
-export PATH="/usr/local/opt/helm@2/bin:$PATH"
+# export PATH="/usr/local/opt/helm@2/bin:$PATH"
 
 # AWS CLI
 # Disable pager (less)

@@ -1,2 +1,4 @@
 # Search in hidden files
 --hidden
+--glob=!node_modules/*
+--glob=!.git/*

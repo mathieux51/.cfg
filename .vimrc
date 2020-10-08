@@ -387,7 +387,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " JS/TS
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
 
 Plug 'Glench/Vim-Jinja2-Syntax'
@@ -416,6 +416,8 @@ set path+=**
 " jump between keyword pairs with percent command
 " runtime macros/matchit.vim
 autocmd BufNewFile,BufRead *.hcl set syntax=terraform
+
+autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
 
 " Completion
 imap <c-space> <Plug>(asyncomplete_force_refresh)
