@@ -356,6 +356,10 @@ let g:lsp_signs_error = {'text': 'E'}
 let g:lsp_signs_warning = {'text': 'W'}
 let g:lsp_signs_information = {'text': 'I'}
 let g:lsp_signs_hint = {'text': 'H'}
+let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server']
+let g:lsp_settings_filetype_typescriptreact = ['typescript-language-server', 'eslint-language-server']
+let g:lsp_settings_filetype_javascript = ['typescript-language-server', 'eslint-language-server']
+let g:lsp_settings_filetype_javascriptreact = ['typescript-language-server', 'eslint-language-server']
 
 call plug#begin('~/.vim/plugged')
 " dark theme
