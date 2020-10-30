@@ -122,7 +122,7 @@ export PATH="/usr/local/sbin:$PATH:$HOME/.local/bin"
 # alias ohmyzsh="vim ~/.oh-my-zsh"
 alias code="open -a Visual\ Studio\ Code"
 alias v="vim"
-alias e="vim"
+alias e="nvim"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
 alias s="git status -b --show-stash"
@@ -189,19 +189,30 @@ export CPPFLAGS="-I/usr/local/opt/ruby/include"
 export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 
 # Python 
-# eval "$(pyenv init -)"
-export PATH="/Users/$USER/Library/Python/2.7/bin:$PATH"
-export PATH="/Users/$USER/Library/Python/3.7/bin:$PATH"
+# export PATH="/Users/$USER/Library/Python/2.7/bin:$PATH"
+# export PATH="/Users/$USER/Library/Python/3.7/bin:$PATH"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
 
 # kubectl krew
 export PATH="${PATH}:${HOME}/.krew/bin"
 
 # helm
-# export PATH="/usr/local/opt/helm@2/bin:$PATH"
+export PATH="/usr/local/opt/helm@2/bin:$PATH"
 
 # AWS CLI
 # Disable pager (less)
 export AWS_PAGER=""
+
+# k9s
+export K9S_EDITOR=$EDITOR
+
+# Cargo
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # brew install zlib 
 # For compilers to find zlib you may need to set:
