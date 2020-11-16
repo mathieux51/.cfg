@@ -15,7 +15,7 @@ set autoread
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ","
+let mapleader = "\\"
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -241,7 +241,7 @@ fun! CleanExtraSpaces()
 endfun
 
 if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.jsx,*.ts,*.tsx,*.py,*.wiki,*.sh,*.coffee,*.go,*.tf,*.yml,*.yaml,*.md,Makefile :call CleanExtraSpaces()
+    autocmd BufWritePre *.txt,*.js,*.jsx,*.ts,*.tsx,*.py,*.wiki,*.sh,*.coffee,*.go,*.tf,*.hcl,*.yml,*.yaml,*.md,Makefile :call CleanExtraSpaces()
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -326,13 +326,11 @@ endfunction
 
 " End of modified https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim
 
-" ALE
-" let g:ale_fix_on_save = 1
-" let g:ale_fixers = {
-" \   'javascript': ['eslint'],
-" \   'typescript': ['eslint'],
-" \   'typescriptreact': ['eslint'],
-" \}
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 " fzf
 let g:fzf_layout = { 'down': '~100%' }
@@ -402,7 +400,7 @@ call plug#end()
 
 highlight link LspErrorHighlight Todo
 
-set grepprg=rg\ --vimgrep\ --hidden\ --glob\ '!.git'\ --glob\ '!node_modules'\ --glob\ '!dist'
+set grepprg=rg\ --vimgrep
 
 " theme
 colorscheme nord
