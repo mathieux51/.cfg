@@ -86,7 +86,7 @@ source $ZSH/oh-my-zsh.sh
 # eval "$(glab completion --shell zsh)"
 
 # lab completion
-lab completion zsh > ~/.oh-my-zsh/custom/plugins/zsh-completions/src
+lab completion zsh > ~/.oh-my-zsh/custom/plugins/zsh-completions/src/lab
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
