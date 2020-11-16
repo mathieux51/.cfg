@@ -1,4 +1,7 @@
 # Search in hidden files
 --hidden
+--ignore-case
 --glob=!node_modules/*
 --glob=!.git/*
+--glob=!dist/*
+--line-number
