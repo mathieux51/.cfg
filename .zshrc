@@ -83,6 +83,10 @@ source $ZSH/oh-my-zsh.sh
 # source <(helm completion zsh)
 # digitalocean completion
 # source <(doctl completion zsh)
+# eval "$(glab completion --shell zsh)"
+
+# lab completion
+lab completion zsh > ~/.oh-my-zsh/custom/plugins/zsh-completions/src
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -175,8 +179,8 @@ gocov() {
 }
 
 gif(){
-  rm "$2"
-  ffmpeg -i "$1" -vf scale=600:-1 -pix_fmt rgb24 -r 25 -f gif - | gifsicle --optimize=3 --delay=3 > "$2"
+  ffmpeg -y -i "$1" -vf scale=600:-1 -pix_fmt rgb24 -r 25 -f gif - |
+    gifsicle --optimize=3 --delay=3 > "$2"
 }
 
 touch2() { mkdir -p "$(dirname "$1")" && touch "$1" ; }
