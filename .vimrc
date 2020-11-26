@@ -339,41 +339,17 @@ let g:fzf_layout = { 'down': '~100%' }
 let g:nord_uniform_diff_background = 1
 let g:nord_italic = 1
 
-" Go
-let g:go_fmt_command = "goimports"
-let g:go_version_warning = 0
-
 " mergetool
 let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
-
-" lsp
-" let g:lsp_signs_enabled = 1
-" let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
-" let g:lsp_signs_error = {'text': 'E'}
-" let g:lsp_signs_warning = {'text': 'W'}
-" let g:lsp_signs_information = {'text': 'I'}
-" let g:lsp_signs_hint = {'text': 'H'}
-" let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server']
-" let g:lsp_settings_filetype_typescriptreact = ['typescript-language-server', 'eslint-language-server']
-" let g:lsp_settings_filetype_javascript = ['typescript-language-server', 'eslint-language-server']
-" let g:lsp_settings_filetype_javascriptreact = ['typescript-language-server', 'eslint-language-server']
 
 call plug#begin('~/.vim/plugged')
 " dark theme
 Plug 'arcticicestudio/nord-vim'
 " light theme
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
-" Linter
-" Plug 'dense-analysis/ale'
 " lsp and completion
-" Plug 'prabirshrestha/async.vim'
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'mattn/vim-lsp-settings'
-" Plug 'prabirshrestha/asyncomplete.vim'
-" Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'samoshkin/vim-mergetool'
@@ -386,8 +362,6 @@ Plug 'tpope/vim-vinegar'
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" Go
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " JS/TS
 Plug 'pangloss/vim-javascript'
 " Plug 'mxw/vim-jsx'
@@ -398,8 +372,6 @@ Plug 'mrk21/yaml-vim'
 Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-markdown'
 call plug#end()
-
-" highlight link LspErrorHighlight Todo
 
 set grepprg=rg\ --vimgrep
 
@@ -422,15 +394,11 @@ autocmd BufNewFile,BufRead *.hcl set syntax=terraform
 
 autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
 
-" Completion
-" imap <c-space> <Plug>(asyncomplete_force_refresh)
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 "
 "
 " https://github.com/neoclide/coc.nvim
+"
+"
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -449,13 +417,7 @@ set updatetime=300
 set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -497,15 +459,15 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window.
 " nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   elseif (coc#rpc#ready())
+"     call CocActionAsync('doHover')
+"   else
+"     execute '!' . &keywordprg . " " . expand('<cword>')
+"   endif
+" endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
