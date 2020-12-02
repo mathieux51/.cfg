@@ -4,4 +4,4 @@
 --glob=!node_modules/*
 --glob=!.git/*
 --glob=!dist/*
---line-number
+# --line-number
