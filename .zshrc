@@ -66,7 +66,7 @@ export LANG=en_US
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws kubectl vi-mode)
+plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws kubectl vi-mode rust rustup cargo)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
