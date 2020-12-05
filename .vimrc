@@ -19,7 +19,7 @@ call plug#begin('~/.vim/plugged')
 " dark theme
 Plug 'arcticicestudio/nord-vim'
 " light theme
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
+" Plug 'sonph/onehalf', {'rtp': 'vim/'}
 " lsp and completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Git
@@ -31,10 +31,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-abolish'
 " Modify file explorer
 Plug 'tpope/vim-vinegar'
-
 " Defaults everyone can agree on 
 Plug 'tpope/vim-sensible'
-
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -42,11 +40,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'pangloss/vim-javascript'
 " Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
-
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'mrk21/yaml-vim'
 Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-markdown'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 set grepprg=rg\ --vimgrep
@@ -70,10 +68,10 @@ autocmd BufNewFile,BufRead *.hcl set syntax=terraform
 
 autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
 
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
 set paste
 set noswapfile
-
-"
 
 " COC
 " https://github.com/neoclide/coc.nvim
