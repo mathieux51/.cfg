@@ -70,10 +70,33 @@ autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
 
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
-set paste
 set noswapfile
 
+" Use spaces instead of tabs
+set expandtab
+" Be smart when using tabs ;)
+set smarttab
+" 1 tab == 2 spaces
+set shiftwidth=2
+set tabstop=2
+
+set number
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch
+
+set ignorecase
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" ===============================================
 " COC
+" ===============================================
 " https://github.com/neoclide/coc.nvim
 "
 " TextEdit might fail if hidden is not set.
