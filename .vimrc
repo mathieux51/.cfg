@@ -31,7 +31,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-abolish'
 " Modify file explorer
 Plug 'tpope/vim-vinegar'
-" Defaults everyone can agree on 
+" Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -68,7 +68,10 @@ autocmd BufNewFile,BufRead *.hcl set syntax=terraform
 
 autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
 
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd BufWritePre *.go silent :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" https://vim.fandom.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
+autocmd BufWritePre * %s/\s\+$//e
 
 set noswapfile
 
