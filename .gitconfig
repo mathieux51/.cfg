@@ -9,7 +9,7 @@
   safecrlf = true
   preloadindex = true
   excludesfile = /Users/mathieu/.gitignore_global
-  editor = vim 
+  editor = vim
 [gc]
   auto = 256
 [user]
