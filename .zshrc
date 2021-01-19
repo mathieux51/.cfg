@@ -5,7 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Debug zsh startup performance, 
+# Debug zsh startup performance,
 # uncomment next line and zprof at EOF to see the profile
 # zmodload zsh/zprof
 
@@ -157,7 +157,7 @@ export FZF_DEFAULT_OPTS="--layout=reverse"
 # React Native
 export ANDROID_HOME=${HOME}/Library/Android/sdk
 export PATH=${PATH}:${ANDROID_HOME}/tools
-export PATH=${PATH}:${ANDROID_HOME}/platform-tools 
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 # React Native Expo
 export ANDROID_SDK=/Users/${USER}/Library/Android/sdk/
 export PATH=${ANDROID_SDK}/platform-tools:$PATH
@@ -192,7 +192,7 @@ export LDFLAGS="-L/usr/local/opt/ruby/lib"
 export CPPFLAGS="-I/usr/local/opt/ruby/include"
 export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 
-# Python 
+# Python
 # export PATH="/Users/$USER/Library/Python/2.7/bin:$PATH"
 # export PATH="/Users/$USER/Library/Python/3.7/bin:$PATH"
 
