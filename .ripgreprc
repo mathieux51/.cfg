@@ -2,6 +2,6 @@
 --hidden
 --ignore-case
 --glob=!node_modules/*
---glob=!.git/*
---glob=!dist/*
+--glob=!**/*.git/*
+--glob=!**/*dist/*
 # --line-number
