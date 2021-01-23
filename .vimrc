@@ -44,10 +44,10 @@ Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'mrk21/yaml-vim'
 Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-markdown'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
-set grepprg=rg\ --vimgrep
+set grepprg=rg\ --vimgrep\ --no-config\ --hidden\ --ignore-case\ --glob='!node_modules/*'\ --glob='!**/*.git/*'\ --glob='!**/*dist/*'
 
 " theme
 colorscheme nord
@@ -68,7 +68,14 @@ autocmd BufNewFile,BufRead *.hcl set syntax=terraform
 
 autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
 
-autocmd BufWritePre *.go silent :call CocAction('runCommand', 'editor.action.organizeImport')
+" vim-go
+" autocmd BufWritePre *.go silent :call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+" let g:go_fmt_command = "goimports"
+
+" disable vim-go :GoDef short cut (gd)
+" this is handled by LanguageClient [LC]
+" let g:go_def_mapping_enabled = 0
 
 " https://vim.fandom.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
 autocmd BufWritePre * %s/\s\+$//e
@@ -96,6 +103,13 @@ set ignorecase
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
+
+
+" help last-position-jump
+autocmd BufReadPost *
+  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+  \ |   exe "normal! g`\""
+  \ | endif
 
 " ===============================================
 " COC
