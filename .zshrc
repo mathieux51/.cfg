@@ -100,7 +100,7 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 # export EDITOR='code -w'
-export EDITOR='vim'
+# export EDITOR='nvim'
 # bindkey -v
 # bindkey '^R' history-incremental-search-backward
 # for bash
@@ -124,9 +124,11 @@ export PATH="/usr/local/sbin:$PATH:$HOME/.local/bin"
 # miscellaneous
 # alias zshrc="vim ~/.zshrc"
 # alias ohmyzsh="vim ~/.oh-my-zsh"
-alias code="open -a Visual\ Studio\ Code"
-alias v="vim"
-alias e="nvim"
+# alias code="open -a Visual\ Studio\ Code"
+alias vi="nvim"
+alias vim="nvim"
+export EDITOR='nvim'
+
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
 alias s="git status -b --show-stash"
@@ -154,13 +156,8 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export FZF_DEFAULT_COMMAND="rg --hidden --files --hidden --sort accessed"
 export FZF_DEFAULT_OPTS="--layout=reverse"
 
-# React Native
-export ANDROID_HOME=${HOME}/Library/Android/sdk
-export PATH=${PATH}:${ANDROID_HOME}/tools
-export PATH=${PATH}:${ANDROID_HOME}/platform-tools
-# React Native Expo
-export ANDROID_SDK=/Users/${USER}/Library/Android/sdk/
-export PATH=${ANDROID_SDK}/platform-tools:$PATH
+# saml2aws
+eval "$(saml2aws --completion-script-zsh)"
 
 # Go
 # export GOPATH="$HOME/Projects/production/leolefevre/go"
@@ -185,22 +182,8 @@ gif(){
 
 touch2() { mkdir -p "$(dirname "$1")" && touch "$1" ; }
 
-# Ruby
-export PATH="/usr/local/lib/ruby/gems/2.7.0/bin:$PATH"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/ruby/lib"
-export CPPFLAGS="-I/usr/local/opt/ruby/include"
-export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
-
-# Python
-# export PATH="/Users/$USER/Library/Python/2.7/bin:$PATH"
-# export PATH="/Users/$USER/Library/Python/3.7/bin:$PATH"
-
-# kubectl krew
-export PATH="${PATH}:${HOME}/.krew/bin"
-
-# helm
-export PATH="/usr/local/opt/helm@2/bin:$PATH"
+# Github CLI
+gh completion -s zsh > /usr/local/share/zsh/site-functions/_gh
 
 # AWS CLI
 # Disable pager (less)
@@ -211,13 +194,6 @@ export K9S_EDITOR=$EDITOR
 
 # Cargo
 export PATH="$HOME/.cargo/bin:$PATH"
-
-# brew install zlib 
-# For compilers to find zlib you may need to set:
-export LDFLAGS="${LDFLAGS} -L/usr/local/opt/zlib/lib"
-export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
-# For pkg-config to find zlib you may need to set:
-export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
