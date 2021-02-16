@@ -9,58 +9,15 @@ fi
 # uncomment next line and zprof at EOF to see the profile
 # zmodload zsh/zprof
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/${USER}/.oh-my-zsh
 export DEFAULT_USER='mathieu'
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+
 # ZSH_THEME="agnoster"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Languages
+# language
 export LANG=en_US
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -69,14 +26,8 @@ export LANG=en_US
 plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws kubectl vi-mode rust rustup cargo)
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-# zsh-vim-mode
-# bindkey -v
-# bindkey '^R' history-incremental-search-backward
-# set -o vi
-# bindkey -rpM viins '^[^['
-
+# completion
+#
 # kubectl completion
 # source <(kubectl completion zsh)
 # helm completion
@@ -84,51 +35,19 @@ source $ZSH/oh-my-zsh.sh
 # digitalocean completion
 # source <(doctl completion zsh)
 # eval "$(glab completion --shell zsh)"
-
 # lab completion
 # lab completion zsh > ~/.oh-my-zsh/custom/plugins/zsh-completions/src/lab
+# Github CLI
+gh completion -s zsh > /usr/local/share/zsh/site-functions/_gh
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-# export EDITOR='code -w'
-# export EDITOR='nvim'
-# bindkey -v
-# bindkey '^R' history-incremental-search-backward
-# for bash
-# set -o vi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# path
+# aliases
+export EDITOR='nvim'
 export PATH="/usr/local/sbin:$PATH:$HOME/.local/bin"
+# Cargo
+export PATH="$HOME/.cargo/bin:$PATH"
 
-# miscellaneous
-# alias zshrc="vim ~/.zshrc"
-# alias ohmyzsh="vim ~/.oh-my-zsh"
-# alias code="open -a Visual\ Studio\ Code"
 alias vi="nvim"
 alias vim="nvim"
-export EDITOR='nvim'
-
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
 alias s="git status -b --show-stash"
@@ -137,18 +56,15 @@ alias d="git diff HEAD"
 alias ds="git --no-pager diff HEAD --staged"
 alias m="git commit -m"
 alias a="git add --patch"
-alias i="git commit --interactive"
-alias p="git push"
-# alias lg="lazygit"
-# alias pgconfig="v /usr/local/var/postgres/postgresql.conf"
-# alias postgres-start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
-# alias postgres-stop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
+# alias i="git commit --interactive"
+
 # Notification when done
 alias schwifty="osascript -e 'display notification \"I want to see what you got\" with title \"Show me what you got\"'"
 
 # alias for config .cfg repo
 alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
+# tools configuration
 # ripgrep
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
@@ -182,18 +98,12 @@ gif(){
 
 touch2() { mkdir -p "$(dirname "$1")" && touch "$1" ; }
 
-# Github CLI
-gh completion -s zsh > /usr/local/share/zsh/site-functions/_gh
-
 # AWS CLI
 # Disable pager (less)
 export AWS_PAGER=""
 
 # k9s
 export K9S_EDITOR=$EDITOR
-
-# Cargo
-export PATH="$HOME/.cargo/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
