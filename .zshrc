@@ -46,10 +46,12 @@ export PATH="/usr/local/sbin:$PATH:$HOME/.local/bin"
 # Cargo
 export PATH="$HOME/.cargo/bin:$PATH"
 
+alias e="nvim"
 alias vi="nvim"
 alias vim="nvim"
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
+alias k="kubectl"
+# alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+# alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
 alias s="git status -b --show-stash"
 alias l="git log --color"
 alias d="git diff HEAD"
@@ -57,6 +59,7 @@ alias ds="git --no-pager diff HEAD --staged"
 alias m="git commit -m"
 alias a="git add --patch"
 # alias i="git commit --interactive"
+alias pr="gh pr create -r TierMobility/operations -a mathieux51"
 
 # Notification when done
 alias schwifty="osascript -e 'display notification \"I want to see what you got\" with title \"Show me what you got\"'"
