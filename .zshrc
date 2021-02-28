@@ -47,9 +47,11 @@ export PATH="/usr/local/sbin:$PATH:$HOME/.local/bin"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 alias e="nvim"
+alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
 alias k="kubectl"
+alias t="terraform"
 # alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 # alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
 alias s="git status -b --show-stash"
@@ -87,14 +89,14 @@ export GOROOT="/usr/local/opt/go/libexec"
 export PATH="$PATH:$GOROOT/bin"
 
 # bash functions
-gocov() {
+function gocov {
   mkdir -p temp
   go test -coverprofile temp/cover.out ./...
   go tool cover -html=temp/cover.out
   rm -rf temp
 }
 
-gif(){
+function gif {
   ffmpeg -y -i "$1" -vf scale=600:-1 -pix_fmt rgb24 -r 25 -f gif - |
     gifsicle --optimize=3 --delay=3 > "$2"
 }
