@@ -103,7 +103,9 @@ function gif {
     gifsicle --optimize=3 --delay=3 > "$2"
 }
 
-touch2() { mkdir -p "$(dirname "$1")" && touch "$1" ; }
+function touch2 {
+  mkdir -p "$(dirname "$1")" && touch "$1"
+}
 
 # AWS CLI
 # Disable pager (less)
