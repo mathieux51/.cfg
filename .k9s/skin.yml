@@ -3,13 +3,13 @@ background: &background "#30343F"
 current_line: &current_line "#383D4A"
 selection: &selection "#D9DEE8"
 comment: &comment "#8891A7"
-cyan: &cyan "#94BFCE"
-green: &green "#9FB389"
-orange: &orange "#d08770"
-blue: &blue "#87A0BE"
-magenta: &magenta "#AE90AB"
-red: &red "#884D51"
-yellow: &yellow "#E6CB93"
+cyan: &cyan "#88C0D0"
+green: &green "#A3BE8C"
+orange: &orange "#D08770"
+blue: &blue "#81A1C1"
+magenta: &magenta "#B48EAD"
+red: &red "#BF616A"
+yellow: &yellow "#EBCB8B"
 
 k9s:
   # General K9s styles
@@ -102,3 +102,8 @@ k9s:
       indicator:
         fgColor: *foreground
         bgColor: *magenta
+    help:
+      fgColor: *foreground
+      bgColor: *background
+      indicator:
+        fgColor: *red
