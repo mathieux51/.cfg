@@ -85,12 +85,10 @@ export FZF_DEFAULT_OPTS="--layout=reverse"
 eval "$(saml2aws --completion-script-zsh)"
 
 # Go
-# export GOPATH="$HOME/Projects/production/leolefevre/go"
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
-export GOROOT="/usr/local/opt/go/libexec"
-export PATH="$PATH:$GOROOT/bin"
+export GOROOT=/usr/local/go
 
 # bash functions
 function gocov {
