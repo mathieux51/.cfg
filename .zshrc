@@ -59,9 +59,13 @@ alias l="git log --color"
 alias d="git diff HEAD"
 alias ds="git --no-pager diff HEAD --staged"
 alias m="git commit -m"
-alias a="git add --patch"
+alias a='git add --intent-to-add . && git add --patch'
+
 # alias i="git commit --interactive"
-alias pr="gh pr create -r TierMobility/operations -a mathieux51"
+alias pr="gh pr create -a mathieux51"
+alias prr="gh pr create -r TierMobility/operations -a mathieux51"
+alias prv="gh pr view -w"
+alias prm="gh pr merge --squash --delete-branch"
 
 # Notification when done
 alias schwifty="osascript -e 'display notification \"I want to see what you got\" with title \"Show me what you got\"'"
