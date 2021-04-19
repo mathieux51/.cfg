@@ -46,6 +46,7 @@ Plug 'mrk21/yaml-vim'
 Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-markdown'
 Plug 'fatih/vim-go'
+Plug 'towolf/vim-helm'
 call plug#end()
 
 set grepprg=rg\ --vimgrep\ --no-config\ --hidden\ --ignore-case\ --glob='!node_modules/*'\ --glob='!**/*.git/*'\ --glob='!**/*dist/*'
@@ -60,12 +61,19 @@ set clipboard=unnamed
 " Search for file and output to fzf:w
 noremap <C-p> :Files .<CR>
 
+" Show next match and center screen
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap cn cnzz
+nnoremap cnfile cnfilezz
+
 " find tab completion for files
 set path+=**
 
 " jump between keyword pairs with percent command
 " runtime macros/matchit.vim
 autocmd BufNewFile,BufRead *.hcl set syntax=terraform
+autocmd BufNewFile,BufRead *.gotmpl set syntax=yaml
 
 autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
 
