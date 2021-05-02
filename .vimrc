@@ -5,7 +5,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 " fzf
-let g:fzf_layout = { 'down': '~100%' }
+" let g:fzf_layout = { 'down': '~100%' }
 
 " Nord
 let g:nord_uniform_diff_background = 1
@@ -24,10 +24,12 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Git
 Plug 'tpope/vim-fugitive'
+" GitHub extension for fugitive.vim
 Plug 'tpope/vim-rhubarb'
+" git mergetool
 Plug 'samoshkin/vim-mergetool'
-" 💅
-Plug 'vim-airline/vim-airline'
+
+" Plug 'vim-airline/vim-airline'
 " Change case
 Plug 'tpope/vim-abolish'
 " Modify file explorer
@@ -35,14 +37,14 @@ Plug 'tpope/vim-vinegar'
 " Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
 " fzf
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
 " JS/TS
 Plug 'pangloss/vim-javascript'
 " Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
-Plug 'mrk21/yaml-vim'
+" Plug 'mrk21/yaml-vim'
 Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-markdown'
 Plug 'fatih/vim-go'
@@ -59,13 +61,11 @@ colorscheme nord
 set clipboard=unnamed
 
 " Search for file and output to fzf:w
-noremap <C-p> :Files .<CR>
+" noremap <C-p> :Files .<CR>
 
 " Show next match and center screen
 nnoremap n nzz
 nnoremap N Nzz
-nnoremap cn cnzz
-nnoremap cnfile cnfilezz
 
 " find tab completion for files
 set path+=**
@@ -102,6 +102,7 @@ set smarttab
 set shiftwidth=2
 set tabstop=2
 
+" see line numbers
 set number
 
 " Highlight search results
