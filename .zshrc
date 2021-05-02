@@ -46,6 +46,9 @@ export PATH="/usr/local/sbin:$PATH:$HOME/.local/bin"
 # Cargo
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# krew
+export PATH="${PATH}:${HOME}/.krew/bin"
+
 alias e="nvim"
 alias v="nvim"
 alias vi="nvim"
