@@ -101,6 +101,10 @@ function gocov {
   rm -rf temp
 }
 
+function sp {
+  npx spotify-dl "$1"
+}
+
 function gif {
   ffmpeg -y -i "$1" -vf scale=600:-1 -pix_fmt rgb24 -r 25 -f gif - |
     gifsicle --optimize=3 --delay=3 > "$2"
