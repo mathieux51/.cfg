@@ -625,7 +625,19 @@ colors:
 #
 # If the same trigger is assigned to multiple actions, all of them are executed
 # at once.
-#key_bindings:
+key_bindings:
+  - { key: Key1,  mods: Command,       chars: "\x01\x31" }
+  - { key: Key2,  mods: Command,       chars: "\x01\x32" }
+  - { key: Key3,  mods: Command,       chars: "\x01\x33" }
+  - { key: Key4,  mods: Command,       chars: "\x01\x34" }
+  - { key: Key5,  mods: Command,       chars: "\x01\x35" }
+  - { key: Key6,  mods: Command,       chars: "\x01\x36" }
+  - { key: Key7,  mods: Command,       chars: "\x01\x37" }
+  - { key: Key8,  mods: Command,       chars: "\x01\x38" }
+  - { key: Key9,  mods: Command,       chars: "\x01\x39" }
+  - { key: T,     mods: Command,       chars: "\x01\x63" }
+  - { key: S,     mods: Command,       chars: "\x01\x5b" }
+  - { key: Tab,   mods: Control,       chars: "\x01\x6e" }
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
