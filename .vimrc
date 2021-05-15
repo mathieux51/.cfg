@@ -11,6 +11,9 @@ endif
 let g:nord_uniform_diff_background = 1
 let g:nord_italic = 1
 
+" hashivim/vim-terraform
+let g:terraform_fmt_on_save=1
+
 " mergetool
 let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
@@ -19,7 +22,7 @@ call plug#begin('~/.vim/plugged')
 " dark theme
 Plug 'arcticicestudio/nord-vim'
 " light theme
-" Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 " lsp and completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Git
@@ -73,6 +76,8 @@ set path+=**
 " jump between keyword pairs with percent command
 " runtime macros/matchit.vim
 autocmd BufNewFile,BufRead *.hcl set syntax=terraform
+" autocmd BufWritePre *.tf !terraform fmt -recursive
+
 autocmd BufNewFile,BufRead *.gotmpl set syntax=yaml
 
 autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
