@@ -17,14 +17,80 @@ export DEFAULT_USER='mathieu'
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # language
+#
 export LANG=en_US
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# plugins
+#
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws kubectl vi-mode rust rustup cargo)
 source $ZSH/oh-my-zsh.sh
+
+# aliases
+#
+export EDITOR='nvim'
+export PATH="/usr/local/sbin:$PATH:$HOME/.local/bin"
+# Cargo
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# krew
+export PATH="${PATH}:${HOME}/.krew/bin"
+
+alias e='nvim'
+alias v='nvim'
+alias vi='nvim'
+alias k='kubectl'
+alias t='terraform'
+# alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+alias firefox='/Applications/Firefox.app/Contents/MacOS/firefox'
+alias s='git status -b --show-stash'
+alias l='git log --color'
+alias d='git diff HEAD'
+alias ds='git --no-pager diff HEAD --staged'
+alias m='git commit -m'
+alias a='git add --intent-to-add . && git add --patch'
+alias c='tmux copy-mode'
+
+# alias i="git commit --interactive"
+alias pr='gh pr create -a mathieux51'
+alias prr='gh pr create -r TierMobility/operations -a mathieux51'
+alias prv='gh pr view -w'
+alias prm='gh pr merge --squash --delete-branch'
+
+# Notification when done
+alias schwifty="osascript -e 'display notification \"I want to see what you got\" with title \"Show me what you got\"'"
+
+# alias for config .cfg repo
+alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias zshrc='vi ~/.zshrc'
+alias zshenv='vi ~/.zshenv'
+alias vimrc='vi ~/.vimrc'
+alias weather='curl wttr.in'
+
+# functions
+#
+function gocov {
+  mkdir -p temp
+  go test -coverprofile temp/cover.out ./...
+  go tool cover -html=temp/cover.out
+  rm -rf temp
+}
+
+function sp {
+  npx spotify-dl "$1"
+}
+
+function gif {
+  ffmpeg -y -i "$1" -f gif - | gifsicle --delay=4 > "$2"
+}
+
+function gif_optim {
+  ffmpeg -y -i "$1" -vf scale=600:-1 -pix_fmt rgb24 -r 25 -f gif - | gifsicle --delay=3 > "$2"
+}
+
+function touch2 {
+  mkdir -p "$(dirname "$1")" && touch "$1"
+}
 
 # completion
 #
@@ -39,44 +105,12 @@ source $ZSH/oh-my-zsh.sh
 # lab completion zsh > ~/.oh-my-zsh/custom/plugins/zsh-completions/src/lab
 # Github CLI
 gh completion -s zsh > /usr/local/share/zsh/site-functions/_gh
-
-# aliases
-export EDITOR='nvim'
-export PATH="/usr/local/sbin:$PATH:$HOME/.local/bin"
-# Cargo
-export PATH="$HOME/.cargo/bin:$PATH"
-
-# krew
-export PATH="${PATH}:${HOME}/.krew/bin"
-
-alias e="nvim"
-alias v="nvim"
-alias vi="nvim"
-alias vim="nvim"
-alias k="kubectl"
-alias t="terraform"
-# alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-# alias firefox="/Applications/Firefox.app/Contents/MacOS/firefox"
-alias s="git status -b --show-stash"
-alias l="git log --color"
-alias d="git diff HEAD"
-alias ds="git --no-pager diff HEAD --staged"
-alias m="git commit -m"
-alias a='git add --intent-to-add . && git add --patch'
-
-# alias i="git commit --interactive"
-alias pr="gh pr create -a mathieux51"
-alias prr="gh pr create -r TierMobility/operations -a mathieux51"
-alias prv="gh pr view -w"
-alias prm="gh pr merge --squash --delete-branch"
-
-# Notification when done
-alias schwifty="osascript -e 'display notification \"I want to see what you got\" with title \"Show me what you got\"'"
-
-# alias for config .cfg repo
-alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+circleci completion zsh > /usr/local/share/zsh/site-functions/_circleci
+kn completion zsh > /usr/local/share/zsh/site-functions/_kn
+kustomize completion zsh > /usr/local/share/zsh/site-functions/_kustomize
 
 # tools configuration
+#
 # ripgrep
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
@@ -93,33 +127,14 @@ export GOROOT="/usr/local/opt/go/libexec"
 export GOPATH="$HOME/go"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
-# bash functions
-function gocov {
-  mkdir -p temp
-  go test -coverprofile temp/cover.out ./...
-  go tool cover -html=temp/cover.out
-  rm -rf temp
-}
-
-function sp {
-  npx spotify-dl "$1"
-}
-
-function gif {
-  ffmpeg -y -i "$1" -vf scale=600:-1 -pix_fmt rgb24 -r 25 -f gif - |
-    gifsicle --optimize=3 --delay=3 > "$2"
-}
-
-function touch2 {
-  mkdir -p "$(dirname "$1")" && touch "$1"
-}
-
 # AWS CLI
 # Disable pager (less)
 export AWS_PAGER=""
 
 # k9s
 export K9S_EDITOR=$EDITOR
+
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
