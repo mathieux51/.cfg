@@ -4,9 +4,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" fzf
-" let g:fzf_layout = { 'down': '~100%' }
-
 " Nord
 let g:nord_uniform_diff_background = 1
 let g:nord_italic = 1
@@ -32,16 +29,14 @@ Plug 'tpope/vim-rhubarb'
 " git mergetool
 Plug 'samoshkin/vim-mergetool'
 
-" Plug 'vim-airline/vim-airline'
 " Change case
 Plug 'tpope/vim-abolish'
 " Modify file explorer
 Plug 'tpope/vim-vinegar'
 " Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
-" fzf
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
+" handy shortcuts
+Plug 'tpope/vim-unimpaired'
 " JS/TS
 Plug 'pangloss/vim-javascript'
 " Plug 'mxw/vim-jsx'
@@ -52,9 +47,11 @@ Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-markdown'
 Plug 'fatih/vim-go'
 Plug 'towolf/vim-helm'
+" Kotlin
+Plug 'udalov/kotlin-vim'
 call plug#end()
 
-set grepprg=rg\ --vimgrep\ --no-config\ --hidden\ --ignore-case\ --glob='!node_modules/*'\ --glob='!**/*.git/*'\ --glob='!**/*dist/*'
+set grepprg=rg\ --vimgrep\ --no-config\ --hidden\ --ignore-case\ --glob='!node_modules/*'\ --glob='!**/*.git/*'\ --glob='!**/*dist/*'\ --glob='!**/*vendor/*'
 
 " theme
 colorscheme nord
@@ -62,9 +59,6 @@ colorscheme nord
 
 " use system clipboard
 set clipboard=unnamed
-
-" Search for file and output to fzf:w
-" noremap <C-p> :Files .<CR>
 
 " Show next match and center screen
 nnoremap n nzz
@@ -83,8 +77,6 @@ autocmd BufNewFile,BufRead *.gotmpl set syntax=yaml
 autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
 
 " vim-go
-" autocmd BufWritePre *.go silent :call CocAction('runCommand', 'editor.action.organizeImport')
-" autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 let g:go_fmt_command = "goimports"
 
 " disable vim-go :GoDef short cut (gd)
