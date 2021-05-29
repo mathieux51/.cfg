@@ -134,6 +134,8 @@ export AWS_PAGER=""
 # k9s
 export K9S_EDITOR=$EDITOR
 
+# less
+export LESS="IR"
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
