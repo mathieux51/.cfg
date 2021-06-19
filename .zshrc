@@ -108,7 +108,7 @@ function touch2 {
 # lab completion zsh > ~/.oh-my-zsh/custom/plugins/zsh-completions/src/lab
 # Github CLI
 gh completion -s zsh > /usr/local/share/zsh/site-functions/_gh
-circleci completion zsh > /usr/local/share/zsh/site-functions/_circleci
+# circleci completion zsh > /usr/local/share/zsh/site-functions/_circleci
 kn completion zsh > /usr/local/share/zsh/site-functions/_kn
 kustomize completion zsh > /usr/local/share/zsh/site-functions/_kustomize
 
