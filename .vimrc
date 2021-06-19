@@ -49,9 +49,10 @@ Plug 'fatih/vim-go'
 Plug 'towolf/vim-helm'
 " Kotlin
 Plug 'udalov/kotlin-vim'
+Plug 'cespare/vim-toml'
 call plug#end()
 
-set grepprg=rg\ --vimgrep\ --no-config\ --hidden\ --ignore-case\ --glob='!node_modules/*'\ --glob='!**/*.git/*'\ --glob='!**/*dist/*'\ --glob='!**/*vendor/*'
+set grepprg=rg\ --vimgrep\ --no-config\ --hidden\ --ignore-case\ --glob='!node_modules/*'\ --glob='!**/*.git/*'\ --glob='!**/*dist/*'\ --glob='!**/*vendor/*'\ --max-columns=210
 
 " theme
 colorscheme nord
