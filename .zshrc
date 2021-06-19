@@ -140,6 +140,28 @@ export K9S_EDITOR=$EDITOR
 # less
 export LESS="IR"
 
+# java
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export CPPFLAGS="-I/usr/local/opt/openjdk/include"
+export JAVA_HOME=$(/usr/libexec/java_home)
+
+function java_fmt {
+  java \
+  --add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \
+  --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED \
+  -jar ~/Downloads/google-java-format-1.10.0-all-deps.jar \
+  --replace \
+  "$1"
+}
+
+function java_fmt_recursive {
+  for i in $(find . -name '*.java'); do java_fmt "$i"; done
+}
+
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
