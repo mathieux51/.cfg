@@ -636,6 +636,7 @@ key_bindings:
   - { key: Key8,  mods: Command,       chars: "\x01\x38" }
   - { key: Key9,  mods: Command,       chars: "\x01\x39" }
   - { key: T,     mods: Command,       chars: "\x01\x63" }
+  - { key: W,     mods: Command,       chars: "\x01\x26" }
   - { key: S,     mods: Command,       chars: "\x01\x5b" }
   - { key: Tab,   mods: Control,       chars: "\x01\x6e" }
   #- { key: Paste,                                action: Paste          }
