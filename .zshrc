@@ -36,6 +36,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # krew
 export PATH="${PATH}:${HOME}/.krew/bin"
 
+# python3/pip3
+export PATH="${PATH}:${HOME}/Library/Python/3.9/bin"
+
 alias e='nvim'
 alias v='nvim'
 alias vi='nvim'

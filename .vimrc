@@ -77,6 +77,9 @@ autocmd BufNewFile,BufRead *.gotmpl set syntax=yaml
 
 autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
 
+" python
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
+
 " vim-go
 let g:go_fmt_command = "goimports"
 
