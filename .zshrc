@@ -152,7 +152,7 @@ function java_fmt {
   --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \
   --add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \
   --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED \
-  -jar ~/Downloads/google-java-format-1.10.0-all-deps.jar \
+  -jar ~/.local/bin/google-java-format-1.10.0-all-deps.jar \
   --replace \
   "$1"
 }
