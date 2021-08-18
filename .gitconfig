@@ -38,4 +38,6 @@
 [pull]
 	rebase = true
 [apply]
-    whitespace = fix
+  whitespace = fix
+[url "ssh://git@github.com/"]
+  insteadOf = https://github.com/
