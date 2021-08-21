@@ -50,9 +50,13 @@ Plug 'towolf/vim-helm'
 " Kotlin
 Plug 'udalov/kotlin-vim'
 Plug 'cespare/vim-toml'
+
+" z navigation
+Plug 'PsychoLlama/teleport.vim'
 call plug#end()
 
-set grepprg=rg\ --vimgrep\ --no-config\ --hidden\ --ignore-case\ --glob='!node_modules/*'\ --glob='!**/*.git/*'\ --glob='!**/*dist/*'\ --glob='!**/*vendor/*'\ --max-columns=210
+" set grepprg=rg\ --vimgrep\ --no-config\ --hidden\ --ignore-case\ --glob='!node_modules/*'\ --glob='!**/*.git/*'\ --glob='!**/*dist/*'\ --glob='!**/*vendor/*'\ --max-columns=210
+set grepprg=rg\ --vimgrep\ --max-columns=210
 
 " theme
 colorscheme nord
