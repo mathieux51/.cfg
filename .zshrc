@@ -23,7 +23,7 @@ export LANG=en_US
 # plugins
 #
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws kubectl vi-mode rust rustup cargo)
+plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws kubectl vi-mode rust rustup cargo z gh jira helm )
 source $ZSH/oh-my-zsh.sh
 
 # aliases
@@ -39,10 +39,15 @@ export PATH="${PATH}:${HOME}/.krew/bin"
 # python3/pip3
 export PATH="${PATH}:${HOME}/Library/Python/3.9/bin"
 
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init --path)"
+
 alias e='nvim'
 alias v='nvim'
 alias vi='nvim'
 alias k='kubectl'
+alias context='kubectx'
 alias t='terraform'
 # alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 alias firefox='/Applications/Firefox.app/Contents/MacOS/firefox'
@@ -95,19 +100,11 @@ function touch2 {
   mkdir -p "$(dirname "$1")" && touch "$1"
 }
 
+function unlock {
+  terraform force-unlock -force "$1"
+}
+
 # completion
-#
-# kubectl completion
-# source <(kubectl completion zsh)
-# helm completion
-# source <(helm completion zsh)
-# digitalocean completion
-# source <(doctl completion zsh)
-# eval "$(glab completion --shell zsh)"
-# lab completion
-# lab completion zsh > ~/.oh-my-zsh/custom/plugins/zsh-completions/src/lab
-# Github CLI
-gh completion -s zsh > /usr/local/share/zsh/site-functions/_gh
 # circleci completion zsh > /usr/local/share/zsh/site-functions/_circleci
 kn completion zsh > /usr/local/share/zsh/site-functions/_kn
 kustomize completion zsh > /usr/local/share/zsh/site-functions/_kustomize
@@ -138,12 +135,15 @@ export AWS_PAGER=""
 export K9S_EDITOR=$EDITOR
 
 # less
-export LESS="IR"
+# export LESS="IR"
+export LESS="-R"
 
 # java
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 export JAVA_HOME=$(/usr/libexec/java_home)
+
+export XDG_CONFIG_HOME="$HOME/.config"
 
 function java_fmt {
   java \
