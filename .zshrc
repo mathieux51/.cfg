@@ -63,8 +63,7 @@ alias c='tmux copy-mode'
 alias pr='gh pr create -a mathieux51'
 alias prr='gh pr create -r TierMobility/operations -a mathieux51'
 alias prv='gh pr view -w'
-alias prm='gh pr merge --squash --delete-branch'
-
+alias prm='gh pr merge --squash --delete-branch && git pull'
 # Notification when done
 alias schwifty="osascript -e 'display notification \"I want to see what you got\" with title \"Show me what you got\"'"
 
@@ -74,6 +73,9 @@ alias zshrc='vi ~/.zshrc'
 alias zshenv='vi ~/.zshenv'
 alias vimrc='vi ~/.vimrc'
 alias weather='curl wttr.in'
+# alias docker="lima nerdctl"
+# alias docker-compose="lima nerdctl compose"
+alias lc="limactl"
 
 # functions
 #
@@ -108,6 +110,7 @@ function unlock {
 # circleci completion zsh > /usr/local/share/zsh/site-functions/_circleci
 kn completion zsh > /usr/local/share/zsh/site-functions/_kn
 kustomize completion zsh > /usr/local/share/zsh/site-functions/_kustomize
+source <(lc completion bash)
 
 # tools configuration
 #
@@ -161,6 +164,36 @@ function java_fmt_recursive {
   for i in $(find . -name '*.java'); do java_fmt "$i"; done
 }
 
+function github_sync {
+  gh api --paginate graphql -f owner="$ORG" -f query='
+  query($owner: String!, $per_page: Int = 100, $endCursor: String) {
+    repositoryOwner(login: $owner) {
+      repositories(first: $per_page, after: $endCursor, ownerAffiliations: OWNER) {
+        nodes { sshUrl, name, isArchived }
+        pageInfo { hasNextPage endCursor }
+      }
+    }
+  }
+' |
+  jq -r '.data.repositoryOwner.repositories.nodes[] | select(.isArchived == false) | .sshUrl' |
+  xargs -P 50 -n 1 git clone
+}
+
+function github_pull {
+  ls | xargs -n 1 -P 50 sh -c 'cd "$0" && git reset --hard && (git checkout master || git checkout main)'
+}
+
+function helmdiff {
+  RELEASE=$1
+  REVISION=$2
+  PREV_REVISION=$((REVISION-1))
+  vimdiff <(helm get manifest $RELEASE --revision $REVISION) <(helm get manifest $RELEASE --revision $PREV_REVISION)
+}
+
+function rgs {
+  CONTEXT=${2:=10}
+  rg "$1" --max-columns=200 --pretty -C $CONTEXT | less
+}
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
