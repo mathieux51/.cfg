@@ -16,10 +16,12 @@ let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
 
 call plug#begin('~/.vim/plugged')
+" Defaults everyone can agree on
+Plug 'tpope/vim-sensible'
 " dark theme
 Plug 'arcticicestudio/nord-vim'
 " light theme
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
+" Plug 'sonph/onehalf', {'rtp': 'vim/'}
 " lsp and completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Git
@@ -28,13 +30,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 " git mergetool
 Plug 'samoshkin/vim-mergetool'
-
 " Change case
 Plug 'tpope/vim-abolish'
 " Modify file explorer
 Plug 'tpope/vim-vinegar'
-" Defaults everyone can agree on
-Plug 'tpope/vim-sensible'
 " handy shortcuts
 Plug 'tpope/vim-unimpaired'
 " JS/TS
@@ -49,8 +48,8 @@ Plug 'fatih/vim-go'
 Plug 'towolf/vim-helm'
 " Kotlin
 Plug 'udalov/kotlin-vim'
+" TOML
 Plug 'cespare/vim-toml'
-
 " z navigation
 Plug 'PsychoLlama/teleport.vim'
 call plug#end()
