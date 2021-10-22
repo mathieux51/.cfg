@@ -20,10 +20,11 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 #
 export LANG=en_US
 
+
 # plugins
 #
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(colorize zsh-completions zsh-autosuggestions npm docker golang terraform aws kubectl vi-mode rust rustup cargo z gh jira helm )
+plugins=(colorize zsh-completions zsh-autosuggestions npm golang terraform aws kubectl vi-mode rust rustup cargo z gh helm)
 source $ZSH/oh-my-zsh.sh
 
 # aliases
@@ -39,6 +40,8 @@ export PATH="${PATH}:${HOME}/.krew/bin"
 # python3/pip3
 export PATH="${PATH}:${HOME}/Library/Python/3.9/bin"
 
+# Ruby
+export PATH="/usr/local/opt/ruby/bin:${PATH}"
 # export PYENV_ROOT="$HOME/.pyenv"
 # export PATH="$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init --path)"
@@ -110,7 +113,7 @@ function unlock {
 # circleci completion zsh > /usr/local/share/zsh/site-functions/_circleci
 kn completion zsh > /usr/local/share/zsh/site-functions/_kn
 kustomize completion zsh > /usr/local/share/zsh/site-functions/_kustomize
-source <(lc completion bash)
+limactl completion zsh > /usr/local/share/zsh/site-functions/_limactl
 
 # tools configuration
 #
@@ -194,7 +197,6 @@ function rgs {
   CONTEXT=${2:=10}
   rg "$1" --max-columns=200 --pretty -C $CONTEXT | less
 }
-
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
