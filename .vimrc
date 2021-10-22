@@ -52,6 +52,10 @@ Plug 'udalov/kotlin-vim'
 Plug 'cespare/vim-toml'
 " z navigation
 Plug 'PsychoLlama/teleport.vim'
+
+" Find files
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 
 " set grepprg=rg\ --vimgrep\ --no-config\ --hidden\ --ignore-case\ --glob='!node_modules/*'\ --glob='!**/*.git/*'\ --glob='!**/*dist/*'\ --glob='!**/*vendor/*'\ --max-columns=210
