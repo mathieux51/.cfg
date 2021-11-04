@@ -41,7 +41,6 @@ Plug 'pangloss/vim-javascript'
 " Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
-" Plug 'mrk21/yaml-vim'
 Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-markdown'
 Plug 'fatih/vim-go'
@@ -53,9 +52,11 @@ Plug 'cespare/vim-toml'
 " z navigation
 Plug 'PsychoLlama/teleport.vim'
 
+if has('nvim')
 " Find files
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+endif
 call plug#end()
 
 " set grepprg=rg\ --vimgrep\ --no-config\ --hidden\ --ignore-case\ --glob='!node_modules/*'\ --glob='!**/*.git/*'\ --glob='!**/*dist/*'\ --glob='!**/*vendor/*'\ --max-columns=210
@@ -77,11 +78,9 @@ set path+=**
 
 " jump between keyword pairs with percent command
 " runtime macros/matchit.vim
+
 autocmd BufNewFile,BufRead *.hcl set syntax=terraform
-" autocmd BufWritePre *.tf !terraform fmt -recursive
-
 autocmd BufNewFile,BufRead *.gotmpl set syntax=yaml
-
 autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
 
 " python
