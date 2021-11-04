@@ -24,7 +24,8 @@ export LANG=en_US
 # plugins
 #
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(colorize zsh-completions zsh-autosuggestions npm golang terraform aws kubectl vi-mode rust rustup cargo z gh helm)
+# npm docker docker-compose golang rust rustup cargo gh
+plugins=(colorize zsh-completions zsh-autosuggestions terraform aws kubectl vi-mode z helm ripgrep git-auto-fetch)
 source $ZSH/oh-my-zsh.sh
 
 # aliases
@@ -60,7 +61,6 @@ alias d='git diff HEAD'
 alias ds='git --no-pager diff HEAD --staged'
 alias m='git commit -m'
 alias a='git add --intent-to-add . && git add --patch'
-alias c='tmux copy-mode'
 
 # alias i="git commit --interactive"
 alias pr='gh pr create -a mathieux51'
@@ -111,9 +111,9 @@ function unlock {
 
 # completion
 # circleci completion zsh > /usr/local/share/zsh/site-functions/_circleci
-kn completion zsh > /usr/local/share/zsh/site-functions/_kn
-kustomize completion zsh > /usr/local/share/zsh/site-functions/_kustomize
-limactl completion zsh > /usr/local/share/zsh/site-functions/_limactl
+# kn completion zsh > /usr/local/share/zsh/site-functions/_kn
+# kustomize completion zsh > /usr/local/share/zsh/site-functions/_kustomize
+# limactl completion zsh > /usr/local/share/zsh/site-functions/_limactl
 
 # tools configuration
 #
@@ -183,7 +183,7 @@ function github_sync {
 }
 
 function github_pull {
-  ls | xargs -n 1 -P 50 sh -c 'cd "$0" && git reset --hard && (git checkout master || git checkout main)'
+  ls | xargs -n 1 -P 50 sh -c 'cd "$0" && git reset --hard && (git checkout master || git checkout main) && git pull'
 }
 
 function helmdiff {
