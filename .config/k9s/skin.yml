@@ -16,12 +16,12 @@ k9s:
   body:
     fgColor: *foreground
     bgColor: default
-    logoColor: *magenta
+    logoColor: default
   # Command prompt styles
   prompt:
     fgColor: *foreground
-    bgColor: *background
-    suggestColor: *orange
+    bgColor: default
+    suggestColor: *cyan
   # ClusterInfoView styles.
   info:
     fgColor: *blue
@@ -82,10 +82,10 @@ k9s:
       fgColor: *foreground
       bgColor: default
       cursorFgColor: *foreground
-      cursorBgColor: *current_line
+      cursorBgColor: default
       # Header row styles.
       header:
-        fgColor: *foreground
+        fgColor: *blue
         bgColor: default
         sorterColor: *cyan
     # Xray view attributes.
@@ -109,6 +109,6 @@ k9s:
         bgColor: *magenta
     help:
       fgColor: *foreground
-      bgColor: *background
+      bgColor: default
       indicator:
         fgColor: *red
