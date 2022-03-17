@@ -25,7 +25,7 @@ export LANG=en_US
 #
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # npm docker docker-compose golang rust rustup cargo gh
-plugins=(colorize zsh-completions zsh-autosuggestions terraform aws kubectl vi-mode z helm ripgrep git-auto-fetch)
+plugins=(colorize zsh-completions zsh-autosuggestions terraform aws kubectl vi-mode helm ripgrep git-auto-fetch z)
 source $ZSH/oh-my-zsh.sh
 
 # aliases
@@ -75,6 +75,7 @@ alias schwifty="osascript -e 'display notification \"I want to see what you got\
 alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias zshrc='vi ~/.zshrc'
 alias zshenv='vi ~/.zshenv'
+alias alacrittyconfig='vi ~/.config/alacritty/alacritty.yml:141'
 alias vimrc='vi ~/.vimrc'
 alias weather='curl wttr.in'
 # alias docker="lima nerdctl"
@@ -115,6 +116,7 @@ function unlock {
 # kn completion zsh > /usr/local/share/zsh/site-functions/_kn
 # kustomize completion zsh > /usr/local/share/zsh/site-functions/_kustomize
 # limactl completion zsh > /usr/local/share/zsh/site-functions/_limactl
+argocd completion zsh > /usr/local/share/zsh/site-functions/_argocd
 
 # tools configuration
 #

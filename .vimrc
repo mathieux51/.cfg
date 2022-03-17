@@ -56,6 +56,9 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'fatih/vim-go'
 " lsp and completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Markdown
+Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && yarn install'}
 endif
 call plug#end()
 
