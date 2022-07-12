@@ -35,8 +35,6 @@
 	enabled = true
 [push]
 	default = current
-[pull]
-  rebase = true
 [apply]
   whitespace = fix
 [url "ssh://git@github.com/"]
