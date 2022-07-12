@@ -25,7 +25,7 @@ Plug 'samoshkin/vim-mergetool'
 " Change case
 Plug 'tpope/vim-abolish'
 " Modify file explorer
-Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-vinegar'
 " handy shortcuts
 Plug 'tpope/vim-unimpaired'
 " JS/TS
@@ -40,8 +40,6 @@ Plug 'towolf/vim-helm'
 Plug 'udalov/kotlin-vim'
 " TOML
 Plug 'cespare/vim-toml'
-" z navigation
-Plug 'PsychoLlama/teleport.vim'
 " Plug 'stephpy/vim-yaml'
 
 " vi filename:42
@@ -50,7 +48,9 @@ Plug 'wsdjeg/vim-fetch'
 if has('nvim')
 " Find files
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+" z navigation
+" Plug 'PsychoLlama/teleport.vim'
+" Plug 'nvim-telescope/telescope.nvim'
 
 " Go
 Plug 'fatih/vim-go'
@@ -70,7 +70,8 @@ colorscheme nord
 " colorscheme onehalflight
 
 " use system clipboard
-set clipboard=unnamed
+" set clipboard=unnamed
+set clipboard+=unnamedplus
 
 " Show next match and center screen
 nnoremap n nzz

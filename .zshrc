@@ -50,6 +50,8 @@ export PATH="/usr/local/opt/ruby/bin:${PATH}"
 alias e='nvim'
 alias v='nvim'
 alias vi='nvim'
+# https://github.com/tpope/vim-unimpaired/blob/e52cb4d77fae016639dba005c44e86722498ab3c/doc/unimpaired.txt#L36
+# alias vi='stty stop '' -ixoff; nvim'
 alias k='kubectl'
 alias context='kubectx'
 alias t='terraform'
