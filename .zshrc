@@ -119,6 +119,7 @@ function unlock {
 # kustomize completion zsh > /usr/local/share/zsh/site-functions/_kustomize
 # limactl completion zsh > /usr/local/share/zsh/site-functions/_limactl
 argocd completion zsh > /usr/local/share/zsh/site-functions/_argocd
+confluent completion zsh > /usr/local/share/zsh/site-functions/_confluent
 
 # tools configuration
 #
