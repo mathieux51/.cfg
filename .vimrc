@@ -127,6 +127,10 @@ autocmd BufReadPost *
   \ | endif
 
 
+let g:netrw_banner = 0
+let g:netrw_keepdir = 0
+let g:netrw_list_hide = '\.\.\/,\.\/'
+
 if has('nvim')
 " python
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
@@ -137,6 +141,16 @@ let g:go_fmt_command = "goimports"
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
+
+" https://vi.stackexchange.com/questions/19003/try-catch-with-rexplore
+fu! OpenExplorer()
+    try
+        silent :Rex
+    catch
+        :Ex
+    endtry
+endfu
+nmap <silent> - :call OpenExplorer()<cr>
 
 " COC
 " https://github.com/neoclide/coc.nvim
