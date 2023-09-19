@@ -24,19 +24,27 @@ export LANG=en_US
 # plugins
 #
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# npm docker docker-compose golang rust rustup cargo gh
+# npm docker docker-compose golang rust rustup gh
 plugins=(colorize zsh-completions zsh-autosuggestions terraform aws kubectl vi-mode helm ripgrep git-auto-fetch z)
 source $ZSH/oh-my-zsh.sh
 
 # aliases
 #
+# brew
+export PATH="/opt/homebrew/bin:$PATH"
+
+# brew
+export GOPATH=$HOME/go
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+
+# Java
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+# nvim
 export EDITOR='nvim'
 export PATH="/usr/local/sbin:$PATH:$HOME/.local/bin"
 # Cargo
-export PATH="$HOME/.cargo/bin:$PATH"
-
-# krew
-export PATH="${PATH}:${HOME}/.krew/bin"
+# export PATH="$HOME/.cargo/bin:$PATH"
 
 # python3/pip3
 export PATH="${PATH}:${HOME}/Library/Python/3.9/bin"
@@ -93,18 +101,6 @@ function gocov {
   rm -rf temp
 }
 
-function sp {
-  npx spotify-dl "$1"
-}
-
-function gif {
-  ffmpeg -y -i "$1" -f gif - | gifsicle --delay=4 > "$2"
-}
-
-function gif_optim {
-  ffmpeg -y -i "$1" -vf scale=600:-1 -pix_fmt rgb24 -r 25 -f gif - | gifsicle --delay=3 > "$2"
-}
-
 function touch2 {
   mkdir -p "$(dirname "$1")" && touch "$1"
 }
@@ -118,8 +114,8 @@ function unlock {
 # kn completion zsh > /usr/local/share/zsh/site-functions/_kn
 # kustomize completion zsh > /usr/local/share/zsh/site-functions/_kustomize
 # limactl completion zsh > /usr/local/share/zsh/site-functions/_limactl
-argocd completion zsh > /usr/local/share/zsh/site-functions/_argocd
-confluent completion zsh > /usr/local/share/zsh/site-functions/_confluent
+# argocd completion zsh > /usr/local/share/zsh/site-functions/_argocd
+# confluent completion zsh > /usr/local/share/zsh/site-functions/_confluent
 
 # tools configuration
 #
@@ -133,12 +129,6 @@ export FZF_DEFAULT_OPTS="--layout=reverse"
 # saml2aws
 eval "$(saml2aws --completion-script-zsh)"
 
-# Go
-# export GOROOT="$(brew --prefix golang)/libexec"
-export GOROOT="/usr/local/opt/go/libexec"
-export GOPATH="$HOME/go"
-export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
-
 # AWS CLI
 # Disable pager (less)
 export AWS_PAGER=""
@@ -150,28 +140,7 @@ export K9S_EDITOR=$EDITOR
 # export LESS="IR"
 export LESS="-R"
 
-# java
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
-export CPPFLAGS="-I/usr/local/opt/openjdk/include"
-export JAVA_HOME=$(/usr/libexec/java_home)
-
 export XDG_CONFIG_HOME="$HOME/.config"
-
-function java_fmt {
-  java \
-  --add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \
-  --add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED \
-  --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \
-  --add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \
-  --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED \
-  -jar ~/.local/bin/google-java-format-1.10.0-all-deps.jar \
-  --replace \
-  "$1"
-}
-
-function java_fmt_recursive {
-  for i in $(find . -name '*.java'); do java_fmt "$i"; done
-}
 
 function github_sync {
   gh api --paginate graphql -f owner="$ORG" -f query='
@@ -190,13 +159,6 @@ function github_sync {
 
 function github_pull {
   ls | xargs -n 1 -P 50 sh -c 'cd "$0" && git reset --hard && (git checkout master || git checkout main) && git pull'
-}
-
-function helmdiff {
-  RELEASE=$1
-  REVISION=$2
-  PREV_REVISION=$((REVISION-1))
-  vimdiff <(helm get manifest $RELEASE --revision $REVISION) <(helm get manifest $RELEASE --revision $PREV_REVISION)
 }
 
 function rgs {

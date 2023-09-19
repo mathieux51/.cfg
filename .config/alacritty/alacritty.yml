@@ -97,7 +97,6 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    # family: Operator Mono Lig
     # family: Source Code Pro for Powerline
     family: MonoLisa
 
@@ -139,7 +138,6 @@ font:
 
   # Point size
   size: 19.0
-    # size: 20.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -301,7 +299,7 @@ colors:
     matches:
       foreground: CellBackground
       background: '#88c0d0'
-    bar:
+    footer_bar:
       background: '#434c5e'
       foreground: '#d8dee9'
   normal:
