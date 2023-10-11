@@ -116,6 +116,8 @@ function unlock {
 # limactl completion zsh > /usr/local/share/zsh/site-functions/_limactl
 # argocd completion zsh > /usr/local/share/zsh/site-functions/_argocd
 # confluent completion zsh > /usr/local/share/zsh/site-functions/_confluent
+complete -C '/opt/homebrew/bin/aws_completer' aws
+
 
 # tools configuration
 #
@@ -143,7 +145,7 @@ export LESS="-R"
 export XDG_CONFIG_HOME="$HOME/.config"
 
 function github_sync {
-  gh api --paginate graphql -f owner="$ORG" -f query='
+  gh api --paginate graphql -f owner="$GITHUB_ORG" -f query='
   query($owner: String!, $per_page: Int = 100, $endCursor: String) {
     repositoryOwner(login: $owner) {
       repositories(first: $per_page, after: $endCursor, ownerAffiliations: OWNER) {

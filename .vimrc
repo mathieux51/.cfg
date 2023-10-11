@@ -20,6 +20,8 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'tpope/vim-fugitive'
 " GitHub extension for fugitive.vim
 Plug 'tpope/vim-rhubarb'
+Plug 'shumphrey/fugitive-gitlab.vim'
+
 " git mergetool
 Plug 'samoshkin/vim-mergetool'
 " Change case
