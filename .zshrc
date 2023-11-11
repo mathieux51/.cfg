@@ -44,7 +44,7 @@ export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export EDITOR='nvim'
 export PATH="/usr/local/sbin:$PATH:$HOME/.local/bin"
 # Cargo
-# export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # python3/pip3
 export PATH="${PATH}:${HOME}/Library/Python/3.9/bin"
@@ -144,23 +144,9 @@ export LESS="-R"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
-function github_sync {
-  gh api --paginate graphql -f owner="$GITHUB_ORG" -f query='
-  query($owner: String!, $per_page: Int = 100, $endCursor: String) {
-    repositoryOwner(login: $owner) {
-      repositories(first: $per_page, after: $endCursor, ownerAffiliations: OWNER) {
-        nodes { sshUrl, name, isArchived }
-        pageInfo { hasNextPage endCursor }
-      }
-    }
-  }
-' |
-  jq -r '.data.repositoryOwner.repositories.nodes[] | select(.isArchived == false) | .sshUrl' |
-  xargs -P 50 -n 1 git clone
-}
-
-function github_pull {
-  ls | xargs -n 1 -P 50 sh -c 'cd "$0" && git reset --hard && (git checkout master || git checkout main) && git pull'
+function code_sync {
+  ghorg clone TierMobility --token=$GITHUB_TOKEN
+  ghorg clone all-groups --base-url=$GITLAB_URL --scm=gitlab --token=$GITLAB_TOKEN
 }
 
 function rgs {

@@ -8,7 +8,7 @@
   autocrlf = false
   safecrlf = true
   preloadindex = true
-  excludesfile = /Users/mathieu/.gitignore_global
+	excludesfile = /Users/mathieu/.gitignore_global
   editor = nvim
 [gc]
   auto = 256
