@@ -33,7 +33,7 @@ source $ZSH/oh-my-zsh.sh
 # brew
 export PATH="/opt/homebrew/bin:$PATH"
 
-# brew
+# Go
 export GOPATH=$HOME/go
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
@@ -54,6 +54,9 @@ export PATH="/usr/local/opt/ruby/bin:${PATH}"
 # export PYENV_ROOT="$HOME/.pyenv"
 # export PATH="$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init --path)"
+
+# tfswitch
+export PATH="$PATH:/$HOME/bin"
 
 alias e='nvim'
 alias v='nvim'
@@ -145,8 +148,9 @@ export LESS="-R"
 export XDG_CONFIG_HOME="$HOME/.config"
 
 function code_sync {
-  ghorg clone TierMobility --token=$GITHUB_TOKEN
-  ghorg clone all-groups --base-url=$GITLAB_URL --scm=gitlab --token=$GITLAB_TOKEN
+  ghorg clone TierMobility --token=$GITHUB_TOKEN --skip-archived --skip-forks --concurrency=50 &
+  ghorg clone all-groups --base-url=$GITLAB_URL --scm=gitlab --token=$GITLAB_TOKEN --skip-archived --concurrency=50 &
+  wait
 }
 
 function rgs {
