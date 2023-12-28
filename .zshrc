@@ -75,6 +75,7 @@ alias ds='git diff HEAD --staged'
 alias dss='git --no-pager diff HEAD --staged'
 alias m='git commit -m'
 alias a='git add --intent-to-add . && git add --patch'
+alias tb='ttyd --writable -t "theme=$(cat ~/.config/ttyd/theme.json | jq -r -c)" --browser zsh'
 
 # alias i="git commit --interactive"
 alias pr='gh pr create -a mathieux51'
@@ -113,14 +114,12 @@ function unlock {
 }
 
 # completion
-# circleci completion zsh > /usr/local/share/zsh/site-functions/_circleci
-# kn completion zsh > /usr/local/share/zsh/site-functions/_kn
-# kustomize completion zsh > /usr/local/share/zsh/site-functions/_kustomize
-# limactl completion zsh > /usr/local/share/zsh/site-functions/_limactl
-# argocd completion zsh > /usr/local/share/zsh/site-functions/_argocd
-# confluent completion zsh > /usr/local/share/zsh/site-functions/_confluent
+export fpath=($fpath ~/.zsh/completions)
+# circleci completion zsh > ~/.zsh/completions/_circleci
+# argocd completion zsh > ~/.zsh/completions/_argocd
+# confluent completion zsh > ~/.zsh/completions/_confluent
+# k9s completion zsh > ~/.zsh/completions/_k9s
 complete -C '/opt/homebrew/bin/aws_completer' aws
-
 
 # tools configuration
 #
