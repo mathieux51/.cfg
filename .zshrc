@@ -75,7 +75,7 @@ alias ds='git diff HEAD --staged'
 alias dss='git --no-pager diff HEAD --staged'
 alias m='git commit -m'
 alias a='git add --intent-to-add . && git add --patch'
-alias tb='ttyd --writable -t "theme=$(cat ~/.config/ttyd/theme.json | jq -r -c)" --browser zsh'
+alias tb='ttyd --writable -t "theme=$(cat ~/.config/ttyd/theme.json | jq -r -c)" -t "fontFamily=MonoLisa" --browser zsh'
 
 # alias i="git commit --interactive"
 alias pr='gh pr create -a mathieux51'
@@ -119,7 +119,14 @@ export fpath=($fpath ~/.zsh/completions)
 # argocd completion zsh > ~/.zsh/completions/_argocd
 # confluent completion zsh > ~/.zsh/completions/_confluent
 # k9s completion zsh > ~/.zsh/completions/_k9s
-complete -C '/opt/homebrew/bin/aws_completer' aws
+# complete -C '/opt/homebrew/bin/aws_completer' aws
+
+# GCP
+function gcloud_completion {
+  source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+  source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+}
+
 
 # tools configuration
 #

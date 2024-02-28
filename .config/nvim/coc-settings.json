@@ -24,6 +24,11 @@
       "command": "bash-language-server",
       "args": ["start"],
       "filetypes": ["sh"]
+    },
+    "markdownlint.config": {
+      "MD040": {
+        "allowed_languages": ["terraform"]
+      }
     }
   }
 }
