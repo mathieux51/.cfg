@@ -61,6 +61,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Markdown
 " Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && yarn install'}
+
+" Rego
+Plug 'tsandall/vim-rego'
 endif
 call plug#end()
 
@@ -74,6 +77,10 @@ colorscheme nord
 " use system clipboard
 " set clipboard=unnamed
 set clipboard+=unnamedplus
+nnoremap d "_d
+vnoremap d "_d
+nnoremap x "_x
+vnoremap x "_x
 
 " Show next match and center screen
 nnoremap n nzz

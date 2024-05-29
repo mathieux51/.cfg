@@ -46,6 +46,9 @@ export PATH="/usr/local/sbin:$PATH:$HOME/.local/bin"
 # Cargo
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# bun
+export PATH="${PATH}:${HOME}/.bun/bin"
+
 # python3/pip3
 export PATH="${PATH}:${HOME}/Library/Python/3.9/bin"
 
@@ -58,6 +61,8 @@ export PATH="/usr/local/opt/ruby/bin:${PATH}"
 # tfswitch
 export PATH="$PATH:/$HOME/bin"
 
+
+alias b='~/ghorg/baupal'
 alias e='nvim'
 alias v='nvim'
 alias vi='nvim'
@@ -65,7 +70,7 @@ alias vi='nvim'
 # alias vi='stty stop '' -ixoff; nvim'
 alias k='kubectl'
 alias context='kubectx'
-alias t='terraform'
+alias t='tofu'
 # alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 alias firefox='/Applications/Firefox.app/Contents/MacOS/firefox'
 alias s='git status -b --show-stash'
@@ -75,6 +80,8 @@ alias ds='git diff HEAD --staged'
 alias dss='git --no-pager diff HEAD --staged'
 alias m='git commit -m'
 alias a='git add --intent-to-add . && git add --patch'
+alias f='git push'
+alias j='git pull --rebase'
 alias tb='ttyd --writable -t "theme=$(cat ~/.config/ttyd/theme.json | jq -r -c)" -t "fontFamily=MonoLisa" --browser zsh'
 
 # alias i="git commit --interactive"
@@ -138,11 +145,11 @@ export FZF_DEFAULT_COMMAND="rg --hidden --files --hidden --sort accessed"
 export FZF_DEFAULT_OPTS="--layout=reverse"
 
 # saml2aws
-eval "$(saml2aws --completion-script-zsh)"
+# eval "$(saml2aws --completion-script-zsh)"
 
-# AWS CLI
 # Disable pager (less)
 export AWS_PAGER=""
+export GH_PAGER=""
 
 # k9s
 export K9S_EDITOR=$EDITOR
@@ -154,14 +161,23 @@ export LESS="-R"
 export XDG_CONFIG_HOME="$HOME/.config"
 
 function code_sync {
-  ghorg clone TierMobility --token=$GITHUB_TOKEN --skip-archived --skip-forks --concurrency=50 &
-  ghorg clone all-groups --base-url=$GITLAB_URL --scm=gitlab --token=$GITLAB_TOKEN --skip-archived --concurrency=50 &
+  ORG="${1-baupal}"
+  # ghorg clone TierMobility --token=$GITHUB_TOKEN --skip-archived --skip-forks --concurrency=50 &
+  ghorg clone "$ORG" --token=$GITHUB_TOKEN --skip-archived --skip-forks --concurrency=50 &
+  # ghorg clone all-groups --base-url=$GITLAB_URL --scm=gitlab --token=$GITLAB_TOKEN --skip-archived --concurrency=50 &
   wait
 }
 
 function rgs {
   CONTEXT=${2:=10}
   rg "$1" --max-columns=200 --pretty -C $CONTEXT | less
+}
+
+function clean {
+  find . -type d -name ".terraform" -exec rm -rf {} +
+  find . -type f -name ".terraform.lock.hcl" -exec rm {} +
+  find . -type d -name "charts" -exec rm -rf {} +
+  find . -type f -name "Chart.lock" -exec rm {} +
 }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
