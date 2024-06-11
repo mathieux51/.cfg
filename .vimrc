@@ -1,7 +1,3 @@
-" Nord
-let g:nord_uniform_diff_background = 1
-let g:nord_italic = 1
-
 " hashivim/vim-terraform
 let g:terraform_fmt_on_save=1
 
@@ -9,23 +5,28 @@ let g:terraform_fmt_on_save=1
 let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
 
+" Nord
+let g:nord_uniform_diff_background = 1
+let g:nord_italic = 1
+
 call plug#begin('~/.vim/plugged')
 " Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
-" dark theme
-Plug 'arcticicestudio/nord-vim'
-" light theme
-" Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'nordtheme/vim'
+Plug 'vim-airline/vim-airline'
+
 " Git
 Plug 'tpope/vim-fugitive'
 " GitHub extension for fugitive.vim
 Plug 'tpope/vim-rhubarb'
-Plug 'shumphrey/fugitive-gitlab.vim'
+" Plug 'shumphrey/fugitive-gitlab.vim'
+
+Plug 'editorconfig/editorconfig-vim'
 
 " git mergetool
 Plug 'samoshkin/vim-mergetool'
 " Change case
-Plug 'tpope/vim-abolish'
+" Plug 'tpope/vim-abolish'
 " Modify file explorer
 " Plug 'tpope/vim-vinegar'
 " handy shortcuts
@@ -39,9 +40,9 @@ Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-markdown'
 Plug 'towolf/vim-helm'
 " Kotlin
-Plug 'udalov/kotlin-vim'
+" Plug 'udalov/kotlin-vim'
 " TOML
-Plug 'cespare/vim-toml'
+" Plug 'cespare/vim-toml'
 " Plug 'stephpy/vim-yaml'
 
 " vi filename:42
@@ -75,12 +76,17 @@ colorscheme nord
 " colorscheme onehalflight
 
 " use system clipboard
-" set clipboard=unnamed
+if has('nvim')
 set clipboard+=unnamedplus
+else
+set clipboard=unnamed
+endif
+
+" Add missing cut feature
 nnoremap d "_d
-vnoremap d "_d
+" vnoremap d "_d
 nnoremap x "_x
-vnoremap x "_x
+" vnoremap x "_x
 
 " Show next match and center screen
 nnoremap n nzz
