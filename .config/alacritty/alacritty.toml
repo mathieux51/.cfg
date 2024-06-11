@@ -131,3 +131,6 @@ mods = "Command"
 
 [window]
 option_as_alt = "Both"
+
+[env]
+term = "xterm-256color"
