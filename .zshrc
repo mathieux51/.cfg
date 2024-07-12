@@ -102,6 +102,7 @@ alias weather='curl wttr.in'
 # alias docker="lima nerdctl"
 # alias docker-compose="lima nerdctl compose"
 alias lc="limactl"
+alias g="cd .github/workflows"
 
 # functions
 #
