@@ -25,7 +25,7 @@ export LANG=en_US
 #
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # npm docker docker-compose golang rust rustup gh
-plugins=(colorize zsh-completions zsh-autosuggestions terraform aws kubectl vi-mode helm ripgrep git-auto-fetch z)
+plugins=(colorize zsh-completions zsh-autosuggestions terraform aws kubectl vi-mode helm git-auto-fetch z)
 source $ZSH/oh-my-zsh.sh
 
 # aliases
@@ -128,6 +128,7 @@ export fpath=($fpath ~/.zsh/completions)
 # confluent completion zsh > ~/.zsh/completions/_confluent
 # k9s completion zsh > ~/.zsh/completions/_k9s
 # complete -C '/opt/homebrew/bin/aws_completer' aws
+# rg --generate complete-zsh > ~/.zsh/completions/_rg
 
 # GCP
 function gcloud_completion {
@@ -161,7 +162,7 @@ export LESS="-R"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
-function code_sync {
+function codesync {
   ORG="${1-baupal}"
   # ghorg clone TierMobility --token=$GITHUB_TOKEN --skip-archived --skip-forks --concurrency=50 &
   ghorg clone "$ORG" --token=$GITHUB_TOKEN --skip-archived --skip-forks --concurrency=50 &

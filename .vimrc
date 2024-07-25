@@ -59,8 +59,6 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'fatih/vim-go'
 " lsp and completion
 "  Uncomment the two plugins below if you want to manage the language servers from neovim
-"  Plug 'williamboman/mason.nvim'
-"  Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -68,8 +66,14 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
 
 Plug 'hrsh7th/cmp-buffer'
-Plug 'williamboman/mason.nvim'
-Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'hrsh7th/cmp-path'
+Plug 'lukas-reineke/cmp-rg'
+
+Plug 'zbirenbaum/copilot.lua'
+Plug 'zbirenbaum/copilot-cmp'
+" Plug 'williamboman/mason.nvim'
+" Plug 'williamboman/mason-lspconfig.nvim'
 
 
 " Markdown
@@ -201,24 +205,38 @@ lsp_zero.on_attach(function(client, bufnr)
   lsp_zero.default_keymaps({buffer = bufnr})
 end)
 
-require('mason').setup({})
-require('mason-lspconfig').setup({
-  ensure_installed = {},
-  handlers = {
-    function(server_name)
-      require('lspconfig')[server_name].setup({})
-    end,
-  },
+-- require'lspconfig'.terraform_lsp.setup{}
+require'lspconfig'.terraformls.setup{}
+require'lspconfig'.gopls.setup{}
+require'lspconfig'.jsonls.setup{}
+require'lspconfig'.pyright.setup{}
+require'lspconfig'.tsserver.setup{}
+require'lspconfig'.yamlls.setup{}
+require'lspconfig'.helm_ls.setup{}
+require'lspconfig'.bashls.setup{}
+require'lspconfig'.dartls.setup{}
+require('copilot').setup({
+  suggestion = {enabled = false},
+  panel = {enabled = false},
 })
+require('copilot_cmp').setup()
+
 
 cmp.setup({
   sources = {
     {name = 'nvim_lsp'},
+    {name = 'copilot'},
+    {name = 'rg'},
     {name = 'buffer'},
+    {name = 'nvim_lsp_signature_help'},
+    {name = 'path'},
   },
   formatting = cmp_format,
   mapping = cmp.mapping.preset.insert({
-    ['<CR>'] = cmp.mapping.confirm({select = false}),
+    ['<CR>'] = cmp.mapping.confirm({
+      select = false,
+      behavior = cmp.ConfirmBehavior.Replace,
+    }),
     ['<Tab>'] = cmp_action.luasnip_supertab(),
     ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
   }),
