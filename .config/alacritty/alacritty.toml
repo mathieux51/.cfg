@@ -54,7 +54,7 @@ cursor = "#d8dee9"
 text = "#2e3440"
 
 [font]
-size = 19.0
+size = 20.0
 
 [font.normal]
 family = "MonoLisa"
@@ -131,6 +131,3 @@ mods = "Command"
 
 [window]
 option_as_alt = "Both"
-
-[env]
-term = "xterm-256color"

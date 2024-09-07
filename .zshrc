@@ -18,7 +18,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # language
 #
-export LANG=en_US
+# export LANG=en_US
+export LANG=en_US.UTF-8
 
 
 # plugins
@@ -78,10 +79,10 @@ alias l='git log --color'
 alias d='git diff HEAD'
 alias ds='git diff HEAD --staged'
 alias dss='git --no-pager diff HEAD --staged'
-alias m='git commit -m'
+alias m='git commit --no-verify -m'
 alias a='git add --intent-to-add . && git add --patch'
-alias f='git push'
-alias j='git pull --rebase'
+alias f='git fetch && git pull --rebase && git push'
+alias j='git fetch && git pull --rebase'
 alias tb='ttyd --writable -t "theme=$(cat ~/.config/ttyd/theme.json | jq -r -c)" -t "fontFamily=MonoLisa" --browser zsh'
 
 # alias i="git commit --interactive"

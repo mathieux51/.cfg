@@ -3,6 +3,6 @@
 --ignore-case
 --glob=!**/*node_modules/*
 --glob=!**/*.git/*
+--glob=!**/*.terraform/*
 --glob=!**/*dist/*
 --glob=!**/*vendor/*
-
