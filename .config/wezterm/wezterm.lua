@@ -3,7 +3,7 @@ local act = wezterm.action
 local config = wezterm.config_builder()
 
 config.color_scheme = 'nord'
-config.font = wezterm.font('MonoLisa', { weight = 'Bold'})
+config.font = wezterm.font('MonoLisa', { weight = 'Medium'})
 config.font_size = 21.0
 
 config.window_decorations = "RESIZE"
@@ -26,7 +26,7 @@ config.keys = {
   { key = 'w', mods = 'SUPER', action = act.SendString '\x01\x26' },
   { key = 'f', mods = 'SUPER', action = act.SendString '\x01\x5b\x3f' },
   { key = 'Tab', mods = 'CTRL', action = act.SendString '\x01\x6e' },
-  -- { key = 'Semicolon', mods = 'SUPER', action = act.SendString '\u0001:' },
+  { key = 'w', mods = 'SUPER|SHIFT', action = act.CloseCurrentTab{confirm=false} },
 }
 
 -- config.enable_tab_bar = false
