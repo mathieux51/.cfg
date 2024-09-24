@@ -198,6 +198,7 @@ local lsp_zero = require('lsp-zero')
 local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
 local cmp_format = require('lsp-zero').cmp_format({details = true})
+local lspconfig = require('lspconfig')
 
 lsp_zero.on_attach(function(client, bufnr)
   -- see :help lsp-zero-keybindings
@@ -206,15 +207,25 @@ lsp_zero.on_attach(function(client, bufnr)
 end)
 
 -- require'lspconfig'.terraform_lsp.setup{}
-require'lspconfig'.terraformls.setup{}
-require'lspconfig'.gopls.setup{}
-require'lspconfig'.jsonls.setup{}
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.tsserver.setup{}
-require'lspconfig'.yamlls.setup{}
-require'lspconfig'.helm_ls.setup{}
-require'lspconfig'.bashls.setup{}
-require'lspconfig'.dartls.setup{}
+lspconfig.terraformls.setup{}
+lspconfig.gopls.setup{}
+lspconfig.jsonls.setup{}
+lspconfig.pyright.setup{}
+lspconfig.tsserver.setup{}
+--
+-- require'lspconfig'.yamlls.setup{}
+lspconfig.helm_ls.setup {
+  settings = {
+    ['helm-ls'] = {
+      yamlls = {
+        path = "yaml-language-server",
+      }
+    }
+  }
+}
+lspconfig.bashls.setup{}
+lspconfig.dartls.setup{}
+
 require('copilot').setup({
   suggestion = {enabled = false},
   panel = {enabled = false},

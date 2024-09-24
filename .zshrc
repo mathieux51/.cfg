@@ -166,7 +166,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 function codesync {
   ORG="${1-baupal}"
   # ghorg clone TierMobility --token=$GITHUB_TOKEN --skip-archived --skip-forks --concurrency=50 &
-  ghorg clone "$ORG" --token=$GITHUB_TOKEN --skip-archived --skip-forks --concurrency=50 &
+  ghorg clone "$ORG" --token=$GITHUB_TOKEN --skip-archived --skip-forks --include-submodules --concurrency=50 &
   # ghorg clone all-groups --base-url=$GITLAB_URL --scm=gitlab --token=$GITLAB_TOKEN --skip-archived --concurrency=50 &
   wait
 }
