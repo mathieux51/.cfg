@@ -32,7 +32,7 @@ source $ZSH/oh-my-zsh.sh
 # aliases
 #
 # brew
-export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 # Go
 export GOPATH=$HOME/go
@@ -54,7 +54,7 @@ export PATH="${PATH}:${HOME}/.bun/bin"
 export PATH="${PATH}:${HOME}/Library/Python/3.9/bin"
 
 # Ruby
-export PATH="/usr/local/opt/ruby/bin:${PATH}"
+eval "$(rbenv init - --no-rehash zsh)"
 # export PYENV_ROOT="$HOME/.pyenv"
 # export PATH="$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init --path)"
@@ -79,11 +79,11 @@ alias l='git log --color'
 alias d='git diff HEAD'
 alias ds='git diff HEAD --staged'
 alias dss='git --no-pager diff HEAD --staged'
-alias m='git commit --no-verify -m'
+# alias m='git commit --no-verify -m'
 alias a='git add --intent-to-add . && git add --patch'
 alias f='git fetch && git pull --rebase && git push'
 alias j='git fetch && git pull --rebase'
-alias tb='ttyd --writable -t "theme=$(cat ~/.config/ttyd/theme.json | jq -r -c)" -t "fontFamily=MonoLisa" --browser zsh'
+alias terminalshare='ttyd --writable -t "theme=$(cat ~/.config/ttyd/theme.json | jq -r -c)" -t "fontFamily=MonoLisa" --browser zsh'
 
 # alias i="git commit --interactive"
 alias pr='gh pr create -a mathieux51'
@@ -97,7 +97,6 @@ alias schwifty="osascript -e 'display notification \"I want to see what you got\
 alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias zshrc='vi ~/.zshrc'
 alias zshenv='vi ~/.zshenv'
-alias alacrittyconfig='vi ~/.config/alacritty/alacritty.yml:141'
 alias vimrc='vi ~/.vimrc'
 alias weather='curl wttr.in'
 # alias docker="lima nerdctl"
@@ -106,11 +105,15 @@ alias lc="limactl"
 alias g="cd .github/workflows"
 
 # functions
-#
+function m {
+  git commit --no-verify -m "$2" -m "ref https://linear.app/enternow/issue/$1"
+}
+
 function gocov {
   mkdir -p temp
   go test -coverprofile temp/cover.out ./...
   go tool cover -html=temp/cover.out
+  go-test-coverage --config=./.testcoverage.yaml --profile=temp/cover.out
   rm -rf temp
 }
 
@@ -181,6 +184,12 @@ function clean {
   find . -type f -name ".terraform.lock.hcl" -exec rm {} +
   find . -type d -name "charts" -exec rm -rf {} +
   find . -type f -name "Chart.lock" -exec rm {} +
+}
+
+function rgawk {
+  separator="${2:-/}"
+  index="${3:-1}"
+  rg "$1" | awk -v sep="$separator" -v idx="$index" '{split($0, arr, sep); print arr[idx]}' | sort | uniq
 }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

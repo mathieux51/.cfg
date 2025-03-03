@@ -1,5 +1,6 @@
 " hashivim/vim-terraform
 let g:terraform_fmt_on_save=1
+let g:terraform_binary_path="tofu"
 
 " mergetool
 let g:mergetool_layout = 'mr'
@@ -13,7 +14,7 @@ call plug#begin('~/.vim/plugged')
 " Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
 Plug 'nordtheme/vim'
-Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -30,12 +31,12 @@ Plug 'samoshkin/vim-mergetool'
 " Modify file explorer
 " Plug 'tpope/vim-vinegar'
 " handy shortcuts
-Plug 'tpope/vim-unimpaired'
+" Plug 'tpope/vim-unimpaired'
 " JS/TS
 Plug 'pangloss/vim-javascript'
 " Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
-Plug 'Glench/Vim-Jinja2-Syntax'
+" Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-markdown'
 Plug 'towolf/vim-helm'
@@ -80,10 +81,12 @@ Plug 'zbirenbaum/copilot-cmp'
 " Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && yarn install'}
 
 " Rego
-Plug 'tsandall/vim-rego'
+" Plug 'tsandall/vim-rego'
 
 " Github
 Plug 'yasuhiroki/github-actions-yaml.vim'
+
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 endif
 call plug#end()
@@ -200,6 +203,9 @@ local cmp_action = require('lsp-zero').cmp_action()
 local cmp_format = require('lsp-zero').cmp_format({details = true})
 local lspconfig = require('lspconfig')
 
+require("ibl").setup()
+
+
 lsp_zero.on_attach(function(client, bufnr)
   -- see :help lsp-zero-keybindings
   -- to learn the available actions
@@ -211,7 +217,15 @@ lspconfig.terraformls.setup{}
 lspconfig.gopls.setup{}
 lspconfig.jsonls.setup{}
 lspconfig.pyright.setup{}
-lspconfig.tsserver.setup{}
+lspconfig.ts_ls.setup{}
+lspconfig.regal.setup{}
+
+-- Ruby
+-- lspconfig.rubocop.setup{}
+lspconfig.ruby_lsp.setup{}
+-- lspconfig.sorbet.setup{}
+-- lspconfig.solargraph.setup{}
+
 --
 -- require'lspconfig'.yamlls.setup{}
 lspconfig.helm_ls.setup {
