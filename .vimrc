@@ -8,7 +8,7 @@ let g:mergetool_prefer_revision = 'local'
 
 " Nord
 let g:nord_uniform_diff_background = 1
-let g:nord_italic = 1
+let g:nord_enable_italic = 1
 
 call plug#begin('~/.vim/plugged')
 " Defaults everyone can agree on
@@ -71,11 +71,15 @@ Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'hrsh7th/cmp-path'
 Plug 'lukas-reineke/cmp-rg'
 
+" AI
 Plug 'zbirenbaum/copilot.lua'
 Plug 'zbirenbaum/copilot-cmp'
-" Plug 'williamboman/mason.nvim'
-" Plug 'williamboman/mason-lspconfig.nvim'
+" Plug 'github/copilot.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'greggh/claude-code.nvim'
 
 " Markdown
 " Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && yarn install'}
@@ -84,10 +88,9 @@ Plug 'zbirenbaum/copilot-cmp'
 " Plug 'tsandall/vim-rego'
 
 " Github
-Plug 'yasuhiroki/github-actions-yaml.vim'
+" Plug 'yasuhiroki/github-actions-yaml.vim'
 
 Plug 'lukas-reineke/indent-blankline.nvim'
-
 endif
 call plug#end()
 

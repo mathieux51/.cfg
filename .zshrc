@@ -26,8 +26,16 @@ export LANG=en_US.UTF-8
 #
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # npm docker docker-compose golang rust rustup gh
-plugins=(colorize zsh-completions zsh-autosuggestions terraform aws kubectl vi-mode helm git-auto-fetch z)
+plugins=(colorize zsh-completions zsh-autosuggestions terraform aws kubectl zsh-vi-mode helm git-auto-fetch z)
 source $ZSH/oh-my-zsh.sh
+
+# configure zsh-vi-mode
+export ZVM_CURSOR_STYLE_ENABLED=true
+export ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BEAM
+export ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
+export ZVM_VI_HIGHLIGHT_FOREGROUND=#2E3440      # Nord0 - almost black
+export ZVM_VI_HIGHLIGHT_BACKGROUND=#88C0D0      # Nord8 - Frost blue
+export ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold         # Extra: make it bold
 
 # aliases
 #
@@ -81,8 +89,8 @@ alias ds='git diff HEAD --staged'
 alias dss='git --no-pager diff HEAD --staged'
 # alias m='git commit --no-verify -m'
 alias a='git add --intent-to-add . && git add --patch'
-alias f='git fetch && git pull --rebase && git push'
-alias j='git fetch && git pull --rebase'
+alias f='git fetch && git pull --rebase && git submodule update --init --recursive && git push'
+alias j='git fetch && git pull --rebase && git submodule update --init --recursive'
 alias terminalshare='ttyd --writable -t "theme=$(cat ~/.config/ttyd/theme.json | jq -r -c)" -t "fontFamily=MonoLisa" --browser zsh'
 
 # alias i="git commit --interactive"
@@ -98,7 +106,6 @@ alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias zshrc='vi ~/.zshrc'
 alias zshenv='vi ~/.zshenv'
 alias vimrc='vi ~/.vimrc'
-alias weather='curl wttr.in'
 # alias docker="lima nerdctl"
 # alias docker-compose="lima nerdctl compose"
 alias lc="limactl"
@@ -115,6 +122,14 @@ function gocov {
   go tool cover -html=temp/cover.out
   go-test-coverage --config=./.testcoverage.yaml --profile=temp/cover.out
   rm -rf temp
+}
+
+function gotest {
+  go test ./... -coverprofile=./cover.out -covermode=atomic -coverpkg=./... -race -short && go-test-coverage --config=.testcoverage.yaml --profile=cover.out
+}
+
+function golint {
+  golangci-lint run -c .golangci.yml
 }
 
 function touch2 {
@@ -140,7 +155,6 @@ function gcloud_completion {
   source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 }
 
-
 # tools configuration
 #
 # ripgrep
@@ -149,9 +163,6 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 # fzf
 export FZF_DEFAULT_COMMAND="rg --hidden --files --hidden --sort accessed"
 export FZF_DEFAULT_OPTS="--layout=reverse"
-
-# saml2aws
-# eval "$(saml2aws --completion-script-zsh)"
 
 # Disable pager (less)
 export AWS_PAGER=""
@@ -192,6 +203,21 @@ function rgawk {
   rg "$1" | awk -v sep="$separator" -v idx="$index" '{split($0, arr, sep); print arr[idx]}' | sort | uniq
 }
 
+function unzip_all_charts {
+  local chart_dir="charts"
+  local dest_dir="/tmp"
+  for chart in "$chart_dir"/*.tgz; do
+    if [[ -f "$chart" ]]; then
+      echo "Unzipping $chart into $dest_dir..."
+      tar -xzf "$chart" -C "$dest_dir"
+    fi
+  done
+  cd /tmp
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # zprof # Should be at the end of .zshrc
+
+# bun completions
+[ -s "/Users/mathieu/.bun/_bun" ] && source "/Users/mathieu/.bun/_bun"
