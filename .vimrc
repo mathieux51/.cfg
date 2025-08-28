@@ -32,16 +32,16 @@ if has('nvim')
   Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
   Plug 'hrsh7th/cmp-path'
   Plug 'lukas-reineke/cmp-rg'
-
+  
   " AI - Claude via Copilot
   Plug 'zbirenbaum/copilot.lua'
   Plug 'zbirenbaum/copilot-cmp'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'CopilotC-Nvim/CopilotChat.nvim'
-
+  
   " Visual enhancements
   Plug 'lukas-reineke/indent-blankline.nvim'
-
+  
   " Language-specific
   Plug 'fatih/vim-go'
   Plug 'pangloss/vim-javascript'
@@ -121,11 +121,11 @@ if has('nvim')
   " Terraform
   let g:terraform_fmt_on_save=1
   let g:terraform_binary_path="tofu"
-
+  
   " Mergetool
   let g:mergetool_layout = 'mr'
   let g:mergetool_prefer_revision = 'local'
-
+  
   " Go
   let g:go_fmt_command = "goimports"
   let g:go_def_mapping_enabled = 0
