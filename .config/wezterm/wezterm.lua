@@ -28,6 +28,7 @@ config.keys = {
   { key = 'e', mods = 'SUPER', action = act.SendString '\x65\x78\x69\x74\x0a' },
   { key = 'i', mods = 'SUPER|SHIFT', action = act.SendString '\x01\x49' },
   { key = 'Tab', mods = 'CTRL', action = act.SendString '\x01\x6e' },
+  { key = 'Tab', mods = 'CTRL|SHIFT', action = act.SendString '\x01\x70' },
   { key = 'w', mods = 'SUPER|SHIFT', action = act.CloseCurrentTab{confirm=false} },
 }
 

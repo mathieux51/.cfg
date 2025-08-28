@@ -1,184 +1,97 @@
-" hashivim/vim-terraform
-let g:terraform_fmt_on_save=1
-let g:terraform_binary_path="tofu"
+" Basic Settings
+set nocompatible
+filetype plugin indent on
+syntax on
 
-" mergetool
-let g:mergetool_layout = 'mr'
-let g:mergetool_prefer_revision = 'local'
-
-" Nord
+" Nord Theme Settings
 let g:nord_uniform_diff_background = 1
 let g:nord_enable_italic = 1
 
+" Vim-Plug Setup
 call plug#begin('~/.vim/plugged')
 " Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
 Plug 'nordtheme/vim'
-" Plug 'vim-airline/vim-airline'
 
-" Git
+" Essential plugins for both Vim and MacVim
 Plug 'tpope/vim-fugitive'
-" GitHub extension for fugitive.vim
 Plug 'tpope/vim-rhubarb'
-" Plug 'shumphrey/fugitive-gitlab.vim'
-
 Plug 'editorconfig/editorconfig-vim'
+Plug 'wsdjeg/vim-fetch'  " vi filename:42
 
-" git mergetool
-Plug 'samoshkin/vim-mergetool'
-" Change case
-" Plug 'tpope/vim-abolish'
-" Modify file explorer
-" Plug 'tpope/vim-vinegar'
-" handy shortcuts
-" Plug 'tpope/vim-unimpaired'
-" JS/TS
-Plug 'pangloss/vim-javascript'
-" Plug 'mxw/vim-jsx'
-Plug 'leafgarland/typescript-vim'
-" Plug 'Glench/Vim-Jinja2-Syntax'
-Plug 'hashivim/vim-terraform'
-Plug 'tpope/vim-markdown'
-Plug 'towolf/vim-helm'
-" Kotlin
-" Plug 'udalov/kotlin-vim'
-" TOML
-" Plug 'cespare/vim-toml'
-" Plug 'stephpy/vim-yaml'
-
-" vi filename:42
-Plug 'wsdjeg/vim-fetch'
-
+" Neovim-specific plugins
 if has('nvim')
-" Find files
-Plug 'nvim-lua/plenary.nvim'
-" z navigation
-" Plug 'PsychoLlama/teleport.vim'
-" Plug 'nvim-telescope/telescope.nvim'
+  " LSP and completion
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'L3MON4D3/LuaSnip'
+  Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'lukas-reineke/cmp-rg'
 
-" Go
-Plug 'fatih/vim-go'
-" lsp and completion
-"  Uncomment the two plugins below if you want to manage the language servers from neovim
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'L3MON4D3/LuaSnip'
-Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
+  " AI - Claude via Copilot
+  Plug 'zbirenbaum/copilot.lua'
+  Plug 'zbirenbaum/copilot-cmp'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-Plug 'hrsh7th/cmp-path'
-Plug 'lukas-reineke/cmp-rg'
+  " Visual enhancements
+  Plug 'lukas-reineke/indent-blankline.nvim'
 
-" AI
-Plug 'zbirenbaum/copilot.lua'
-Plug 'zbirenbaum/copilot-cmp'
-" Plug 'github/copilot.vim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'CopilotC-Nvim/CopilotChat.nvim'
-
-" Plug 'nvim-lua/plenary.nvim'
-" Plug 'greggh/claude-code.nvim'
-
-" Markdown
-" Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app && yarn install'}
-
-" Rego
-" Plug 'tsandall/vim-rego'
-
-" Github
-" Plug 'yasuhiroki/github-actions-yaml.vim'
-
-Plug 'lukas-reineke/indent-blankline.nvim'
+  " Language-specific
+  Plug 'fatih/vim-go'
+  Plug 'pangloss/vim-javascript'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'hashivim/vim-terraform'
+  Plug 'tpope/vim-markdown'
+  Plug 'towolf/vim-helm'
+  Plug 'samoshkin/vim-mergetool'
 endif
 call plug#end()
 
-" set grepprg=rg\ --vimgrep\ --no-config\ --hidden\ --ignore-case\ --glob='!node_modules/*'\ --glob='!**/*.git/*'\ --glob='!**/*dist/*'\ --glob='!**/*vendor/*'\ --max-columns=210
-set grepprg=rg\ --vimgrep\ --max-columns=210
-
+" Color Scheme
 if !has('gui_running') && &term =~ '\%(screen\|tmux\)'
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 set termguicolors
-
-" theme
 colorscheme nord
-" colorscheme onehalflight
 
-" use system clipboard
+" General Settings
+set number
+set expandtab
+set smarttab
+set shiftwidth=2
+set tabstop=2
+set autowrite
+set noswapfile
+set hlsearch
+set incsearch
+set ignorecase
+set path+=**
+
+" Clipboard
 if has('nvim')
-set clipboard+=unnamedplus
+  set clipboard+=unnamedplus
 else
-set clipboard=unnamed
+  set clipboard=unnamed
 endif
 
-" Add missing cut feature
+" Key Mappings
 nnoremap d "_d
-" vnoremap d "_d
 nnoremap x "_x
-" vnoremap x "_x
-
-" Show next match and center screen
 nnoremap n nzz
 nnoremap N Nzz
 
-" find tab completion for files
-set path+=**
-
-" jump between keyword pairs with percent command
-" runtime macros/matchit.vim
-
-autocmd BufNewFile,BufRead *.hcl set syntax=terraform
-autocmd BufRead,BufNewFile *.gotmpl set ft=helm
-autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
-
-" https://github.com/fatih/vim-go-tutorial#fix-it
-set autowrite
-
-" https://vim.fandom.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
-autocmd BufWritePre * %s/\s\+$//e
-
-set noswapfile
-
-" Use spaces instead of tabs
-set expandtab
-" Be smart when using tabs ;)
-set smarttab
-" 1 tab == 2 spaces
-set shiftwidth=2
-set tabstop=2
-
-" see line numbers
-set number
-
-" Highlight search results
-set hlsearch
-" set nohlsearch
-
-" Makes search act like search in modern browsers
-set incsearch
-
-set ignorecase
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
-
-" help last-position-jump
-autocmd BufReadPost *
-  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-  \ |   exe "normal! g`\""
-  \ | endif
-
-" File explorer
+" File Explorer
 let g:netrw_banner = 0
 let g:netrw_keepdir = 0
-let g:netrw_list_hide = '\.\.\/,\.\/' " hide ./ and ../
+let g:netrw_list_hide = '\.\.\/,\.\/'
 
-" https://vi.stackexchange.com/questions/19003/try-catch-with-rexplore
 fu! OpenExplorer()
     try
         silent :Rex
@@ -188,17 +101,32 @@ fu! OpenExplorer()
 endfu
 nmap <silent> - :call OpenExplorer()<cr>
 
+" Auto Commands
+autocmd BufWritePre * %s/\s\+$//e
+autocmd BufReadPost *
+  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+  \ |   exe "normal! g`\""
+  \ | endif
+
+" File Type Associations
+autocmd BufNewFile,BufRead *.hcl set syntax=terraform
+autocmd BufRead,BufNewFile *.gotmpl set ft=helm
+autocmd BufNewFile,BufRead *.jsx set syntax=javascriptreact
+
+" Grep Settings
+set grepprg=rg\ --vimgrep\ --max-columns=210
+
+" Neovim-specific Settings
 if has('nvim')
-" python
-" autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
+  " Terraform
+  let g:terraform_fmt_on_save=1
+  let g:terraform_binary_path="tofu"
 
-" vim-go
-let g:go_fmt_command = "goimports"
+  " Mergetool
+  let g:mergetool_layout = 'mr'
+  let g:mergetool_prefer_revision = 'local'
 
-" disable vim-go :GoDef short cut (gd)
-" this is handled by LanguageClient [LC]
-let g:go_def_mapping_enabled = 0
-lua <<EOF
-EOF
-
+  " Go
+  let g:go_fmt_command = "goimports"
+  let g:go_def_mapping_enabled = 0
 endif
