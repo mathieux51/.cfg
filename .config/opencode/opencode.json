@@ -1,0 +1,35 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "nord",
+  "mode": {
+    "readonly": {
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "read": false,
+        "grep": false,
+        "list": false,
+        "todowrite": false,
+        "todoread": false,
+        "patch": false,
+        "webfetch": false,
+        "glob": false
+      }
+    }
+  },
+  "permission": {
+    "edit": "allow",
+    "bash": {
+      "git push": "ask",
+      "git commit": "ask",
+      "tofu destroy": "ask",
+      "rm": "ask",
+      "*": "allow"
+    }
+  },
+  "keybinds": {
+    "leader": "esc",
+    "session_interrupt": "ctrl+esc"
+  }
+}
