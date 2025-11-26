@@ -216,9 +216,17 @@ function unzip_all_charts {
   cd /tmp
 }
 
+function swap {
+  local target=${1:-1}
+  tmux swap-window -t "$target"
+  tmux select-window -t "$target"
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # zprof # Should be at the end of .zshrc
 
 # bun completions
 [ -s "/Users/mathieu/.bun/_bun" ] && source "/Users/mathieu/.bun/_bun"
+# Source the tmux swap function
+source ~/.zshrc.d/tmux-swap.zsh
