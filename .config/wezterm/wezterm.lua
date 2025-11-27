@@ -10,6 +10,18 @@ config.window_decorations = "RESIZE"
 
 config.hide_tab_bar_if_only_one_tab = true
 
+-- Bypass tmux mouse reporting when holding SUPER (Cmd) so links work
+config.bypass_mouse_reporting_modifiers = 'SUPER'
+
+-- Explicit mouse binding for opening hyperlinks with Cmd+Click
+config.mouse_bindings = {
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'SUPER',
+    action = act.OpenLinkAtMouseCursor,
+  },
+}
+
 -- if tmux == true then
 config.keys = {
   { key = '1', mods = 'SUPER', action = act.SendString '\x01\x31' },

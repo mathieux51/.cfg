@@ -79,7 +79,6 @@ alias vi='nvim'
 # https://github.com/tpope/vim-unimpaired/blob/e52cb4d77fae016639dba005c44e86722498ab3c/doc/unimpaired.txt#L36
 # alias vi='stty stop '' -ixoff; nvim'
 alias k='kubectl'
-alias context='kubectx'
 alias t='tofu'
 # alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 alias firefox='/Applications/Firefox.app/Contents/MacOS/firefox'
@@ -107,9 +106,6 @@ alias gitc='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias zshrc='vi ~/.zshrc'
 alias zshenv='vi ~/.zshenv'
 alias vimrc='vi ~/.vimrc'
-# alias docker="lima nerdctl"
-# alias docker-compose="lima nerdctl compose"
-alias lc="limactl"
 alias g="cd .github/workflows"
 
 # functions
