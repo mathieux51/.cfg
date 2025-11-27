@@ -57,7 +57,7 @@ text = "#2e3440"
 size = 20.0
 
 [font.normal]
-family = "MonoLisa"
+family = "MonoLisa Nerd Font"
 
 [[keyboard.bindings]]
 chars = "\u00011"

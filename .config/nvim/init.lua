@@ -7,45 +7,44 @@ vim.opt.runtimepath:append("~/.vim/after")
 vim.opt.packpath = vim.opt.runtimepath:get()
 vim.cmd("source ~/.vimrc")
 
-local lsp_zero = require("lsp-zero")
 local cmp = require("cmp")
-local cmp_action = require("lsp-zero").cmp_action()
-local cmp_format = require("lsp-zero").cmp_format({ details = true })
-local lspconfig = require("lspconfig")
+local lsp_zero = require("lsp-zero")
+local cmp_action = lsp_zero.cmp_action()
+local cmp_format = lsp_zero.cmp_format({ details = true })
 
 -- indent lines
 require("ibl").setup()
 
-lsp_zero.on_attach(function(client, bufnr)
-	-- see :help lsp-zero-keybindings
-	-- to learn the available actions
-	lsp_zero.default_keymaps({ buffer = bufnr })
-
-	-- Additional keymaps
-	local opts = { buffer = bufnr, remap = false }
-	vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-	vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-	vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-	vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-	vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-	vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-	vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-	vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-	vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-	vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-end)
-
--- LSP Server configurations
--- Terraform
-lspconfig.terraformls.setup({
-	on_attach = lsp_zero.on_attach,
-	capabilities = lsp_zero.get_capabilities(),
+-- LSP keymaps on attach
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(event)
+		local opts = { buffer = event.buf, remap = false }
+		vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+		vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+		vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+		vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+		vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+		vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+		vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+		vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+		vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+		vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+	end,
 })
 
+-- LSP Server configurations using vim.lsp.config (Neovim 0.11+)
+-- Terraform
+vim.lsp.config.terraformls = {
+	cmd = { "terraform-ls", "serve" },
+	filetypes = { "terraform", "terraform-vars" },
+	root_markers = { ".terraform", ".git" },
+}
+
 -- Go
-lspconfig.gopls.setup({
-	on_attach = lsp_zero.on_attach,
-	capabilities = lsp_zero.get_capabilities(),
+vim.lsp.config.gopls = {
+	cmd = { "gopls" },
+	filetypes = { "go", "gomod", "gowork", "gotmpl" },
+	root_markers = { "go.work", "go.mod", ".git" },
 	settings = {
 		gopls = {
 			completeUnimported = true,
@@ -55,18 +54,19 @@ lspconfig.gopls.setup({
 			},
 		},
 	},
-})
+}
 
 -- JSON
-lspconfig.jsonls.setup({
-	on_attach = lsp_zero.on_attach,
-	capabilities = lsp_zero.get_capabilities(),
-})
+vim.lsp.config.jsonls = {
+	cmd = { "vscode-json-language-server", "--stdio" },
+	filetypes = { "json", "jsonc" },
+}
 
 -- Python
-lspconfig.pyright.setup({
-	on_attach = lsp_zero.on_attach,
-	capabilities = lsp_zero.get_capabilities(),
+vim.lsp.config.pyright = {
+	cmd = { "pyright-langserver", "--stdio" },
+	filetypes = { "python" },
+	root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json", ".git" },
 	settings = {
 		python = {
 			analysis = {
@@ -76,35 +76,41 @@ lspconfig.pyright.setup({
 			},
 		},
 	},
-})
+}
 
 -- TypeScript/JavaScript
-lspconfig.ts_ls.setup({
-	on_attach = lsp_zero.on_attach,
-	capabilities = lsp_zero.get_capabilities(),
-})
+vim.lsp.config.ts_ls = {
+	cmd = { "typescript-language-server", "--stdio" },
+	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+	root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+}
 
-lspconfig.eslint.setup({
-	on_attach = lsp_zero.on_attach,
-	capabilities = lsp_zero.get_capabilities(),
-})
+-- ESLint
+vim.lsp.config.eslint = {
+	cmd = { "vscode-eslint-language-server", "--stdio" },
+	filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" },
+	root_markers = { ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.yaml", ".eslintrc.yml", ".eslintrc.json", "eslint.config.js", "eslint.config.mjs", "eslint.config.cjs" },
+}
 
 -- Rego (Open Policy Agent)
-lspconfig.regal.setup({
-	on_attach = lsp_zero.on_attach,
-	capabilities = lsp_zero.get_capabilities(),
-})
+vim.lsp.config.regal = {
+	cmd = { "regal", "language-server" },
+	filetypes = { "rego" },
+	root_markers = { ".regal", ".git" },
+}
 
 -- Ruby
-lspconfig.ruby_lsp.setup({
-	on_attach = lsp_zero.on_attach,
-	capabilities = lsp_zero.get_capabilities(),
-})
+vim.lsp.config.ruby_lsp = {
+	cmd = { "ruby-lsp" },
+	filetypes = { "ruby" },
+	root_markers = { "Gemfile", ".git" },
+}
 
 -- Helm
-lspconfig.helm_ls.setup({
-	on_attach = lsp_zero.on_attach,
-	capabilities = lsp_zero.get_capabilities(),
+vim.lsp.config.helm_ls = {
+	cmd = { "helm_ls", "serve" },
+	filetypes = { "helm" },
+	root_markers = { "Chart.yaml" },
 	settings = {
 		["helm-ls"] = {
 			yamlls = {
@@ -112,18 +118,34 @@ lspconfig.helm_ls.setup({
 			},
 		},
 	},
-})
+}
 
 -- Bash
-lspconfig.bashls.setup({
-	on_attach = lsp_zero.on_attach,
-	capabilities = lsp_zero.get_capabilities(),
-})
+vim.lsp.config.bashls = {
+	cmd = { "bash-language-server", "start" },
+	filetypes = { "sh", "bash" },
+}
 
 -- Dart
-lspconfig.dartls.setup({
-	on_attach = lsp_zero.on_attach,
-	capabilities = lsp_zero.get_capabilities(),
+vim.lsp.config.dartls = {
+	cmd = { "dart", "language-server", "--protocol=lsp" },
+	filetypes = { "dart" },
+	root_markers = { "pubspec.yaml", ".git" },
+}
+
+-- Enable all configured LSP servers
+vim.lsp.enable({
+	"terraformls",
+	"gopls",
+	"jsonls",
+	"pyright",
+	"ts_ls",
+	"eslint",
+	"regal",
+	"ruby_lsp",
+	"helm_ls",
+	"bashls",
+	"dartls",
 })
 
 -- Claude via Copilot configuration

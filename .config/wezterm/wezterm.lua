@@ -3,7 +3,7 @@ local act = wezterm.action
 local config = wezterm.config_builder()
 
 config.color_scheme = 'nord'
-config.font = wezterm.font('MonoLisa', { weight = 'Medium'})
+config.font = wezterm.font('MonoLisa Nerd Font', { weight = 'Regular'})
 config.font_size = 21.0
 
 config.window_decorations = "RESIZE"

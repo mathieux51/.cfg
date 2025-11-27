@@ -150,6 +150,9 @@ export fpath=($fpath ~/.zsh/completions)
 # complete -C '/opt/homebrew/bin/aws_completer' aws
 # rg --generate complete-zsh > ~/.zsh/completions/_rg
 
+# bun completions
+[ -s "/Users/mathieu/.bun/_bun" ] && source "/Users/mathieu/.bun/_bun"
+
 # GCP
 function gcloud_completion {
   source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
@@ -225,8 +228,3 @@ function swap {
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # zprof # Should be at the end of .zshrc
-
-# bun completions
-[ -s "/Users/mathieu/.bun/_bun" ] && source "/Users/mathieu/.bun/_bun"
-# Source the tmux swap function
-source ~/.zshrc.d/tmux-swap.zsh
