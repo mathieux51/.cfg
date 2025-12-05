@@ -17,31 +17,5 @@
       "terraform*": "ask",
       "tofu destroy*": "deny"
     }
-  },
-  "provider": {
-    "llamacpp": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "llama.cpp",
-      "options": {
-        "baseURL": "http://127.0.0.1:8080/v1"
-      },
-      "models": {
-        "qwen3-14b": {
-          "name": "qwen3-14b"
-        }
-      }
-    },
-    "ollama": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "Ollama",
-      "options": {
-        "baseURL": "http://localhost:11434/v1"
-      },
-      "models": {
-        "mistral:latest": {
-          "name": "mistral:latest"
-        }
-      }
-    }
   }
 }

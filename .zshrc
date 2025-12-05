@@ -107,6 +107,7 @@ alias zshrc='vi ~/.zshrc'
 alias zshenv='vi ~/.zshenv'
 alias vimrc='vi ~/.vimrc'
 alias g="cd .github/workflows"
+alias "docker compose"="docker-compose"
 
 # functions
 function m {
