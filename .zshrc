@@ -95,7 +95,6 @@ alias terminalshare='ttyd --writable -t "theme=$(cat ~/.config/ttyd/theme.json |
 
 # alias i="git commit --interactive"
 alias pr='gh pr create -a mathieux51'
-alias prr='gh pr create -r TierMobility/operations -a mathieux51'
 alias prv='gh pr view -w'
 alias prm='gh pr merge --squash --delete-branch && git pull'
 # Notification when done
@@ -110,9 +109,9 @@ alias g="cd .github/workflows"
 alias "docker compose"="docker-compose"
 
 # functions
-function m {
-  git commit --no-verify -m "$2" -m "ref https://linear.app/enternow/issue/$1"
-}
+# function m {
+#   git commit --no-verify -m "$2" -m "ref https://linear.app/enternow/issue/$1"
+# }
 
 function gocov {
   mkdir -p temp
@@ -140,9 +139,7 @@ function unlock {
 
 # completion
 export fpath=($fpath ~/.zsh/completions)
-# circleci completion zsh > ~/.zsh/completions/_circleci
 # argocd completion zsh > ~/.zsh/completions/_argocd
-# confluent completion zsh > ~/.zsh/completions/_confluent
 # k9s completion zsh > ~/.zsh/completions/_k9s
 # complete -C '/opt/homebrew/bin/aws_completer' aws
 # rg --generate complete-zsh > ~/.zsh/completions/_rg
@@ -180,7 +177,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 function codesync {
   ORG="${1-baupal}"
-  # ghorg clone TierMobility --token=$GITHUB_TOKEN --skip-archived --skip-forks --concurrency=50 &
   ghorg clone "$ORG" --token=$GHORG_GITHUB_TOKEN --skip-archived --skip-forks --include-submodules --concurrency=50 &
   # ghorg clone all-groups --base-url=$GITLAB_URL --scm=gitlab --token=$GITLAB_TOKEN --skip-archived --concurrency=50 &
   wait
