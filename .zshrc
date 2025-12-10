@@ -71,8 +71,11 @@ eval "$(rbenv init - --no-rehash zsh)"
 # tfswitch
 export PATH="$PATH:/$HOME/bin"
 
+# gcloud
+export PATH="/opt/homebrew/share/google-cloud-sdk/bin:$PATH"
 
-alias b='~/ghorg/baupal'
+
+alias b='~/ghorg/resourcly'
 alias e='nvim'
 alias v='nvim'
 alias vi='nvim'
@@ -107,6 +110,7 @@ alias zshenv='vi ~/.zshenv'
 alias vimrc='vi ~/.vimrc'
 alias g="cd .github/workflows"
 alias "docker compose"="docker-compose"
+alias gam="/Users/mathieu/bin/gam7/gam"
 
 # functions
 # function m {

@@ -9,13 +9,14 @@
   "permission": {
     "bash": {
       "*": "allow",
-      "git commit*": "deny",
-      "git push*": "deny",
-      "kubectl apply*": "deny",
-      "kubectl patch*": "deny",
-      "helm upgrade*": "deny",
+      "git commit*": "ask",
+      "git push*": "ask",
+      "kubectl apply*": "ask",
+      "kubectl patch*": "ask",
+      "helm upgrade*": "ask",
       "terraform*": "ask",
-      "tofu destroy*": "deny"
+      "tofu destroy*": "ask",
+      "tofu apply*": "ask"
     }
   }
 }
