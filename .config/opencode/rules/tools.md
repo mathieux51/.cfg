@@ -18,3 +18,8 @@ Always use `tofu` (OpenTofu) instead of `terraform`:
 - Use `tofu destroy` instead of `terraform destroy`
 - Use `tofu fmt` instead of `terraform fmt`
 - Use `tofu validate` instead of `terraform validate`
+
+# Sleep Rules
+
+- Avoid using `sleep` for more than 60 seconds (1 minute)
+- For longer waits, use polling or event-based approaches instead
