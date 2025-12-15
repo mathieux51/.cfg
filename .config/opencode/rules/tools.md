@@ -21,5 +21,6 @@ Always use `tofu` (OpenTofu) instead of `terraform`:
 
 # Sleep Rules
 
-- Avoid using `sleep` for more than 60 seconds (1 minute)
-- For longer waits, use polling or event-based approaches instead
+- NEVER use `sleep` for more than 60 seconds (1 minute). This is a hard requirement.
+- If you need to wait longer than 60 seconds, you MUST use polling with shorter intervals or event-based approaches instead
+- Example: Instead of `sleep 300`, use a loop like `for i in {1..5}; do sleep 60 && echo "Waited $i minute(s)..."; done`
