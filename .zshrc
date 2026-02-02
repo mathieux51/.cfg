@@ -111,6 +111,7 @@ alias vimrc='vi ~/.vimrc'
 alias g="cd .github/workflows"
 alias "docker compose"="docker-compose"
 alias gam="/Users/mathieu/bin/gam7/gam"
+alias pager="delta --syntax-theme=Nord --line-numbers --hunk-header-style=omit"
 
 # functions
 # function m {
