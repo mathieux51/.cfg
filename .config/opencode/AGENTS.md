@@ -77,3 +77,9 @@ Always reference Linear tickets in commit messages:
   Fixes ENG-123
   ```
 - If no Linear ticket exists for the work, ask if one should be created or if the commit should proceed without a reference
+
+# CI Rules
+
+- NEVER wait for CI pipelines to complete. After pushing changes or creating a PR, move on immediately.
+- Do not poll, watch, or monitor CI status.
+- Do not block on CI checks, build results, or test results from remote pipelines.
