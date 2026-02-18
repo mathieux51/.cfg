@@ -29,11 +29,13 @@ Always use `tofu` (OpenTofu) instead of `terraform`:
 
 Always use GCP Secret Manager to search for and retrieve secrets:
 
-- Use `gcloud secrets list` to list available secrets
+- When you need to find a secret or are unsure of its exact name, proactively run `gcloud secrets list --filter="<keyword>"` to search for it
+- Use `gcloud secrets list` to list all available secrets
 - Use `gcloud secrets versions access latest --secret=<SECRET_NAME>` to retrieve secret values
 - Use `gcloud secrets describe <SECRET_NAME>` to get secret metadata
 - Never hardcode secrets in code or configuration files
 - When a secret is needed, always check GCP Secret Manager first
+- If a task involves credentials, API keys, tokens, or any sensitive value, assume it is stored in GCP Secret Manager and search for it there before asking the user
 
 # Kubernetes Rules
 

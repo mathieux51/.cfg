@@ -8,6 +8,7 @@
   "permission": {
     "bash": {
       "*": "allow",
+      "gcloud secrets*": "allow",
       "git commit*": "ask",
       "git push*": "ask",
       "kubectl apply*": "ask",
