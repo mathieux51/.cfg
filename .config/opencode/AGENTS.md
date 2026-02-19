@@ -68,15 +68,15 @@ For large or complex tasks, document progress in the `docs/` folder:
 Always reference Linear tickets in commit messages:
 
 - Before creating a commit, ask for the Linear ticket link/ID if not already provided
-- Include the Linear ticket ID in the commit message description (e.g., `Fixes ENG-123` or `Relates to ENG-456`)
+- Include the Linear ticket ID in the commit message description (e.g., `ref ENG-123` or `related to ENG-456`)
 - Format: Use the ticket ID in the commit body, not just the title
 - Example commit message:
   ```
   feat: add user authentication flow
-  
+
   Implements OAuth2 login with Google provider.
-  
-  Fixes ENG-123
+
+  ref ENG-123
   ```
 - If no Linear ticket exists for the work, ask if one should be created or if the commit should proceed without a reference
 
