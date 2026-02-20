@@ -5,6 +5,15 @@
     "leader": "esc",
     "session_interrupt": "ctrl+esc"
   },
+  "lsp": {
+    "pyright": {
+      "disabled": true
+    },
+    "ty": {
+      "command": ["uvx", "ty", "server"],
+      "extensions": [".py", ".pyi"]
+    }
+  },
   "permission": {
     "bash": {
       "*": "allow",
