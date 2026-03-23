@@ -1,3 +1,7 @@
+# Writing Style Rules
+
+- NEVER use the em dash character. Replace all em dashes with periods, commas, or natural sentence structures. Use regular punctuation throughout.
+
 # Python Rules
 
 Always use `uv` for Python operations:
