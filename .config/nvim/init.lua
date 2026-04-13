@@ -7,6 +7,12 @@ vim.opt.runtimepath:append("~/.vim/after")
 vim.opt.packpath = vim.opt.runtimepath:get()
 vim.cmd("source ~/.vimrc")
 
+-- Disable unused providers to suppress warnings
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 local cmp = require("cmp")
 local lsp_zero = require("lsp-zero")
 local cmp_action = lsp_zero.cmp_action()
@@ -33,14 +39,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- LSP Server configurations using vim.lsp.config (Neovim 0.11+)
--- Terraform
-vim.lsp.config.terraformls = {
-	cmd = { "terraform-ls", "serve" },
-	filetypes = { "terraform", "terraform-vars" },
-	root_markers = { ".terraform", ".git" },
-}
+-- Helper function to check if executable exists
+local function executable_exists(name)
+	return vim.fn.executable(name) == 1
+end
 
--- Go
+-- Go (always configure, check at enable time)
 vim.lsp.config.gopls = {
 	cmd = { "gopls" },
 	filetypes = { "go", "gomod", "gowork", "gotmpl" },
@@ -54,6 +58,13 @@ vim.lsp.config.gopls = {
 			},
 		},
 	},
+}
+
+-- Terraform
+vim.lsp.config.terraformls = {
+	cmd = { "terraform-ls", "serve" },
+	filetypes = { "terraform", "terraform-vars" },
+	root_markers = { ".terraform", ".git" },
 }
 
 -- JSON
@@ -133,20 +144,31 @@ vim.lsp.config.dartls = {
 	root_markers = { "pubspec.yaml", ".git" },
 }
 
--- Enable all configured LSP servers
-vim.lsp.enable({
-	"terraformls",
-	"gopls",
-	"jsonls",
-	"pyright",
-	"ts_ls",
-	"eslint",
-	"regal",
-	"ruby_lsp",
-	"helm_ls",
-	"bashls",
-	"dartls",
-})
+-- Enable only LSP servers that are installed
+local servers_to_enable = {}
+local server_executables = {
+	gopls = "gopls",
+	terraformls = "terraform-ls",
+	jsonls = "vscode-json-language-server",
+	pyright = "pyright-langserver",
+	ts_ls = "typescript-language-server",
+	eslint = "vscode-eslint-language-server",
+	regal = "regal",
+	ruby_lsp = "ruby-lsp",
+	helm_ls = "helm_ls",
+	bashls = "bash-language-server",
+	dartls = "dart",
+}
+
+for server, executable in pairs(server_executables) do
+	if executable_exists(executable) then
+		table.insert(servers_to_enable, server)
+	end
+end
+
+if #servers_to_enable > 0 then
+	vim.lsp.enable(servers_to_enable)
+end
 
 -- Claude via Copilot configuration
 local claude_model = "claude-3.5-sonnet"
