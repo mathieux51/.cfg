@@ -1,17 +1,28 @@
-export const NotificationPlugin = async ({ $, client }) => {
+// Fires a macOS notification only when opencode is waiting on the user:
+//   - permission.asked: a gated bash command, edit, etc. needs approval
+//   - question.asked:   the agent is asking a multiple-choice question
+export const NotificationPlugin = async ({ $ }) => {
+  const notify = async (message) => {
+    try {
+      await $`osascript -e ${`display notification "${message}" with title "OpenCode" sound name "default"`}`
+    } catch {
+      // ignore notification failures
+    }
+  }
+
   return {
     event: async ({ event }) => {
-      if (event.type === "session.idle") {
-        const session = await client.sessionGet({ path: { id: event.properties.sessionID } })
-        if (session.data?.parentID) return
-        await $`osascript -e 'display notification "Ready for input" with title "OpenCode" sound name "default"'`
+      if (event.type === "permission.asked") {
+        const title = event.properties?.title || event.properties?.type || "approval"
+        await notify(`Waiting for approval: ${title}`)
+        return
       }
-      if (event.type === "session.error") {
-        if (event.properties.sessionID) {
-          const session = await client.sessionGet({ path: { id: event.properties.sessionID } })
-          if (session.data?.parentID) return
-        }
-        await $`osascript -e 'display notification "An error occurred" with title "OpenCode" sound name "Basso"'`
+
+      if (event.type === "question.asked") {
+        const first = event.properties?.questions?.[0]
+        const label = first?.header || first?.question || "input"
+        await notify(`Question needs input: ${label}`)
+        return
       }
     },
   }

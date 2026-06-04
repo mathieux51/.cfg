@@ -1,11 +1,21 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "plugin": ["@tarquinen/opencode-dcp@latest", "opencode-pty"],
+  "instructions": ["~/.config/opencode/plugin/shell-strategy/shell_strategy.md"],
+  "tool_output": {
+    "max_lines": 500,
+    "max_bytes": 40000
+  },
+  "compaction": {
+    "auto": true,
+    "tail_turns": 30
+  },
   "lsp": {
     "pyright": {
       "disabled": true
     },
     "ty": {
-      "command": ["uvx", "ty", "server"],
+      "command": ["sh", "-c", "root=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; if [ -f \"$root/core/ty.toml\" ]; then cd \"$root/core\"; else cd \"$root\"; fi; exec uvx ty server"],
       "extensions": [".py", ".pyi"]
     }
   },
