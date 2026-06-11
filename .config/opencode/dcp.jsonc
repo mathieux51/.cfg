@@ -9,8 +9,14 @@
     "mode": "range",
     "permission": "allow",
     "summaryBuffer": true,
-    "maxContextLimit": "72%",
-    "minContextLimit": "45%",
+    "maxContextLimit": "55%",
+    "minContextLimit": "35%",
+    "modelMaxLimits": {
+      "github-copilot/claude-opus-4.8": 110000
+    },
+    "modelMinLimits": {
+      "github-copilot/claude-opus-4.8": 80000
+    },
     "protectUserMessages": true
   },
   "strategies": {

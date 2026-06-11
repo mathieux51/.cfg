@@ -226,3 +226,6 @@ function swap {
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # zprof # Should be at the end of .zshrc
+
+# Fix AWS CLI pyexpat/libexpat compatibility issue with Python 3.14
+export DYLD_LIBRARY_PATH="/opt/homebrew/opt/expat/lib${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"

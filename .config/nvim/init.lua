@@ -13,6 +13,11 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 
+-- Fix GBrowse netrw#BrowseX error (Neovim 0.10+)
+vim.api.nvim_create_user_command("Browse", function(opts)
+	vim.ui.open(opts.fargs[1])
+end, { nargs = 1 })
+
 local cmp = require("cmp")
 local lsp_zero = require("lsp-zero")
 local cmp_action = lsp_zero.cmp_action()
@@ -239,7 +244,6 @@ cmp.setup({
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "copilot" },
-		{ name = "rg" },
 		{ name = "path" },
 		{ name = "nvim_lsp_signature_help" },
 	},
