@@ -1,0 +1,16 @@
+# Ignore everything by default — only versioned config / customization opts in.
+*
+
+# Allow this gitignore itself.
+!.gitignore
+
+# Static config (safe for public repo).
+!settings.json
+!CLAUDE.md
+!keybindings.json
+
+# Customization directories (contents tracked).
+!agents/
+!commands/
+!skills/
+!output-styles/
