@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "Edit(*)",
+      "Read(*)",
+      "Write(*)",
+      "WebFetch(*)",
+      "TodoRead(*)",
+      "TodoWrite(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "LS(*)"
+    ],
+    "ask": [
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(kubectl apply *)",
+      "Bash(kubectl patch *)",
+      "Bash(helm upgrade *)",
+      "Bash(terraform *)",
+      "Bash(tofu destroy *)",
+      "Bash(tofu apply *)"
+    ],
+    "defaultMode": "auto",
+    "additionalDirectories": [
+      "/tmp"
+    ]
+  },
+  "model": "claude-opus-4-7",
+  "attribution": {
+    "commit": ""
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "MSG=\"$(jq -r '.message // \"\"')\"; echo \"$MSG\" | grep -qiE 'permission|approval|needs your' && MSG=\"$MSG\" osascript -e 'display notification (system attribute \"MSG\") with title \"Claude Code\" sound name \"Ping\"'; true"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude is waiting for you\" with title \"Claude Code\" sound name \"Ping\"'"
+          }
+        ]
+      }
+    ]
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
+  },
+  "outputStyle": "concise",
+  "viewMode": "verbose",
+  "spinnerTipsEnabled": false,
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "Working"
+    ]
+  },
+  "effortLevel": "high",
+  "awaySummaryEnabled": false,
+  "tui": "fullscreen",
+  "prefersReducedMotion": true,
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark-ansi",
+  "editorMode": "vim",
+  "showTurnDuration": false,
+  "terminalProgressBarEnabled": false
+}
