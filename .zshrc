@@ -26,16 +26,39 @@ export LANG=en_US.UTF-8
 #
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # npm docker docker-compose golang rust rustup gh
-plugins=(colorize zsh-completions zsh-autosuggestions terraform aws kubectl zsh-vi-mode helm git-auto-fetch z)
+plugins=(colorize zsh-completions zsh-autosuggestions terraform aws kubectl helm git-auto-fetch z)
+
+# Avoid the slow per-keystroke widget rebind that zsh-autosuggestions does by
+# default; rebind once at startup instead. Cuts typing latency noticeably.
+export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source $ZSH/oh-my-zsh.sh
 
-# configure zsh-vi-mode
-export ZVM_CURSOR_STYLE_ENABLED=true
-export ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BEAM
-export ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
-export ZVM_VI_HIGHLIGHT_FOREGROUND=#2E3440      # Nord0 - almost black
-export ZVM_VI_HIGHLIGHT_BACKGROUND=#88C0D0      # Nord8 - Frost blue
-export ZVM_VI_HIGHLIGHT_EXTRASTYLE=bold         # Extra: make it bold
+# vi keybindings without the heavy zsh-vi-mode plugin (it adds per-keystroke lag)
+bindkey -v
+# Kill the 0.4s ESC delay so insert<->normal switching is instant
+export KEYTIMEOUT=1
+
+# Cursor shape per mode: beam in insert, block in normal (no plugin, no overhead)
+function zle-keymap-select zle-line-init {
+  case ${KEYMAP} in
+    vicmd)      printf '\e[2 q' ;;  # block
+    main|viins) printf '\e[6 q' ;;  # beam
+  esac
+}
+zle -N zle-keymap-select
+zle -N zle-line-init
+# Reset to beam at each new prompt
+function zle-line-finish { printf '\e[6 q'; }
+zle -N zle-line-finish
+
+# Restore the editing keys vi mode drops (history search, ^A/^E, backspace fixes)
+bindkey '^R' history-incremental-search-backward
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+bindkey '^?' backward-delete-char   # backspace past insert point
+bindkey '^H' backward-delete-char
+bindkey -M vicmd 'k' up-line-or-search
+bindkey -M vicmd 'j' down-line-or-search
 
 # aliases
 #
@@ -88,6 +111,7 @@ alias firefox='/Applications/Firefox.app/Contents/MacOS/firefox'
 alias s='git status -b --show-stash'
 alias l='git log --color'
 alias d='git diff HEAD'
+alias du='git -c delta.side-by-side=false diff HEAD'
 alias ds='git diff HEAD --staged'
 alias dss='git --no-pager diff HEAD --staged'
 # alias m='git commit --no-verify -m'

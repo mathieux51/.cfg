@@ -1,5 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "attribution": {
+    "commit": ""
+  },
+  "env": {
+    "DISABLE_AUTOUPDATER": "1"
+  },
   "permissions": {
     "allow": [
       "Bash(*)",
@@ -11,7 +17,8 @@
       "TodoWrite(*)",
       "Glob(*)",
       "Grep(*)",
-      "LS(*)"
+      "LS(*)",
+      "Monitor(*)"
     ],
     "ask": [
       "Bash(git commit *)",
@@ -28,10 +35,7 @@
       "/tmp"
     ]
   },
-  "model": "claude-opus-4-7",
-  "attribution": {
-    "commit": ""
-  },
+  "model": "opus[1m]",
   "hooks": {
     "Notification": [
       {
@@ -39,7 +43,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "MSG=\"$(jq -r '.message // \"\"')\"; echo \"$MSG\" | grep -qiE 'permission|approval|needs your' && MSG=\"$MSG\" osascript -e 'display notification (system attribute \"MSG\") with title \"Claude Code\" sound name \"Ping\"'; true"
+            "command": "JSON=\"$(cat)\"; MSG=\"$(echo \"$JSON\" | jq -r '.message // \"\"')\"; echo \"$MSG\" | grep -qiE 'permission|approval|needs your' || exit 0; SID=\"$(echo \"$JSON\" | jq -r '.session_id // \"\"')\"; NAME=\"$(jq -rs --arg sid \"$SID\" 'map(select(.sessionId == $sid)) | .[0].name // \"Claude\"' ~/.claude/sessions/*.json 2>/dev/null)\"; MSG=\"[$NAME] $MSG\" osascript -e 'display notification (system attribute \"MSG\") with title \"Claude Code\" sound name \"Ping\"'; true"
           }
         ]
       }
@@ -50,11 +54,14 @@
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"Claude is waiting for you\" with title \"Claude Code\" sound name \"Ping\"'"
+            "command": "SID=\"$(jq -r '.session_id // \"\"')\"; NAME=\"$(jq -rs --arg sid \"$SID\" 'map(select(.sessionId == $sid)) | .[0].name // \"Claude\"' ~/.claude/sessions/*.json 2>/dev/null)\"; MSG=\"$NAME is waiting\" osascript -e 'display notification (system attribute \"MSG\") with title \"Claude Code\" sound name \"Ping\"'; true"
           }
         ]
       }
     ]
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -80,6 +87,11 @@
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark-ansi",
   "editorMode": "vim",
+  "statusLine": {
+    "type": "command",
+    "command": "/Users/mathieu/.claude/statusline.sh",
+    "refreshInterval": 10
+  },
   "showTurnDuration": false,
   "terminalProgressBarEnabled": false
 }

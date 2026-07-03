@@ -23,6 +23,12 @@ Always use `tofu` (OpenTofu) instead of `terraform`:
 - Use `tofu fmt` instead of `terraform fmt`
 - Use `tofu validate` instead of `terraform validate`
 
+# Background Execution Rules
+
+- Prefer `run_in_background: true` for any Bash command expected to take more than a few seconds (servers, builds, dev watchers, migrations, deploys, CI polls, package installs, long tests).
+- Short, output-driven commands (`git status`, `ls`, `jq`, `cat`-replacements, `grep`, file reads) stay foreground since their output is needed immediately to decide next steps.
+- When backgrounding, surface the task ID/PID so the user can attach or monitor.
+
 # Sleep Rules
 
 - NEVER use `sleep` for more than 60 seconds (1 minute). This is a hard requirement.
@@ -85,6 +91,15 @@ Always reference Linear tickets in commit messages:
 - If no Linear ticket exists for the work, ask if one should be created or if the commit should proceed without a reference
 
 Never add Co-Authored-By trailers or "Generated with Claude Code" lines to commits. The committer must be the user's git identity (mathieux51) only. Strip any default attribution Claude Code would add.
+
+# Trunk-Based Development
+
+This project uses trunk-based development. Apply these rules to every repo unless the user says otherwise:
+
+- Commit directly on `main`. Do not create feature branches.
+- Push commits to `origin main` immediately after they succeed (only when the user asked for the commit). Do not batch.
+- Never open a pull request. Skip Claude Code's built-in "create PR" workflow entirely. If asked to "make a PR", interpret it as "commit + push".
+- If a push fails (non-fast-forward, hook rejection, permission), surface the error and ask before retrying. Never force-push.
 
 # CI Rules
 
