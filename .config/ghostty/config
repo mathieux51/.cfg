@@ -1,0 +1,114 @@
+# Ghostty, configured to match ~/.config/wezterm/wezterm.lua as closely as the
+# two emulators allow. Anything WezTerm did through Lua that Ghostty has no
+# equivalent for is noted below rather than silently dropped.
+
+# ---------------------------------------------------------------- colors ----
+
+# Ghostty's bundled Nord is byte-identical to WezTerm's builtin `nord` except
+# for bright-black, so take the theme and override that one slot. Without this
+# every dim/comment color (tmux status, vim line numbers) sits a shade lighter
+# than it does in WezTerm.
+theme = Nord
+palette = 8=#4c566a
+
+# ------------------------------------------------------------------ font ----
+
+font-family = MonoLisa Nerd Font
+font-size = 21
+
+# WezTerm pads by 1 cell left/right and half a cell top/bottom. MonoLisa at 21pt
+# measures 13.44pt wide by 28.98pt tall, so those defaults work out to these
+# numbers. Ghostty's own default is 2pt, which would park text on the window edge.
+window-padding-x = 13
+window-padding-y = 14
+
+# ---------------------------------------------------------------- cursor ----
+
+# Start new surfaces with a beam (WezTerm's SteadyBar), matching zsh vi insert
+# mode, so there's no block->beam flash before zle-line-init runs. zsh still
+# flips to a block in vi normal mode via DECSCUSR escapes in ~/.zshrc.
+cursor-style = bar
+cursor-style-blink = false
+
+# ---------------------------------------------------------------- window ----
+
+# WezTerm's window_decorations = "RESIZE": no titlebar, no traffic lights, still
+# resizable. Ghostty spells that as a hidden titlebar.
+macos-titlebar-style = hidden
+
+# WezTerm's hide_tab_bar_if_only_one_tab.
+window-show-tab-bar = auto
+
+# The confirm=false on WezTerm's CloseCurrentTab binding below.
+confirm-close-surface = false
+
+# WezTerm defaults that Ghostty defaults differently. Flip either back if the
+# WezTerm behavior was not actually what you wanted.
+mouse-hide-while-typing = true
+quit-after-last-window-closed = true
+
+# Not portable from the WezTerm config, and not needed:
+#   front_end = 'WebGpu'  -> Ghostty is always Metal on macOS.
+#   max_fps = 60          -> window-vsync (on by default) already caps frames at
+#                            the panel's refresh rate, which is what the 60 was for.
+#   bypass_mouse_reporting_modifiers + the Cmd+Click mouse binding -> Ghostty
+#                            opens links on Cmd+Click natively, through tmux's
+#                            mouse reporting, with link-url on by default.
+
+# ------------------------------------------------------------- keybindings ---
+
+# Byte-for-byte the strings the WezTerm config sent. \x01 is Ctrl-A, which is
+# tmux's prefix2 (`set -g prefix2 C-a`); the real prefix is C-Space.
+
+# Cmd+N -> prefix + N: select tmux window N. Note that Ghostty only treats
+# a # as a comment at the start of a line, so none of these can be annotated
+# inline: a trailing comment ends up inside the string that gets typed.
+#
+# Each digit has to be bound twice. Ghostty ships BOTH a logical `super+N` and a
+# physical `super+digit_N` binding for goto_tab (digit_1..digit_8), and the
+# physical one wins. Overriding only `super+N` leaves Cmd+1 switching Ghostty
+# tabs instead of tmux windows. Ghostty has no physical digit_9 default, but bind
+# it anyway so all nine behave identically on any keyboard layout.
+keybind = super+1=text:\x01\x31
+keybind = super+digit_1=text:\x01\x31
+keybind = super+2=text:\x01\x32
+keybind = super+digit_2=text:\x01\x32
+keybind = super+3=text:\x01\x33
+keybind = super+digit_3=text:\x01\x33
+keybind = super+4=text:\x01\x34
+keybind = super+digit_4=text:\x01\x34
+keybind = super+5=text:\x01\x35
+keybind = super+digit_5=text:\x01\x35
+keybind = super+6=text:\x01\x36
+keybind = super+digit_6=text:\x01\x36
+keybind = super+7=text:\x01\x37
+keybind = super+digit_7=text:\x01\x37
+keybind = super+8=text:\x01\x38
+keybind = super+digit_8=text:\x01\x38
+keybind = super+9=text:\x01\x39
+keybind = super+digit_9=text:\x01\x39
+
+# prefix + c: new tmux window
+keybind = super+t=text:\x01\x63
+# prefix + &: kill tmux window
+keybind = super+w=text:\x01\x26
+# prefix + [ then ?: enter copy-mode and search backwards
+keybind = super+f=text:\x01\x5b\x3f
+# literal "exit" + Return, no prefix
+keybind = super+e=text:\x65\x78\x69\x74\x0a
+# prefix + I: tpm install plugins
+keybind = super+shift+i=text:\x01\x49
+
+# prefix + n / prefix + p: next and previous tmux window
+keybind = ctrl+tab=text:\x01\x6e
+keybind = ctrl+shift+tab=text:\x01\x70
+
+keybind = super+shift+w=close_tab
+
+# Speak the selection aloud. WezTerm did this with a Lua callback that dumped the
+# selection to a file and shelled out to ~/.local/bin/speak; Ghostty has no
+# scripting, so go through the prefix + S binding ~/.tmux.conf already defines,
+# which pipes the tmux copy buffer to that same script. Same result under tmux,
+# because tmux owns the mouse selection anyway. Press again to stop. Outside
+# tmux this types a stray "S" instead.
+keybind = super+shift+s=text:\x01\x53
