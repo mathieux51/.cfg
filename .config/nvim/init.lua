@@ -18,13 +18,24 @@ vim.api.nvim_create_user_command("Browse", function(opts)
 	vim.ui.open(opts.fargs[1])
 end, { nargs = 1 })
 
-local cmp = require("cmp")
-local lsp_zero = require("lsp-zero")
-local cmp_action = lsp_zero.cmp_action()
-local cmp_format = lsp_zero.cmp_format({ details = true })
+-- Markdown: treesitter highlighting (render-markdown reads these queries) and
+-- in-buffer rendering. Browser preview via :MarkdownPreview (markdown-preview.nvim).
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function(event)
+		vim.treesitter.start()
+		vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>",
+			{ buffer = event.buf, desc = "Toggle markdown browser preview" })
+	end,
+})
+-- pcall so a fresh checkout (pre-:PlugInstall) still starts cleanly
+local rm_ok, render_markdown = pcall(require, "render-markdown")
+if rm_ok then
+	render_markdown.setup({})
+end
 
--- indent lines
-require("ibl").setup()
+-- indent-blankline (ibl) is set up asynchronously in load_completion_stack()
+-- below; it pulls in treesitter, so we keep it off the startup path.
 
 -- LSP keymaps on attach
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -175,10 +186,27 @@ if #servers_to_enable > 0 then
 	vim.lsp.enable(servers_to_enable)
 end
 
--- Claude via Copilot configuration
-local claude_model = "claude-3.5-sonnet"
+-- ---------------------------------------------------------------------------
+-- Async plugin loading: defer the completion + Copilot stack until AFTER the UI
+-- is drawn. copilot.lua spawns a Node language server on setup(), so keeping it
+-- off the startup path is what makes nvim open instantly (including Claude's
+-- Ctrl-g editor). LSP servers (vim.lsp.enable above) stay synchronous, so they
+-- still attach to the first buffer; only completion/Copilot arrive a beat later.
+-- ---------------------------------------------------------------------------
+local function load_completion_stack()
+	-- Pull the lazy (vim-plug {'on': []}) plugins onto the runtimepath first.
+	vim.fn["plug#load"]("LuaSnip", "copilot.lua", "copilot-cmp", "CopilotChat.nvim", "indent-blankline.nvim")
+	require("ibl").setup()
 
-require("copilot").setup({
+	local cmp = require("cmp")
+	local lsp_zero = require("lsp-zero")
+	local cmp_action = lsp_zero.cmp_action()
+	local cmp_format = lsp_zero.cmp_format({ details = true })
+
+	-- Claude via Copilot configuration
+	local claude_model = "claude-3.5-sonnet"
+
+	require("copilot").setup({
 	suggestion = {
 		enabled = false,
 		auto_trigger = false,
@@ -261,4 +289,14 @@ cmp.setup({
 			require("luasnip").lsp_expand(args.body)
 		end,
 	},
+})
+end
+
+-- Fire once, right after the first UI paint. The tiny delay lets the window
+-- appear before Node spins up; everything above stays on the fast startup path.
+vim.api.nvim_create_autocmd("UIEnter", {
+	once = true,
+	callback = function()
+		vim.defer_fn(load_completion_stack, 30)
+	end,
 })

@@ -26,21 +26,21 @@ if has('nvim')
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'L3MON4D3/LuaSnip'
+  Plug 'L3MON4D3/LuaSnip', {'on': []}
   Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
   Plug 'hrsh7th/cmp-path'
   Plug 'lukas-reineke/cmp-rg'
   
-  " AI - Claude via Copilot
-  Plug 'zbirenbaum/copilot.lua'
-  Plug 'zbirenbaum/copilot-cmp'
+  " AI - Claude via Copilot (loaded asynchronously after UI paint; see init.lua)
+  Plug 'zbirenbaum/copilot.lua', {'on': []}
+  Plug 'zbirenbaum/copilot-cmp', {'on': []}
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'CopilotC-Nvim/CopilotChat.nvim'
-  
-  " Visual enhancements
-  Plug 'lukas-reineke/indent-blankline.nvim'
+  Plug 'CopilotC-Nvim/CopilotChat.nvim', {'on': []}
+
+  " Visual enhancements (loaded asynchronously; pulls in treesitter)
+  Plug 'lukas-reineke/indent-blankline.nvim', {'on': []}
   
   " Language-specific
   Plug 'fatih/vim-go'
@@ -50,6 +50,10 @@ if has('nvim')
   Plug 'tpope/vim-markdown'
   Plug 'towolf/vim-helm'
   Plug 'samoshkin/vim-mergetool'
+
+  " Markdown preview: in-buffer rendering + browser live preview
+  Plug 'MeanderingProgrammer/render-markdown.nvim'
+  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown' }
 endif
 call plug#end()
 
@@ -129,4 +133,36 @@ if has('nvim')
   " Go
   let g:go_fmt_command = "goimports"
   let g:go_def_mapping_enabled = 0
+endif
+" Speak Selection
+" Terminal-side stand-in for the macOS Option+Esc hotkey, which reads nothing
+" inside WezTerm (no accessibility text is exposed). Uses the same
+" ~/.local/bin/speak script as the tmux and WezTerm bindings.
+" Visual  <leader>s : speak the selection      Normal <leader>s : stop speaking
+" Selecting in Vim rather than with the mouse avoids dragging in line numbers.
+if has('mac') || has('macunix')
+  function! s:Speak(text) abort
+    if a:text =~# '^\_s*$'
+      silent call system('pkill -x say')
+      return
+    endif
+    let l:file = tempname()
+    call writefile(split(a:text, "\n", 1), l:file)
+    " speak reads the file fully before backgrounding say, so rm is safe here.
+    silent call system(printf('(~/.local/bin/speak %s; rm -f %s) >/dev/null 2>&1 &',
+          \ shellescape(l:file), shellescape(l:file)))
+  endfunction
+
+  " Yank through register z explicitly: clipboard=unnamed[plus] means the
+  " unnamed register is the system clipboard, and this must not clobber it.
+  function! s:SpeakSelection() abort
+    let l:save = getreg('z')
+    let l:type = getregtype('z')
+    silent normal! gv"zy
+    call s:Speak(@z)
+    call setreg('z', l:save, l:type)
+  endfunction
+
+  xnoremap <silent> <leader>s :<C-u>call <SID>SpeakSelection()<CR>
+  nnoremap <silent> <leader>s :call <SID>Speak('')<CR>
 endif
