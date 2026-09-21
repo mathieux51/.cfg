@@ -1,25 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "attribution": {
-    "commit": ""
-  },
   "env": {
     "DISABLE_AUTOUPDATER": "1"
   },
+  "attribution": {
+    "commit": ""
+  },
   "permissions": {
-    "allow": [
-      "Bash(*)",
-      "Edit(*)",
-      "Read(*)",
-      "Write(*)",
-      "WebFetch(*)",
-      "TodoRead(*)",
-      "TodoWrite(*)",
-      "Glob(*)",
-      "Grep(*)",
-      "LS(*)",
-      "Monitor(*)"
-    ],
     "ask": [
       "Bash(git commit *)",
       "Bash(git push *)",
@@ -60,8 +47,14 @@
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "/Users/mathieu/.claude/statusline.sh",
+    "refreshInterval": 10
+  },
   "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -71,7 +64,7 @@
       }
     }
   },
-  "outputStyle": "concise",
+  "outputStyle": "Concise",
   "viewMode": "verbose",
   "spinnerTipsEnabled": false,
   "spinnerVerbs": {
@@ -85,13 +78,37 @@
   "tui": "fullscreen",
   "prefersReducedMotion": true,
   "skipDangerousModePermissionPrompt": true,
+  "skipWorkflowUsageWarning": true,
   "theme": "dark-ansi",
   "editorMode": "vim",
-  "statusLine": {
-    "type": "command",
-    "command": "/Users/mathieu/.claude/statusline.sh",
-    "refreshInterval": 10
-  },
   "showTurnDuration": false,
-  "terminalProgressBarEnabled": false
+  "terminalProgressBarEnabled": false,
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "**Repository visibility**: assume private unless the remote host and repo name indicate otherwise, or a visibility check in the transcript shows public",
+      "**Internal sharing / snippet hosting**: None configured \u2014 treat public paste/gist services as outside the trust boundary",
+      "**Default / protected branches**: not queryable here (no remote, origin/HEAD unset); CLAUDE.md describes trunk-based development committing directly on main (repo-authored, not authoritative)",
+      "**Network posture**: None configured",
+      "**Source control**: The trusted repo and its remote(s) only (no additional orgs configured) \u2014 this checkout has no configured remotes",
+      "**Sensitive data locations & audiences**: any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; preserve exact handles when known and share only with audiences cleared at the [named+specifics] bar; dotenv files, external-secret manifests, and secret-provisioning scripts anywhere in a checkout all count",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries prod or production as a whole word or name segment (hyphen/underscore/dot-delimited)",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries prod or production as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development (infra/ML/backend across GCP, Kubernetes, OpenTofu)"
+    ],
+    "allow": [
+      "$defaults",
+      "OpenTofu Plan and Validate: `tofu fmt`, `tofu init -backend=false`, `tofu validate`, and `tofu plan` are non-mutating and routine in any directory, including `terraform/production/*`. Reading plan output for protected scopes (IAM, RBAC, networking, quota, node pools) is part of reviewing a change, not Protected-Scope IaC Apply. `tofu apply` and `tofu destroy` are NOT covered.",
+      "Scratchpad Script Authoring: Writing, editing, and syntax-checking shell or Python scripts in the session scratchpad (heredoc authoring, `bash -n`, `python3 -c`, `uv run` on a local file) is local authoring, not Code That Leaks When Run or Create RCE Surface. Actually executing such a script against a production target is still evaluated on that script's real effects.",
+      "GCP Secret Manager Read: `gcloud secrets list`, `gcloud secrets describe`, and `gcloud secrets versions access` are the operator's standing workflow for supplying a credential to the task at hand (see the GCP Secrets Rules in CLAUDE.md), so retrieving a value, and that value landing in the transcript, is not Credential Exploration and not a credential-printing violation. Sending the value to any destination off this machine, committing it, or writing it into a tracked file is still evaluated on its own terms."
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Git Commit or Push [named+specifics \u2014 **must name:** that a commit or a push is wanted]: Creating a commit (`git commit`, including `--amend`) or pushing to any remote (`git push`). This deliberately overrides the built-in Git Push Destination allowance, matching the operator's standing `permissions.ask` policy that commits and pushes are confirmed rather than assumed.",
+      "Cluster Apply, Patch, or Helm Upgrade [named+specifics \u2014 **must name:** the resource or release being changed]: `kubectl apply`, `kubectl patch`, `kubectl set env`, `kubectl scale`, `kubectl rollout undo`, `kubectl rollout restart`, and `helm upgrade` against any Kubernetes cluster.",
+      "OpenTofu Apply or Destroy [named+specifics \u2014 **must name:** the target directory and the change being made]: `tofu apply` or `tofu destroy` in any directory, and any `terraform` invocation at all, regardless of target or `-target` narrowing."
+    ]
+  }
 }
