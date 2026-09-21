@@ -1,3 +1,6 @@
 .DS_Store
 .terraform.lock.hcl
 Chart.lock
+
+# opencode config carries a plaintext provider apiKey; keep it out of this public repo.
+.config/opencode/
