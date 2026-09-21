@@ -10,6 +10,7 @@
   preloadindex = true
 	excludesfile = /Users/mathieu/.gitignore_global
   editor = nvim
+	pager = delta
 [gc]
   auto = 256
 [user]
@@ -25,7 +26,7 @@
   cmd = vim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
   trustExitCode = true
 [diff]
-	tool = vimdiff
+	tool = nvimdiff
 [rerere]
 	enabled = true
 [push]
@@ -43,3 +44,20 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[difftool]
+	prompt = false
+[delta]
+	side-by-side = true
+	line-numbers = true
+	navigate = true
+	syntax-theme = Nord
+	minus-style = "syntax \"#3b2c30\""
+	minus-emph-style = "syntax \"#5e2f3a\""
+	plus-style = "syntax \"#2c352c\""
+	plus-emph-style = "syntax \"#385438\""
+	line-numbers-minus-style = "\"#bf616a\""
+	line-numbers-zero-style = "\"#4c566a\""
+	line-numbers-plus-style = "\"#a3be8c\""
+	file-style = "\"#88c0d0\" bold"
+	hunk-header-style = "\"#81a1c1\""
+	hunk-header-decoration-style = "\"#4c566a\""
