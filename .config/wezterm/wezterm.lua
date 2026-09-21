@@ -6,7 +6,18 @@ config.color_scheme = 'nord'
 config.font = wezterm.font('MonoLisa Nerd Font', { weight = 'Regular'})
 config.font_size = 21.0
 
+-- Use the Metal-backed GPU frontend. Cap frames at the panel's actual refresh
+-- rate (the DELL U2419H is 60Hz); anything higher just doubles the WindowServer
+-- composite load for frames the display can never show.
+config.front_end = 'WebGpu'
+config.max_fps = 60
+
 config.window_decorations = "RESIZE"
+
+-- Start new panes/tabs with a beam cursor (matches zsh vi insert mode), so there's
+-- no block->beam flash before zle-line-init runs. zsh still flips to a block in
+-- vi normal mode via DECSCUSR escapes in ~/.zshrc.
+config.default_cursor_style = 'SteadyBar'
 
 config.hide_tab_bar_if_only_one_tab = true
 
@@ -46,5 +57,30 @@ config.keys = {
 -- config.enable_tab_bar = false
 
 -- config.term = 'xterm-256color'
+
+-- Speak the current selection aloud, the terminal-side stand-in for the macOS
+-- "Speak selection" hotkey (Option+Esc). That hotkey reads nothing here because
+-- WezTerm exposes no accessibility text to macOS, so hand the selection over
+-- explicitly. Cmd+Shift+S speaks; press it again while talking to stop.
+local speak_file = '/tmp/wezterm-speak.txt'
+local speak_bin = os.getenv('HOME') .. '/.local/bin/speak'
+
+wezterm.on('speak-selection', function(window, pane)
+  local sel = window:get_selection_text_for_pane(pane) or ''
+  local f = io.open(speak_file, 'w')
+  if f then
+    f:write(sel)
+    f:close()
+  end
+  -- An empty file makes ~/.local/bin/speak fall back to the tmux copy buffer,
+  -- which is where a plain mouse drag lands while tmux owns mouse reporting.
+  wezterm.background_child_process({ speak_bin, speak_file })
+end)
+
+table.insert(config.keys, {
+  key = 's',
+  mods = 'SUPER|SHIFT',
+  action = act.EmitEvent 'speak-selection',
+})
 
 return config
