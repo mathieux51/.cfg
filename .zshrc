@@ -341,6 +341,19 @@ alias d='git diff HEAD'
 alias du='git -c delta.side-by-side=false diff HEAD'
 alias ds='git diff HEAD --staged'
 alias dss='git --no-pager diff HEAD --staged'
+# difftastic: syntax-aware diff, code only (markdown/tables read better via delta)
+alias dt='git dft HEAD'
+alias dtu='DFT_DISPLAY=inline git dft HEAD'
+alias dts='git dft HEAD --staged'
+alias dtss='git --no-pager dft HEAD --staged'
+alias dtl='git dfl -3'
+# nvim review (vim-fugitive): each changed file in its own tab, gt/gT to cycle
+alias dv='nvim -c "Git difftool -y HEAD" -c "silent! 1tabclose"'
+alias dvs='nvim -c "Git difftool -y --staged" -c "silent! 1tabclose"'
+alias dvu='nvim -c "Git --paginate diff HEAD"'
+alias dvq='nvim -c "Git difftool HEAD"'
+alias dvl='nvim -c "Gclog -20"'
+alias dvg='nvim -c "Git"'
 # alias m='git commit --no-verify -m'
 alias a='git add --intent-to-add . && git add --patch'
 alias f='git fetch && git pull --rebase && git submodule update --init --recursive && git push'
@@ -363,6 +376,9 @@ alias g="cd .github/workflows"
 alias "docker compose"="docker-compose"
 alias gam="/Users/mathieu/bin/gam7/gam"
 alias pager="delta --syntax-theme=Nord --line-numbers --hunk-header-style=omit"
+# Personal Claude Code profile: own login, settings and history in ~/.claude-perso.
+# Plain `claude` stays the default and keeps using ~/.claude.
+alias claude-perso='CLAUDE_CONFIG_DIR=~/.claude-perso claude'
 
 # functions
 # function m {

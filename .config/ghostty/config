@@ -14,7 +14,7 @@ palette = 8=#4c566a
 # ------------------------------------------------------------------ font ----
 
 font-family = MonoLisa Nerd Font
-font-size = 21
+font-size = 19
 
 # WezTerm pads by 1 cell left/right and half a cell top/bottom. MonoLisa at 21pt
 # measures 13.44pt wide by 28.98pt tall, so those defaults work out to these
@@ -99,9 +99,13 @@ keybind = super+e=text:\x65\x78\x69\x74\x0a
 # prefix + I: tpm install plugins
 keybind = super+shift+i=text:\x01\x49
 
-# prefix + n / prefix + p: next and previous tmux window
+# prefix + n: next tmux window.
 keybind = ctrl+tab=text:\x01\x6e
-keybind = ctrl+shift+tab=text:\x01\x70
+# prefix + C-p: previous tmux window. NOT prefix + p, which ~/.tmux.conf rebinds
+# to paste-buffer; sending \x70 here pasted the copy buffer instead of switching
+# window. \x10 is C-p, bound to previous-window in ~/.tmux.conf. The WezTerm
+# config had the same bug.
+keybind = ctrl+shift+tab=text:\x01\x10
 
 keybind = super+shift+w=close_tab
 

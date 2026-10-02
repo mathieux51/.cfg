@@ -4,7 +4,7 @@ local config = wezterm.config_builder()
 
 config.color_scheme = 'nord'
 config.font = wezterm.font('MonoLisa Nerd Font', { weight = 'Regular'})
-config.font_size = 21.0
+config.font_size = 19.0
 
 -- Use the Metal-backed GPU frontend. Cap frames at the panel's actual refresh
 -- rate (the DELL U2419H is 60Hz); anything higher just doubles the WindowServer

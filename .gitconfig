@@ -2,6 +2,9 @@
   tree = log --graph --all
   ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
   f = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
+	dft = -c diff.external=difft -c core.pager=less -c interactive.diffFilter=cat diff
+	dfs = -c diff.external=difft -c core.pager=less show --ext-diff
+	dfl = -c diff.external=difft -c core.pager=less log -p --ext-diff
 [format]
   pretty = "format:%C(red)%h%C(reset) - %s %C(blue)(%cr)%Creset %C(green)%an%C(reset) %C(yellow)%d%C(reset)"
 [core]
@@ -61,3 +64,7 @@
 	file-style = "\"#88c0d0\" bold"
 	hunk-header-style = "\"#81a1c1\""
 	hunk-header-decoration-style = "\"#4c566a\""
+[interactive]
+	diffFilter = delta --color-only
+[difftool "difftastic"]
+	cmd = difft \"$LOCAL\" \"$REMOTE\"

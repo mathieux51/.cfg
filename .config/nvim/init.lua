@@ -300,3 +300,24 @@ vim.api.nvim_create_autocmd("UIEnter", {
 		vim.defer_fn(load_completion_stack, 30)
 	end,
 })
+
+-- Diff mode: let syntax highlighting show through.
+-- nord.vim sets a *foreground* on DiffAdd/DiffChange/DiffText/DiffDelete
+-- (colors/nord.vim:369-380), which repaints every changed line one flat colour
+-- and masks the Go/TS/Python syntax underneath. Background-only restores it.
+-- Backgrounds match the delta config in ~/.gitconfig so both tools agree.
+local function diff_bg_only()
+	vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#2c352c" })
+	vim.api.nvim_set_hl(0, "DiffChange", { bg = "#353b45" })
+	vim.api.nvim_set_hl(0, "DiffText", { bg = "#4c566a", bold = true })
+	vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#3b2c30", fg = "#4c566a" })
+	-- Patch buffers (ft=git/diff, e.g. `dvu`) DO want whole-line +/- colour.
+	-- These link to Diff* by default, so give them explicit foregrounds.
+	vim.api.nvim_set_hl(0, "diffAdded", { fg = "#a3be8c" })
+	vim.api.nvim_set_hl(0, "diffRemoved", { fg = "#bf616a" })
+	vim.api.nvim_set_hl(0, "diffChanged", { fg = "#ebcb8b" })
+	vim.api.nvim_set_hl(0, "diffFile", { fg = "#88c0d0", bold = true })
+	vim.api.nvim_set_hl(0, "diffLine", { fg = "#81a1c1" })
+end
+vim.api.nvim_create_autocmd("ColorScheme", { callback = diff_bg_only })
+diff_bg_only()
