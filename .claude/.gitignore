@@ -9,6 +9,7 @@
 !CLAUDE.md
 !keybindings.json
 !statusline.sh
+!notify-ghostty.sh
 
 # Customization directories (contents tracked).
 !agents/

@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "JSON=\"$(cat)\"; MSG=\"$(echo \"$JSON\" | jq -r '.message // \"\"')\"; echo \"$MSG\" | grep -qiE 'permission|approval|needs your' || exit 0; SID=\"$(echo \"$JSON\" | jq -r '.session_id // \"\"')\"; NAME=\"$(jq -rs --arg sid \"$SID\" 'map(select(.sessionId == $sid)) | .[0].name // \"Claude\"' ~/.claude/sessions/*.json 2>/dev/null)\"; MSG=\"[$NAME] $MSG\" osascript -e 'display notification (system attribute \"MSG\") with title \"Claude Code\" sound name \"Ping\"'; true"
+            "command": "~/.claude/notify-ghostty.sh notification"
           }
         ]
       }
@@ -41,7 +41,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "SID=\"$(jq -r '.session_id // \"\"')\"; NAME=\"$(jq -rs --arg sid \"$SID\" 'map(select(.sessionId == $sid)) | .[0].name // \"Claude\"' ~/.claude/sessions/*.json 2>/dev/null)\"; MSG=\"$NAME is waiting\" osascript -e 'display notification (system attribute \"MSG\") with title \"Claude Code\" sound name \"Ping\"'; true"
+            "command": "~/.claude/notify-ghostty.sh stop"
           }
         ]
       }
