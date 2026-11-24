@@ -112,7 +112,10 @@ keybind = super+shift+w=close_tab
 # Speak the selection aloud. WezTerm did this with a Lua callback that dumped the
 # selection to a file and shelled out to ~/.local/bin/speak; Ghostty has no
 # scripting, so go through the prefix + S binding ~/.tmux.conf already defines,
-# which pipes the tmux copy buffer to that same script. Same result under tmux,
-# because tmux owns the mouse selection anyway. Press again to stop. Outside
+# which opens the tmux copy buffer in the speakview popup. Same result under tmux,
+# because tmux owns the mouse selection anyway. Outside
 # tmux this types a stray "S" instead.
 keybind = super+shift+s=text:\x01\x53
+
+# prefix + R: read this tab's most recent Claude Code answer in the speakview popup.
+keybind = super+shift+r=text:\x01\x52

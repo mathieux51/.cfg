@@ -1,0 +1,52 @@
+#!/bin/sh
+# speakview-popup — open speakview (read aloud with word highlighting) in a tmux
+# popup over the current pane.
+#
+#   speakview-popup FILE    read FILE
+#   ... | speakview-popup   read stdin
+#   speakview-popup         read the clipboard, else the last tmux copy buffer
+#
+# Outside tmux it runs speakview full-screen in the terminal instead.
+#
+# The clipboard comes first because it always holds the latest selection: tmux
+# copies reach it (set-clipboard external), and a drag inside Claude Code's
+# fullscreen view is Claude Code's own selection, which goes to the clipboard
+# and never to a tmux buffer.
+#
+# An empty stdin falls through to those too: tmux run-shell (prefix+S, Cmd+Shift+S)
+# gives its command a non-tty, empty stdin, so "stdin is not a tty" alone does
+# not mean text was piped in.
+
+PATH=/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:$HOME/.local/bin
+export PATH
+
+state="$HOME/.local/state/speakview"
+mkdir -p "$state"
+file="$state/text.txt"
+
+blank() { [ -z "$(tr -d '[:space:]' < "$file")" ]; }
+
+: > "$file"
+if [ "$#" -gt 0 ] && [ -f "$1" ]; then
+	cat -- "$1" > "$file"
+elif [ ! -t 0 ]; then
+	cat > "$file"
+fi
+blank && pbpaste > "$file" 2>/dev/null
+blank && tmux save-buffer - > "$file" 2>/dev/null
+
+if blank; then
+	[ -n "$TMUX" ] && tmux display-message "Nothing to read"
+	exit 0
+fi
+
+# Don't talk over a reply that `say` is already reading.
+pkill -x say 2>/dev/null
+
+if [ -n "$TMUX" ]; then
+	tmux display-popup -E -w 90% -h 80% -b rounded \
+		-s "bg=#2E3440" -S "fg=#4C566A,bg=#2E3440" -T "#[fg=#88C0D0,bold] read aloud " \
+		"$HOME/.local/bin/speakview '$file'"
+else
+	speakview "$file"
+fi
