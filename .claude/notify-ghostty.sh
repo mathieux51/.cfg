@@ -13,13 +13,16 @@
 # Requires `set -g allow-passthrough on` in ~/.tmux.conf.
 #
 # Usage: notify-ghostty.sh stop|notification   (hook JSON on stdin)
+#
+# Serves both profiles: claude-perso runs with CLAUDE_CONFIG_DIR=~/.claude-perso,
+# which hooks inherit, so sessions are looked up in whichever config dir is live.
 
 JSON="$(cat)"
 SID="$(printf '%s' "$JSON" | jq -r '.session_id // ""' 2>/dev/null)"
 [ -n "$SID" ] || exit 0
 
 SESS="$(jq -rs --arg sid "$SID" 'map(select(.sessionId == $sid)) | .[0] // empty' \
-        "$HOME"/.claude/sessions/*.json 2>/dev/null)"
+        "${CLAUDE_CONFIG_DIR:-$HOME/.claude}"/sessions/*.json 2>/dev/null)"
 [ -n "$SESS" ] || exit 0
 
 NAME="$(printf '%s' "$SESS" | jq -r '.name // "Claude"' 2>/dev/null)"
