@@ -54,6 +54,9 @@ if has('nvim')
   " Markdown preview: in-buffer rendering + browser live preview
   Plug 'MeanderingProgrammer/render-markdown.nvim'
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'markdown' }
+
+  " Autosave on InsertLeave/TextChanged so unsaved buffers aren't lost
+  Plug 'okuuva/auto-save.nvim'
 endif
 call plug#end()
 

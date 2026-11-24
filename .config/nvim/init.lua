@@ -1,3 +1,6 @@
+-- byte-compile + cache Lua modules: far fewer file opens, each of which Defender scans
+vim.loader.enable()
+
 -- same this in .vimrc
 -- set runtimepath^=~/.vim runtimepath+=~/.vim/after
 -- let &packpath=&runtimepath
@@ -32,6 +35,12 @@ vim.api.nvim_create_autocmd("FileType", {
 local rm_ok, render_markdown = pcall(require, "render-markdown")
 if rm_ok then
 	render_markdown.setup({})
+end
+
+-- Autosave modified buffers (debounced) so unsaved work survives :q!/crashes
+local as_ok, auto_save = pcall(require, "auto-save")
+if as_ok then
+	auto_save.setup({})
 end
 
 -- indent-blankline (ibl) is set up asynchronously in load_completion_stack()
