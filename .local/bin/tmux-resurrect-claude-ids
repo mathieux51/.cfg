@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# tmux-resurrect post-save-layout hook ($1 = save file). For every pane running
+# claude, rewrite its saved command to `claude --resume <session-id>` so a
+# restore reopens that exact conversation.
+#
+# Session id source, per pane:
+#   1. @claude-session pane option, if set by ~/.local/bin/claude-tmux-track
+#      (optional SessionStart hook; also follows /clear and /resume)
+#   2. <config>/sessions/<pid>.json, which Claude Code writes for every running
+#      process. ~/.claude-perso hits restore through the `claude-perso` alias.
+file="$1"
+[ -f "$file" ] || exit 0
+
+map=""
+while IFS=$'\t' read -r sess win idx ppid opt; do
+  cmd="claude" id="$opt"
+  for pid in $(pgrep -a -P "$ppid" claude); do
+    for dir in "$HOME/.claude" "$HOME/.claude-perso"; do
+      f="$dir/sessions/$pid.json"
+      [ -f "$f" ] || continue
+      [ -z "$id" ] && id=$(jq -r '.sessionId // empty' "$f")
+      [ "$dir" = "$HOME/.claude-perso" ] && cmd="claude-perso"
+      break 2
+    done
+  done
+  [ -n "$id" ] && map+="$sess"$'\t'"$win"$'\t'"$idx"$'\t'"$cmd --resume $id"$'\n'
+done < <(tmux list-panes -a -F "#{session_name}	#{window_index}	#{pane_index}	#{pane_pid}	#{@claude-session}")
+
+MAP="$map" awk -F'\t' -v OFS='\t' '
+  BEGIN {
+    n = split(ENVIRON["MAP"], rows, "\n")
+    for (i = 1; i <= n; i++) {
+      split(rows[i], f, "\t")
+      if (f[4] != "") cmd[f[1] SUBSEP f[2] SUBSEP f[3]] = f[4]
+    }
+  }
+  $1 == "pane" && $10 == "claude" && (($2 SUBSEP $3 SUBSEP $6) in cmd) {
+    $11 = ":" cmd[$2 SUBSEP $3 SUBSEP $6]
+  }
+  { print }
+' "$file" > "$file.tmp" && mv "$file.tmp" "$file"

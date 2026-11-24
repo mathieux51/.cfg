@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Ask once per tmux server whether to restore the last tmux-resurrect save.
+# Wired from ~/.tmux.conf via client-attached ($1 = client) and session-created.
+client="$1"
+# session-created fires before the client is attached, so wait for one.
+for _ in 1 2 3 4 5 6 7 8 9 10; do
+  [ -n "$client" ] && break
+  sleep 0.2
+  client=$(tmux list-clients -F "#{client_name}" | head -1)
+done
+[ -n "$client" ] || exit 0
+
+# Only ask once per server lifetime.
+[ "$(tmux show -gqv @restore-asked)" = "1" ] && exit 0
+tmux set -g @restore-asked 1
+
+last="${XDG_DATA_HOME:-$HOME/.local/share}/tmux/resurrect/last"
+[ -s "$last" ] || exit 0
+
+# Only offer it on a fresh server: one session, one window, one pane.
+[ "$(tmux list-panes -a | wc -l | tr -d ' ')" = "1" ] || exit 0
+
+sessions=$(awk -F'\t' '$1 == "pane" { print $2 }' "$last" | sort -u | wc -l | tr -d ' ')
+panes=$(awk -F'\t' '$1 == "pane"' "$last" | wc -l | tr -d ' ')
+[ "$panes" -gt 0 ] || exit 0
+saved=$(stat -f '%Sm' -t '%Y-%m-%d %H:%M' "$(readlink -f "$last")")
+
+tmux confirm-before -t "$client" \
+  -p "Restore $sessions session(s), $panes pane(s) saved $saved? (y/n)" \
+  "run-shell '$HOME/.tmux/plugins/tmux-resurrect/scripts/restore.sh'"

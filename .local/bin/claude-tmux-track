@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Claude Code SessionStart/SessionEnd hook: remember which Claude session runs
+# in this tmux pane (pane option @claude-session), so tmux-resurrect can save it
+# and restore the exact conversation (see ~/.local/bin/tmux-resurrect-claude-ids).
+[ -n "$TMUX_PANE" ] || exit 0
+input=$(cat)
+event=$(jq -r '.hook_event_name // empty' <<<"$input")
+id=$(jq -r '.session_id // empty' <<<"$input")
+if [ "$event" = "SessionEnd" ]; then
+  tmux set -p -t "$TMUX_PANE" -u @claude-session 2>/dev/null
+elif [ -n "$id" ]; then
+  tmux set -p -t "$TMUX_PANE" @claude-session "$id" 2>/dev/null
+fi
+exit 0

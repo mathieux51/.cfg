@@ -1,0 +1,14 @@
+#!/bin/zsh
+# Replaces tmux-continuum's autosave. Continuum hooks #(continuum_save.sh) into
+# status-right, and tmux re-runs that job on nearly every status redraw (~10
+# bash forks per run, ~0.8s each under Defender's exec tax). This loop forks
+# once per 15 min instead. One instance per tmux server.
+server_pid=$(tmux display -p '#{pid}') || exit 0
+lock=${TMPDIR:-/tmp}/tmux-autosave-$server_pid.pid
+if [[ -f $lock ]] && kill -0 "$(<$lock)" 2>/dev/null; then exit 0; fi
+echo $$ > $lock
+trap 'rm -f $lock' EXIT
+while tmux has-session 2>/dev/null; do
+	sleep 900
+	~/.tmux/plugins/tmux-resurrect/scripts/save.sh quiet
+done
