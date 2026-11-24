@@ -293,7 +293,8 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 # Go
 export GOPATH=$HOME/go
-export GOROOT="$(brew --prefix golang)/libexec"
+# static path: `brew --prefix golang` costs ~60 forks per shell (Defender taxes every exec)
+export GOROOT="/opt/homebrew/opt/go/libexec"
 if [[ -f ~/.tabprobe-on ]]; then print -r -- "$EPOCHREALTIME	B2_brew_golang	${TMUX_PANE:-none}" >> $_TABPROBE_LOG; fi
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
@@ -312,7 +313,23 @@ export PATH="${PATH}:${HOME}/.bun/bin"
 export PATH="${PATH}:${HOME}/Library/Python/3.9/bin"
 
 # Ruby
-eval "$(rbenv init - --no-rehash zsh)"
+# inlined `rbenv init - --no-rehash zsh` output: the eval cost ~120 forks per shell
+export PATH="$HOME/.rbenv/shims:${PATH}"
+export RBENV_SHELL=zsh
+rbenv() {
+  local command
+  command="${1:-}"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  rehash|shell)
+    eval "$(rbenv "sh-$command" "$@")";;
+  *)
+    command rbenv "$command" "$@";;
+  esac
+}
 if [[ -f ~/.tabprobe-on ]]; then print -r -- "$EPOCHREALTIME	B3_rbenv	${TMUX_PANE:-none}" >> $_TABPROBE_LOG; fi
 # export PYENV_ROOT="$HOME/.pyenv"
 # export PATH="$PYENV_ROOT/bin:$PATH"
@@ -329,6 +346,7 @@ alias b='~/ghorg/resourcly'
 alias e='nvim'
 alias v='nvim'
 alias vi='nvim'
+alias c='claude'
 # https://github.com/tpope/vim-unimpaired/blob/e52cb4d77fae016639dba005c44e86722498ab3c/doc/unimpaired.txt#L36
 # alias vi='stty stop '' -ixoff; nvim'
 alias k='kubectl'
@@ -535,4 +553,26 @@ if [[ -f ~/.tabprobe-on ]]; then
     fi
   }
   autoload -Uz add-zsh-hook && add-zsh-hook precmd _tabprobe_precmd
+  # stamp before each precmd hook on the first prompt, to see which one eats the "first prompt" gap
+  () {
+    local f new=()
+    for f in $precmd_functions; do
+      if [[ $f != _tabprobe_* ]]; then
+        functions[_tabprobe_p_$f]="[[ -z \$_TABPROBE_C ]] && print -r -- \"\$EPOCHREALTIME	P_$f	\${TMUX_PANE:-none}\" >> \$_TABPROBE_LOG"
+        new+=(_tabprobe_p_$f)
+      fi
+      new+=($f)
+    done
+    precmd_functions=($new)
+  }
+  # zprof over _p9k_precmd on the first prompt; dumped per pane only when the tab was slow
+  functions[_tabprobe_p__p9k_precmd]+='
+    [[ -z $_TABPROBE_C ]] && zmodload zsh/zprof'
+  functions[_tabprobe_p__zsh_autosuggest_start]+='
+    if [[ -z $_TABPROBE_C ]] && (( $+modules[zsh/zprof] )); then
+      if (( EPOCHREALTIME - _TABPROBE_T0 > 1.0 )) || [[ -n $TABPROBE_KEEP ]]; then
+        zprof > $HOME/.local/state/tabprobe/zprof-${TMUX_PANE#%}-$$.txt
+      fi
+      zmodload -u zsh/zprof
+    fi'
 fi
